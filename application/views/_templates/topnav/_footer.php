@@ -21,7 +21,7 @@
 <script src="<?= base_url() ?>assets/bower_components/pace/pace.min.js"></script>
 
 <script type="text/javascript">
-	function sisawaktu(t) {
+	function remainingTime(t) {
 		var time = new Date(t);
 		var n = new Date();
 		var x = setInterval(function() {
@@ -34,10 +34,10 @@
 			m = ("0" + m).slice(-2);
 			s = ("0" + s).slice(-2);
 			var cd = h + ":" + m + ":" + s;
-			$('.sisawaktu').html(cd);
+			$('.remainingTime').html(cd);
 		}, 100);
 		setTimeout(function() {
-			waktuHabis();
+			timesUP();
 		}, (time.getTime() - n.getTime()));
 	}
 

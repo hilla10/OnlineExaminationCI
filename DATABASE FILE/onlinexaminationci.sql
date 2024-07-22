@@ -81,10 +81,10 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam`
+-- Table structure for table `exam_history`
 --
 
-CREATE TABLE `exam` (
+CREATE TABLE `exam_history` (
   `id` int(11) NOT NULL,
   `exam_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
@@ -99,10 +99,10 @@ CREATE TABLE `exam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `exam`
+-- Dumping data for table `exam_history`
 --
 
-INSERT INTO `exam` (`id`, `exam_id`, `student_id`, `question_list`, `answer_list`, `correct_count`, `score`, `weighted_score`, `start_time`, `end_time`, `status`) VALUES
+INSERT INTO `exam_history` (`id`, `exam_id`, `student_id`, `question_list`, `answer_list`, `correct_count`, `score`, `weighted_score`, `start_time`, `end_time`, `status`) VALUES
 (1, 1, 1, '1,2,3', '1:B:N,2:A:N,3:D:N', 3, '100.00', '100.00', '2019-02-16 08:35:05', '2019-02-16 08:36:05', 'N'),
 (2, 2, 1, '3,2,1', '3:D:N,2:C:N,1:D:N', 1, '33.00', '100.00', '2019-02-16 10:11:14', '2019-02-16 10:12:14', 'N'),
 (3, 3, 1, '5,6', '5:C:N,6:D:N', 2, '100.00', '100.00', '2019-02-16 11:06:25', '2019-02-16 11:07:25', 'N'),
@@ -278,27 +278,27 @@ INSERT INTO `course` (`course_id`, `course_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_ujian`
+-- Table structure for table `exam`
 --
 
-CREATE TABLE `m_ujian` (
-  `id_ujian` int(11) NOT NULL,
+CREATE TABLE `exam` (
+  `exam_id` int(11) NOT NULL,
   `lecturer_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `nama_ujian` varchar(200) NOT NULL,
-  `jumlah_soal` int(11) NOT NULL,
-  `waktu` int(11) NOT NULL,
-  `jenis` enum('Random','Sort') NOT NULL,
+  `exam_name` varchar(200) NOT NULL,
+  `number_of_questions` int(11) NOT NULL,
+  `duration` int(11) NOT NULL,
+  `type` enum('Random','Sort') NOT NULL,
   `start_time` datetime NOT NULL,
-  `terlambat` datetime NOT NULL,
+  `late_time` datetime NOT NULL,
   `token` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `m_ujian`
+-- Dumping data for table `exam`
 --
 
-INSERT INTO `m_ujian` (`id_ujian`, `lecturer_id`, `course_id`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `start_time`, `terlambat`, `token`) VALUES
+INSERT INTO `exam` (`exam_id`, `lecturer_id`, `course_id`, `exam_name`, `number_of_questions`, `duration`, `type`, `start_time`, `late_time`, `token`) VALUES
 (1, 1, 1, 'First Test', 3, 1, 'Random', '2019-02-15 17:25:40', '2019-02-20 17:25:44', 'DPEHL'),
 (2, 1, 1, 'Second Test', 3, 1, 'Random', '2019-02-16 10:05:08', '2019-02-17 10:05:10', 'GOEMB'),
 (3, 3, 5, 'Try Out 01', 2, 1, 'Random', '2019-02-16 07:00:00', '2019-02-28 14:00:00', 'GETQB'),
@@ -451,9 +451,9 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `exam`
+-- Indexes for table `exam_history`
 --
-ALTER TABLE `exam`
+ALTER TABLE `exam_history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `exam_id` (`exam_id`),
   ADD KEY `student_id` (`student_id`);
@@ -509,10 +509,10 @@ ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`);
 
 --
--- Indexes for table `m_ujian`
+-- Indexes for table `exam`
 --
-ALTER TABLE `m_ujian`
-  ADD PRIMARY KEY (`id_ujian`),
+ALTER TABLE `exam`
+  ADD PRIMARY KEY (`exam_id`),
   ADD KEY `course_id` (`course_id`),
   ADD KEY `lecturer_id` (`lecturer_id`);
 
@@ -558,9 +558,9 @@ ALTER TABLE `lecturer`
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `exam`
+-- AUTO_INCREMENT for table `exam_history`
 --
-ALTER TABLE `exam`
+ALTER TABLE `exam_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `department`
@@ -598,10 +598,10 @@ ALTER TABLE `student`
 ALTER TABLE `course`
   MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `m_ujian`
+-- AUTO_INCREMENT for table `exam`
 --
-ALTER TABLE `m_ujian`
-  MODIFY `id_ujian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `exam`
+  MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tb_soal`
 --
@@ -628,10 +628,10 @@ ALTER TABLE `lecturer`
   ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
--- Constraints for table `exam`
+-- Constraints for table `exam_history`
 --
-ALTER TABLE `exam`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `m_ujian` (`id_ujian`),
+ALTER TABLE `exam_history`
+  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`exam_id`),
   ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
 
 --
@@ -655,11 +655,11 @@ ALTER TABLE `student`
   ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `class` (`class_id`);
 
 --
--- Constraints for table `m_ujian`
+-- Constraints for table `exam`
 --
-ALTER TABLE `m_ujian`
-  ADD CONSTRAINT `m_ujian_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
-  ADD CONSTRAINT `m_ujian_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
+ALTER TABLE `exam`
+  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
+  ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
 -- Constraints for table `tb_soal`

@@ -126,7 +126,7 @@
                     <li>You're required to enter the TOKEN number in order to start the online examination.</li>
                     <li>You need to enter/start examination within the given time frame (date and time) ELSE you can't join the examination.</li>
                     <li>Once you complete your exams, you'll ONLY be able to view your results.</li>
-                    <li>For re-exam, please consult with your respective lecturer!</li>
+                    <li>For re-exam_history, please consult with your respective lecturer!</li>
                 </ul>
             </div>
         </div>

@@ -31,7 +31,7 @@ class Ujian extends CI_Controller {
     public function akses_mahasiswa()
     {
         if ( !$this->ion_auth->in_group('Student') ){
-			show_error('This page is specifically for students taking the exam, <a href="'.base_url('dashboard').'">Back to main menu</a>', 403, 'Forbidden Access');
+			show_error('This page is specifically for students taking the exam_history, <a href="'.base_url('dashboard').'">Back to main menu</a>', 403, 'Forbidden Access');
 		}
     }
 
@@ -117,12 +117,12 @@ class Ujian extends CI_Controller {
 		$jml 	= $this->ujian->getJumlahSoal($lecturer->lecturer_id)->jml_soal;
 		$jml_a 	= $jml + 1; // If you don't understand, please read the user_guide codeigniter about form_validation in the less_than section
 
-		$this->form_validation->set_rules('nama_ujian', 'Exam Name', 'required|alpha_numeric_spaces|max_length[50]');
-		$this->form_validation->set_rules('jumlah_soal', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Soal tidak cukup, anda hanya punya {$jml} soal"]);
+		$this->form_validation->set_rules('exam_name', 'Exam Name', 'required|alpha_numeric_spaces|max_length[50]');
+		$this->form_validation->set_rules('number_of_questions', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Soal tidak cukup, anda hanya punya {$jml} soal"]);
 		$this->form_validation->set_rules('start_time', 'Start Date', 'required');
 		$this->form_validation->set_rules('end_time', 'Completion Date', 'required');
-		$this->form_validation->set_rules('waktu', 'Time', 'required|integer|max_length[4]|greater_than[0]');
-		$this->form_validation->set_rules('jenis', 'Random Question', 'required|in_list[Random,Sort]');
+		$this->form_validation->set_rules('duration', 'Time', 'required|integer|max_length[4]|greater_than[0]');
+		$this->form_validation->set_rules('type', 'Random Question', 'required|in_list[Random,Sort]');
 	}
 
 	public function save()
@@ -133,41 +133,41 @@ class Ujian extends CI_Controller {
 		$method 		= $this->input->post('method', true);
 		$lecturer_id 		= $this->input->post('lecturer_id', true);
 		$course_id 		= $this->input->post('course_id', true);
-		$nama_ujian 	= $this->input->post('nama_ujian', true);
-		$jumlah_soal 	= $this->input->post('jumlah_soal', true);
+		$exam_name 	= $this->input->post('exam_name', true);
+		$number_of_questions 	= $this->input->post('number_of_questions', true);
 		$start_time 		= $this->convert_tgl($this->input->post('start_time', 	true));
 		$end_time	= $this->convert_tgl($this->input->post('end_time', true));
-		$waktu			= $this->input->post('waktu', true);
-		$jenis			= $this->input->post('jenis', true);
+		$duration			= $this->input->post('duration', true);
+		$type			= $this->input->post('type', true);
 		$token 			= strtoupper(random_string('alpha', 5));
 
 		if( $this->form_validation->run() === FALSE ){
 			$data['status'] = false;
 			$data['errors'] = [
-				'nama_ujian' 	=> form_error('nama_ujian'),
-				'jumlah_soal' 	=> form_error('jumlah_soal'),
+				'exam_name' 	=> form_error('exam_name'),
+				'number_of_questions' 	=> form_error('number_of_questions'),
 				'start_time' 	=> form_error('start_time'),
 				'end_time' 	=> form_error('end_time'),
-				'waktu' 		=> form_error('waktu'),
-				'jenis' 		=> form_error('jenis'),
+				'duration' 		=> form_error('duration'),
+				'type' 		=> form_error('type'),
 			];
 		}else{
 			$input = [
-				'nama_ujian' 	=> $nama_ujian,
-				'jumlah_soal' 	=> $jumlah_soal,
+				'exam_name' 	=> $exam_name,
+				'number_of_questions' 	=> $number_of_questions,
 				'start_time' 	=> $start_time,
-				'terlambat' 	=> $end_time,
-				'waktu' 		=> $waktu,
-				'jenis' 		=> $jenis,
+				'late_time' 	=> $end_time,
+				'duration' 		=> $duration,
+				'type' 		=> $type,
 			];
 			if($method === 'add'){
 				$input['lecturer_id']	= $lecturer_id;
 				$input['course_id'] = $course_id;
 				$input['token']		= $token;
-				$action = $this->master->create('m_ujian', $input);
+				$action = $this->master->create('exam', $input);
 			}else if($method === 'edit'){
-				$id_ujian = $this->input->post('id_ujian', true);
-				$action = $this->master->update('m_ujian', $input, 'id_ujian', $id_ujian);
+				$exam_id = $this->input->post('exam_id', true);
+				$action = $this->master->update('exam', $input, 'exam_id', $exam_id);
 			}
 			$data['status'] = $action ? TRUE : FALSE;
 		}
@@ -181,7 +181,7 @@ class Ujian extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('m_ujian', $chk, 'id_ujian')){
+            if($this->master->delete('exam', $chk, 'exam_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }
@@ -191,7 +191,7 @@ class Ujian extends CI_Controller {
 	{
 		$this->load->helper('string');
 		$data['token'] = strtoupper(random_string('alpha', 5));
-		$refresh = $this->master->update('m_ujian', $data, 'id_ujian', $id);
+		$refresh = $this->master->update('exam', $data, 'exam_id', $id);
 		$data['status'] = $refresh ? TRUE : FALSE;
 		$this->output_json($data);
 	}
@@ -245,7 +245,7 @@ class Ujian extends CI_Controller {
 
 	public function cektoken()
 	{
-		$id = $this->input->post('id_ujian', true);
+		$id = $this->input->post('exam_id', true);
 		$token = $this->input->post('token', true);
 		$cek = $this->ujian->getUjianById($id);
 		
@@ -271,9 +271,9 @@ class Ujian extends CI_Controller {
 		$soal 		= $this->ujian->getSoal($id);
 		
 		$mhs		= $this->mhs;
-		$exam 	= $this->ujian->HslUjian($id, $mhs->student_id);
+		$exam_history 	= $this->ujian->HslUjian($id, $mhs->student_id);
 	
-		$cek_sudah_ikut = $exam->num_rows();
+		$cek_sudah_ikut = $exam_history->num_rows();
 
 		if ($cek_sudah_ikut < 1) {
 			$soal_urut_ok 	= array();
@@ -304,7 +304,7 @@ class Ujian extends CI_Controller {
 			}
 			$list_id_soal 	= substr($list_id_soal, 0, -1);
 			$list_jw_soal 	= substr($list_jw_soal, 0, -1);
-			$waktu_selesai 	= date('Y-m-d H:i:s', strtotime("+{$ujian->waktu} minute"));
+			$end_time 	= date('Y-m-d H:i:s', strtotime("+{$ujian->duration} minute"));
 			$time_mulai		= date('Y-m-d H:i:s');
 
 			$input = [
@@ -316,16 +316,16 @@ class Ujian extends CI_Controller {
 				'score'			=> 0,
 				'weighted_score'	=> 0,
 				'start_time'		=> $time_mulai,
-				'end_time'	=> $waktu_selesai,
+				'end_time'	=> $end_time,
 				'status'		=> 'Y'
 			];
-			$this->master->create('exam', $input);
+			$this->master->create('exam_history', $input);
 
 			// Setelah insert wajib refresh dulu
 			redirect('ujian/?key='.urlencode($key), 'location', 301);
 		}
 		
-		$q_soal = $exam->row();
+		$q_soal = $exam_history->row();
 		
 		$urut_soal 		= explode(",", $q_soal->answer_list);
 		$soal_urut_ok	= array();
@@ -415,7 +415,7 @@ class Ujian extends CI_Controller {
 		];
 		
 		// Simpan jawaban
-		$this->master->update('exam', $d_simpan, 'id', $id_tes);
+		$this->master->update('exam_history', $d_simpan, 'id', $id_tes);
 		$this->output_json(['status'=>true]);
 	}
 
@@ -436,7 +436,7 @@ class Ujian extends CI_Controller {
 		$jumlah_ragu  	= 0;
 		$weighted_score 	= 0;
 		$total_bobot	= 0;
-		$jumlah_soal	= sizeof($pc_jawaban);
+		$number_of_questions	= sizeof($pc_jawaban);
 
 		foreach ($pc_jawaban as $jwb) {
 			$pc_dt 		= explode(":", $jwb);
@@ -450,8 +450,8 @@ class Ujian extends CI_Controller {
 			$jawaban == $cek_jwb->jawaban ? $jumlah_benar++ : $jumlah_salah++;
 		}
 
-		$score = ($jumlah_benar / $jumlah_soal)  * 100;
-		$weighted_score = ($total_bobot / $jumlah_soal)  * 100;
+		$score = ($jumlah_benar / $number_of_questions)  * 100;
+		$weighted_score = ($total_bobot / $number_of_questions)  * 100;
 
 		$d_update = [
 			'correct_count'		=> $jumlah_benar,
@@ -460,7 +460,7 @@ class Ujian extends CI_Controller {
 			'status'		=> 'N'
 		];
 
-		$this->master->update('exam', $d_update, 'id', $id_tes);
+		$this->master->update('exam_history', $d_update, 'id', $id_tes);
 		$this->output_json(['status'=>TRUE, 'data'=>$d_update, 'id'=>$id_tes]);
 	}
 }

@@ -93,11 +93,11 @@ All the detailed information are provided below!
     </tr>
     <tr>
         <th>Exam Name</th>
-        <td>{$ujian->nama_ujian}</td>
+        <td>{$ujian->exam_name}</td>
     </tr>
     <tr>
         <th>Total Questions</th>
-        <td>{$ujian->jumlah_soal}</td>
+        <td>{$ujian->number_of_questions}</td>
     </tr>
 </table>
 <h2>Exam Results</h2>
@@ -119,4 +119,4 @@ $pdf->lastPage();
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output($ujian->nama_ujian.'_'.$mhs->student_number.'.pdf', 'I');
+$pdf->Output($ujian->exam_name.'_'.$mhs->student_number.'.pdf', 'I');

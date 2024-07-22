@@ -22,13 +22,13 @@
             <div class="col-sm-4">
                 <?=form_open('ujian/save', array('id'=>'formujian'), array('method'=>'add','lecturer_id'=>$lecturer->lecturer_id, 'course_id'=>$course->course_id))?>
                 <div class="form-group">
-                    <label for="nama_ujian">Exam Name</label>
-                    <input autofocus="autofocus" onfocus="this.select()" placeholder="Exam Name" type="text" class="form-control" name="nama_ujian">
+                    <label for="exam_name">Exam Name</label>
+                    <input autofocus="autofocus" onfocus="this.select()" placeholder="Exam Name" type="text" class="form-control" name="exam_name">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="jumlah_soal">Number of Questions</label>
-                    <input placeholder="Number of Questions" type="number" class="form-control" name="jumlah_soal">
+                    <label for="number_of_questions">Number of Questions</label>
+                    <input placeholder="Number of Questions" type="number" class="form-control" name="number_of_questions">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
@@ -42,13 +42,13 @@
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="waktu">Time</label>
-                    <input placeholder="In Minute" type="number" class="form-control" name="waktu">
+                    <label for="duration">Time</label>
+                    <input placeholder="In Minute" type="number" class="form-control" name="duration">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="jenis">Question Pattern</label>
-                    <select name="jenis" class="form-control">
+                    <label for="type">Question Pattern</label>
+                    <select name="type" class="form-control">
                         <option value="" disabled selected>--- Choose ---</option>
                         <option value="Random">Random Question</option>
                         <option value="Sort">Sort questions</option>

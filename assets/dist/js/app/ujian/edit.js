@@ -5,7 +5,7 @@ $(document).ready(function () {
   });
   $('#end_time').datetimepicker({
     format: 'YYYY-MM-DD HH:mm:ss',
-    date: terlambat,
+    date: late_time,
   });
 
   $('#formujian input, #formujian select').on('change', function () {

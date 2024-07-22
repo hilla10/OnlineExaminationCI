@@ -21,15 +21,15 @@
                 <table class="table w-100">
                     <tr>
                         <th>Exam Name</th>
-                        <td><?=$ujian->nama_ujian?></td>
+                        <td><?=$ujian->exam_name?></td>
                     </tr>
                     <tr>
                         <th>Total Questions</th>
-                        <td><?=$ujian->jumlah_soal?></td>
+                        <td><?=$ujian->number_of_questions?></td>
                     </tr>
                     <tr>
                         <th>Time</th>
-                        <td><?=$ujian->waktu?> Minute</td>
+                        <td><?=$ujian->duration?> Minute</td>
                     </tr>
                     <tr>
                         <th>Start Date</th>
@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th>Completion Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->terlambat))?></td>
+                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->late_time))?></td>
                     </tr>
                 </table>
             </div>

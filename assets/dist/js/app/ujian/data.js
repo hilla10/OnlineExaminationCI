@@ -23,20 +23,20 @@ $(document).ready(function () {
     },
     columns: [
       {
-        data: 'id_ujian',
+        data: 'exam_id',
         orderable: false,
         searchable: false,
       },
       {
-        data: 'id_ujian',
+        data: 'exam_id',
         orderable: false,
         searchable: false,
       },
-      { data: 'nama_ujian' },
+      { data: 'exam_name' },
       { data: 'course_name' },
-      { data: 'jumlah_soal' },
-      { data: 'waktu' },
-      { data: 'jenis' },
+      { data: 'number_of_questions' },
+      { data: 'duration' },
+      { data: 'type' },
       {
         data: 'token',
         orderable: false,
@@ -45,7 +45,7 @@ $(document).ready(function () {
     columnDefs: [
       {
         targets: 0,
-        data: 'id_ujian',
+        data: 'exam_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
 									<input name="checked[]" class="check" value="${data}" type="checkbox">
@@ -63,7 +63,7 @@ $(document).ready(function () {
       },
       {
         targets: 8,
-        data: 'id_ujian',
+        data: 'exam_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
 									<button type="button" data-id="${data}" class="btn btn-token btn-xs bg-purple">

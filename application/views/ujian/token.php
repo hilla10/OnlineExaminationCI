@@ -7,7 +7,7 @@
         <h3 class="box-title">Confirm Data</h3>
     </div>
     <div class="box-body">
-        <span id="id_ujian" data-key="<?=$encrypted_id?>"></span>
+        <span id="exam_id" data-key="<?=$encrypted_id?>"></span>
         <div class="row">
             <div class="col-sm-6">
                 <table class="table table-bordered">
@@ -25,21 +25,21 @@
                     </tr>
                     <tr>
                         <th>Exam Name</th>
-                        <td><?=$ujian->nama_ujian?></td>
+                        <td><?=$ujian->exam_name?></td>
                     </tr>
                     <tr>
                         <th>Number of Questions</th>
-                        <td><?=$ujian->jumlah_soal?></td>
+                        <td><?=$ujian->number_of_questions?></td>
                     </tr>
                     <tr>
                         <th>Time</th>
-                        <td><?=$ujian->waktu?> Minute</td>
+                        <td><?=$ujian->duration?> Minute</td>
                     </tr>
                     <tr>
                         <th>Late</th>
                         <td>
-                            <?=strftime('%d %B %Y', strtotime($ujian->terlambat))?> 
-                            <?=date('H:i:s', strtotime($ujian->terlambat))?>
+                            <?=strftime('%d %B %Y', strtotime($ujian->late_time))?> 
+                            <?=date('H:i:s', strtotime($ujian->late_time))?>
                         </td>
                     </tr>
                     <tr>
@@ -55,32 +55,32 @@
                     <div class="box-body pb-0">
                         <div class="callout callout-info">
                             <p>
-                            The time to take the exam is when the "START" button is green.
+                            The time to take the exam_history is when the "START" button is green.
                             </p>
                         </div>
                         <?php
                         $mulai = strtotime($ujian->start_time);
-                        $terlambat = strtotime($ujian->terlambat);
+                        $late_time = strtotime($ujian->late_time);
                         $now = time();
                         if($mulai > $now) : 
                         ?>
                         <div class="callout callout-success">
-                            <strong><i class="fa fa-clock-o"></i> The exam will start on</strong>
+                            <strong><i class="fa fa-clock-o"></i> The exam_history will start on</strong>
                             <br>
                             <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                         </div>
-                        <?php elseif( $terlambat > $now ) : ?>
-                        <button id="btncek" data-id="<?=$ujian->id_ujian?>" class="btn btn-success btn-lg mb-4">
+                        <?php elseif( $late_time > $now ) : ?>
+                        <button id="btncek" data-id="<?=$ujian->exam_id?>" class="btn btn-success btn-lg mb-4">
                             <i class="fa fa-pencil"></i> Start
                         </button>
                         <div class="callout callout-danger">
-                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->terlambat))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
+                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->late_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                             Timeout of pressing the start button.
                         </div>
                         <?php else : ?>
                         <div class="callout callout-danger">
                         The time to press the <strong>"START"</strong> button is up.<br/>
-                        Please contact your lecturer to be able to take the SUBSTITUTE exam.
+                        Please contact your lecturer to be able to take the SUBSTITUTE exam_history.
                         </div>
                         <?php endif;?>
                     </div>

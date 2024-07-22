@@ -23,15 +23,15 @@ $(document).ready(function () {
     },
     columns: [
       {
-        data: 'id_ujian',
+        data: 'exam_id',
         orderable: false,
         searchable: false,
       },
-      { data: 'nama_ujian' },
+      { data: 'exam_name' },
       { data: 'course_name' },
       { data: 'lecturer_name' },
-      { data: 'jumlah_soal' },
-      { data: 'waktu' },
+      { data: 'number_of_questions' },
+      { data: 'duration' },
       {
         searchable: false,
         orderable: false,
@@ -41,18 +41,18 @@ $(document).ready(function () {
       {
         targets: 6,
         data: {
-          id_ujian: 'id_ujian',
+          exam_id: 'exam_id',
           ada: 'ada',
         },
         render: function (data, type, row, meta) {
           var btn;
           if (data.ada > 0) {
             btn = `
-								<a class="btn btn-xs btn-success" href="${base_url}hasilujian/cetak/${data.id_ujian}" target="_blank">
+								<a class="btn btn-xs btn-success" href="${base_url}hasilujian/cetak/${data.exam_id}" target="_blank">
 									<i class="fa fa-print"></i> Print Results
 								</a>`;
           } else {
-            btn = `<a class="btn btn-xs btn-primary" href="${base_url}ujian/token/${data.id_ujian}">
+            btn = `<a class="btn btn-xs btn-primary" href="${base_url}ujian/token/${data.exam_id}">
 								<i class="fa fa-pencil"></i> Take Exam
 							</a>`;
           }

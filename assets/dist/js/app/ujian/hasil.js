@@ -45,15 +45,15 @@ $(document).ready(function () {
     },
     columns: [
       {
-        data: 'id_ujian',
+        data: 'exam_id',
         orderable: false,
         searchable: false,
       },
-      { data: 'nama_ujian' },
+      { data: 'exam_name' },
       { data: 'course_name' },
       { data: 'lecturer_name' },
-      { data: 'jumlah_soal' },
-      { data: 'waktu' },
+      { data: 'number_of_questions' },
+      { data: 'duration' },
       { data: 'start_time' },
       {
         orderable: false,
@@ -63,7 +63,7 @@ $(document).ready(function () {
     columnDefs: [
       {
         targets: 7,
-        data: 'id_ujian',
+        data: 'exam_id',
         render: function (data, type, row, meta) {
           return `
                     <div class="text-center">
