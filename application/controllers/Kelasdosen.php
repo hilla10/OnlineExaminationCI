@@ -71,33 +71,33 @@ class KelasDosen extends CI_Controller {
 	public function save()
 	{
 		$method = $this->input->post('method', true);
-		$this->form_validation->set_rules('dosen_id', 'Lecturer', 'required');
+		$this->form_validation->set_rules('lecturer_id', 'Lecturer', 'required');
 		$this->form_validation->set_rules('kelas_id[]', 'Class', 'required');
 	
 		if($this->form_validation->run() == FALSE){
 			$data = [
 				'status'	=> false,
 				'errors'	=> [
-					'dosen_id' => form_error('dosen_id'),
+					'lecturer_id' => form_error('lecturer_id'),
 					'kelas_id[]' => form_error('kelas_id[]'),
 				]
 			];
 			$this->output_json($data);
 		}else{
-			$dosen_id = $this->input->post('dosen_id', true);
+			$lecturer_id = $this->input->post('lecturer_id', true);
 			$kelas_id = $this->input->post('kelas_id', true);
 			$input = [];
 			foreach ($kelas_id as $key => $val) {
 				$input[] = [
-					'dosen_id'  => $dosen_id,
+					'lecturer_id'  => $lecturer_id,
 					'kelas_id' => $val
 				];
 			}
 			if($method==='add'){
 				$action = $this->master->create('kelas_dosen', $input, true);
 			}else if($method==='edit'){
-				$id = $this->input->post('dosen_id', true);
-				$this->master->delete('kelas_dosen', $id, 'dosen_id');
+				$id = $this->input->post('lecturer_id', true);
+				$this->master->delete('kelas_dosen', $id, 'lecturer_id');
 				$action = $this->master->create('kelas_dosen', $input, true);
 			}
 			$data['status'] = $action ? TRUE : FALSE ;
@@ -111,7 +111,7 @@ class KelasDosen extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('kelas_dosen', $chk, 'dosen_id')){
+            if($this->master->delete('kelas_dosen', $chk, 'lecturer_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }

@@ -131,8 +131,8 @@ class Ujian extends CI_Controller {
 		$this->load->helper('string');
 
 		$method 		= $this->input->post('method', true);
-		$dosen_id 		= $this->input->post('dosen_id', true);
-		$matkul_id 		= $this->input->post('matkul_id', true);
+		$lecturer_id 		= $this->input->post('lecturer_id', true);
+		$course_id 		= $this->input->post('course_id', true);
 		$nama_ujian 	= $this->input->post('nama_ujian', true);
 		$jumlah_soal 	= $this->input->post('jumlah_soal', true);
 		$tgl_mulai 		= $this->convert_tgl($this->input->post('tgl_mulai', 	true));
@@ -161,8 +161,8 @@ class Ujian extends CI_Controller {
 				'jenis' 		=> $jenis,
 			];
 			if($method === 'add'){
-				$input['dosen_id']	= $dosen_id;
-				$input['matkul_id'] = $matkul_id;
+				$input['lecturer_id']	= $lecturer_id;
+				$input['course_id'] = $course_id;
 				$input['token']		= $token;
 				$action = $this->master->create('m_ujian', $input);
 			}else if($method === 'edit'){
@@ -271,9 +271,9 @@ class Ujian extends CI_Controller {
 		$soal 		= $this->ujian->getSoal($id);
 		
 		$mhs		= $this->mhs;
-		$h_ujian 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa);
+		$exam 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa);
 	
-		$cek_sudah_ikut = $h_ujian->num_rows();
+		$cek_sudah_ikut = $exam->num_rows();
 
 		if ($cek_sudah_ikut < 1) {
 			$soal_urut_ok 	= array();
@@ -308,26 +308,26 @@ class Ujian extends CI_Controller {
 			$time_mulai		= date('Y-m-d H:i:s');
 
 			$input = [
-				'ujian_id' 		=> $id,
-				'mahasiswa_id'	=> $mhs->id_mahasiswa,
-				'list_soal'		=> $list_id_soal,
-				'list_jawaban' 	=> $list_jw_soal,
-				'jml_benar'		=> 0,
-				'nilai'			=> 0,
-				'nilai_bobot'	=> 0,
+				'exam_id' 		=> $id,
+				'student_id'	=> $mhs->id_mahasiswa,
+				'question_list'		=> $list_id_soal,
+				'answer_list' 	=> $list_jw_soal,
+				'correct_count'		=> 0,
+				'score'			=> 0,
+				'weighted_score'	=> 0,
 				'tgl_mulai'		=> $time_mulai,
 				'tgl_selesai'	=> $waktu_selesai,
 				'status'		=> 'Y'
 			];
-			$this->master->create('h_ujian', $input);
+			$this->master->create('exam', $input);
 
 			// Setelah insert wajib refresh dulu
 			redirect('ujian/?key='.urlencode($key), 'location', 301);
 		}
 		
-		$q_soal = $h_ujian->row();
+		$q_soal = $exam->row();
 		
-		$urut_soal 		= explode(",", $q_soal->list_jawaban);
+		$urut_soal 		= explode(",", $q_soal->answer_list);
 		$soal_urut_ok	= array();
 		for ($i = 0; $i < sizeof($urut_soal); $i++) {
 			$pc_urut_soal	= explode(":",$urut_soal[$i]);
@@ -339,9 +339,9 @@ class Ujian extends CI_Controller {
 		$detail_tes = $q_soal;
 		$soal_urut_ok = $soal_urut_ok;
 
-		$pc_list_jawaban = explode(",", $detail_tes->list_jawaban);
+		$pc_answer_list = explode(",", $detail_tes->answer_list);
 		$arr_jawab = array();
-		foreach ($pc_list_jawaban as $v) {
+		foreach ($pc_answer_list as $v) {
 			$pc_v 	= explode(":", $v);
 			$idx 	= $pc_v[0];
 			$val 	= $pc_v[1];
@@ -401,21 +401,21 @@ class Ujian extends CI_Controller {
 		$id_tes = $this->encryption->decrypt($id_tes);
 		
 		$input 	= $this->input->post(null, true);
-		$list_jawaban 	= "";
+		$answer_list 	= "";
 		for ($i = 1; $i < $input['jml_soal']; $i++) {
 			$_tjawab 	= "opsi_".$i;
 			$_tidsoal 	= "id_soal_".$i;
 			$_ragu 		= "rg_".$i;
 			$jawaban_ 	= empty($input[$_tjawab]) ? "" : $input[$_tjawab];
-			$list_jawaban	.= "".$input[$_tidsoal].":".$jawaban_.":".$input[$_ragu].",";
+			$answer_list	.= "".$input[$_tidsoal].":".$jawaban_.":".$input[$_ragu].",";
 		}
-		$list_jawaban	= substr($list_jawaban, 0, -1);
+		$answer_list	= substr($answer_list, 0, -1);
 		$d_simpan = [
-			'list_jawaban' => $list_jawaban
+			'answer_list' => $answer_list
 		];
 		
 		// Simpan jawaban
-		$this->master->update('h_ujian', $d_simpan, 'id', $id_tes);
+		$this->master->update('exam', $d_simpan, 'id', $id_tes);
 		$this->output_json(['status'=>true]);
 	}
 
@@ -426,15 +426,15 @@ class Ujian extends CI_Controller {
 		$id_tes = $this->encryption->decrypt($id_tes);
 		
 		// Get Jawaban
-		$list_jawaban = $this->ujian->getJawaban($id_tes);
+		$answer_list = $this->ujian->getJawaban($id_tes);
 
 		// Pecah Jawaban
-		$pc_jawaban = explode(",", $list_jawaban);
+		$pc_jawaban = explode(",", $answer_list);
 		
 		$jumlah_benar 	= 0;
 		$jumlah_salah 	= 0;
 		$jumlah_ragu  	= 0;
-		$nilai_bobot 	= 0;
+		$weighted_score 	= 0;
 		$total_bobot	= 0;
 		$jumlah_soal	= sizeof($pc_jawaban);
 
@@ -450,17 +450,17 @@ class Ujian extends CI_Controller {
 			$jawaban == $cek_jwb->jawaban ? $jumlah_benar++ : $jumlah_salah++;
 		}
 
-		$nilai = ($jumlah_benar / $jumlah_soal)  * 100;
-		$nilai_bobot = ($total_bobot / $jumlah_soal)  * 100;
+		$score = ($jumlah_benar / $jumlah_soal)  * 100;
+		$weighted_score = ($total_bobot / $jumlah_soal)  * 100;
 
 		$d_update = [
-			'jml_benar'		=> $jumlah_benar,
-			'nilai'			=> number_format(floor($nilai), 0),
-			'nilai_bobot'	=> number_format(floor($nilai_bobot), 0),
+			'correct_count'		=> $jumlah_benar,
+			'score'			=> number_format(floor($score), 0),
+			'weighted_score'	=> number_format(floor($weighted_score), 0),
 			'status'		=> 'N'
 		];
 
-		$this->master->update('h_ujian', $d_update, 'id', $id_tes);
+		$this->master->update('exam', $d_update, 'id', $id_tes);
 		$this->output_json(['status'=>TRUE, 'data'=>$d_update, 'id'=>$id_tes]);
 	}
 }

@@ -104,11 +104,11 @@ All the detailed information are provided below!
 <table>
     <tr>
         <th>Correct Answer</th>
-        <td>{$hasil->jml_benar}</td>
+        <td>{$hasil->correct_count}</td>
     </tr>
     <tr>
         <th>Obtained Score</th>
-        <td>{$hasil->nilai}</td>
+        <td>{$hasil->score}</td>
     </tr>
 </table>
 EOD;

@@ -71,20 +71,20 @@ class Lecturer extends CI_Controller
 	{
 		$method 	= $this->input->post('method', true);
 		$lecturer_id 	= $this->input->post('lecturer_id', true);
-		$nip 		= $this->input->post('nip', true);
-		$nama_dosen = $this->input->post('nama_dosen', true);
+		$teacher_id 		= $this->input->post('teacher_id', true);
+		$lecturer_name = $this->input->post('lecturer_name', true);
 		$email 		= $this->input->post('email', true);
 		$matkul 	= $this->input->post('matkul', true);
 		if ($method == 'add') {
-			$u_nip = '|is_unique[lecturer.nip]';
+			$u_nip = '|is_unique[lecturer.teacher_id]';
 			$u_email = '|is_unique[lecturer.email]';
 		} else {
 			$dbdata 	= $this->master->getDosenById($lecturer_id);
-			$u_nip		= $dbdata->nip === $nip ? "" : "|is_unique[lecturer.nip]";
+			$u_nip		= $dbdata->teacher_id === $teacher_id ? "" : "|is_unique[lecturer.teacher_id]";
 			$u_email	= $dbdata->email === $email ? "" : "|is_unique[lecturer.email]";
 		}
-		$this->form_validation->set_rules('nip', 'NIP', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nip);
-		$this->form_validation->set_rules('nama_dosen', 'Nama Lecturer', 'required|trim|min_length[3]|max_length[50]');
+		$this->form_validation->set_rules('teacher_id', 'NIP', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nip);
+		$this->form_validation->set_rules('lecturer_name', 'Nama Lecturer', 'required|trim|min_length[3]|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
 		$this->form_validation->set_rules('matkul', 'Mata Kuliah', 'required');
 
@@ -92,8 +92,8 @@ class Lecturer extends CI_Controller
 			$data = [
 				'status'	=> false,
 				'errors'	=> [
-					'nip' => form_error('nip'),
-					'nama_dosen' => form_error('nama_dosen'),
+					'teacher_id' => form_error('teacher_id'),
+					'lecturer_name' => form_error('lecturer_name'),
 					'email' => form_error('email'),
 					'matkul' => form_error('matkul'),
 				]
@@ -101,10 +101,10 @@ class Lecturer extends CI_Controller
 			$this->output_json($data);
 		} else {
 			$input = [
-				'nip'			=> $nip,
-				'nama_dosen' 	=> $nama_dosen,
+				'teacher_id'			=> $teacher_id,
+				'lecturer_name' 	=> $lecturer_name,
 				'email' 		=> $email,
-				'matkul_id' 	=> $matkul
+				'course_id' 	=> $matkul
 			];
 			if ($method === 'add') {
 				$action = $this->master->create('lecturer', $input);
@@ -136,12 +136,12 @@ class Lecturer extends CI_Controller
 	{
 		$id = $this->input->get('id', true);
 		$data = $this->master->getDosenById($id);
-		$nama = explode(' ', $data->nama_dosen);
+		$nama = explode(' ', $data->lecturer_name);
 		$first_name = $nama[0];
 		$last_name = end($nama);
 
-		$username = $data->nip;
-		$password = $data->nip;
+		$username = $data->teacher_id;
+		$password = $data->teacher_id;
 		$email = $data->email;
 		$additional_data = [
 			'first_name'	=> $first_name,
@@ -220,10 +220,10 @@ class Lecturer extends CI_Controller
 			$data = [];
 			for ($i = 1; $i < count($sheetData); $i++) {
 				$data[] = [
-					'nip' => $sheetData[$i][0],
-					'nama_dosen' => $sheetData[$i][1],
+					'teacher_id' => $sheetData[$i][0],
+					'lecturer_name' => $sheetData[$i][1],
 					'email' => $sheetData[$i][2],
-					'matkul_id' => $sheetData[$i][3]
+					'course_id' => $sheetData[$i][3]
 				];
 			}
 
@@ -239,10 +239,10 @@ class Lecturer extends CI_Controller
 		$data = [];
 		foreach ($input as $d) {
 			$data[] = [
-				'nip' => $d->nip,
-				'nama_dosen' => $d->nama_dosen,
+				'teacher_id' => $d->teacher_id,
+				'lecturer_name' => $d->lecturer_name,
 				'email' => $d->email,
-				'matkul_id' => $d->matkul_id
+				'course_id' => $d->course_id
 			];
 		}
 

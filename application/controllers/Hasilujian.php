@@ -33,7 +33,7 @@ class HasilUjian extends CI_Controller {
 		$this->output_json($this->ujian->getHasilUjian($nip_dosen), false);
 	}
 
-	public function NilaiMhs($id)
+	public function ScoreMhs($id)
 	{
 		$this->output_json($this->ujian->HslUjianById($id, true), false);
 	}
@@ -53,14 +53,14 @@ class HasilUjian extends CI_Controller {
 	public function detail($id)
 	{
 		$ujian = $this->ujian->getUjianById($id);
-		$nilai = $this->ujian->bandingNilai($id);
+		$score = $this->ujian->bandingScore($id);
 
 		$data = [
 			'user' => $this->user,
 			'judul'	=> 'Exam',
 			'subjudul'=> 'Detail Exam results',
 			'ujian'	=> $ujian,
-			'nilai'	=> $nilai
+			'score'	=> $score
 		];
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -90,12 +90,12 @@ class HasilUjian extends CI_Controller {
 		$this->load->library('Pdf');
 
 		$ujian = $this->ujian->getUjianById($id);
-		$nilai = $this->ujian->bandingNilai($id);
+		$score = $this->ujian->bandingScore($id);
 		$hasil = $this->ujian->HslUjianById($id)->result();
 
 		$data = [
 			'ujian'	=> $ujian,
-			'nilai'	=> $nilai,
+			'score'	=> $score,
 			'hasil'	=> $hasil
 		];
 

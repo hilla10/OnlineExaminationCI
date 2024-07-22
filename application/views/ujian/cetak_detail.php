@@ -80,25 +80,25 @@ All the detailed information are provided below with Highest, Lowest and Average
         <th><b>Total Ques.</b></th>
         <td>{$ujian->jumlah_soal}</td>
         <th><b>Lecturer</b></th>
-        <td>{$ujian->nama_dosen}</td>
+        <td>{$ujian->lecturer_name}</td>
     </tr>
     <tr>
         <th><b>Time</b></th>
         <td>{$ujian->waktu} Minute</td>
         <th><b>Lowest Score</b></th>
-        <td>{$nilai->min_nilai}</td>
+        <td>{$score->min_score}</td>
     </tr>
     <tr>
         <th><b>Start Date</b></th>
         <td>{$mulai}</td>
         <th><b>Highest Score</b></th>
-        <td>{$nilai->max_nilai}</td>
+        <td>{$score->max_score}</td>
     </tr>
     <tr>
         <th><b>Completion Date</b></th>
         <td>{$selesai}</td>
         <th><b>Average Score</b></th>
-        <td>{$nilai->avg_nilai}</td>
+        <td>{$score->avg_score}</td>
     </tr>
 </table>
 EOD;
@@ -127,8 +127,8 @@ $html .= <<<EOD
         <td width="35%">{$row->nama}</td>
         <td width="15%">{$row->nama_kelas}</td>
         <td width="25%">{$row->nama_jurusan}</td>
-        <td width="10%">{$row->jml_benar}</td>
-        <td width="10%">{$row->nilai}</td>
+        <td width="10%">{$row->correct_count}</td>
+        <td width="10%">{$row->score}</td>
     </tr>
 EOD;
 $no++;

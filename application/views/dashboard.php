@@ -29,11 +29,11 @@
             <table class="table table-hover">
                 <tr>
                     <th>Name</th>
-                    <td><?=$lecturer->nama_dosen?></td>
+                    <td><?=$lecturer->lecturer_name?></td>
                 </tr>
                 <tr>
                     <th>NIP</th>
-                    <td><?=$lecturer->nip?></td>
+                    <td><?=$lecturer->teacher_id?></td>
                 </tr>
                 <tr>
                     <th>Email</th>

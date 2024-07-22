@@ -50,8 +50,8 @@ $(document).ready(function () {
         orderable: false,
         searchable: false,
       },
-      { data: 'nip' },
-      { data: 'nama_dosen' },
+      { data: 'teacher_id' },
+      { data: 'lecturer_name' },
     ],
     columnDefs: [
       {

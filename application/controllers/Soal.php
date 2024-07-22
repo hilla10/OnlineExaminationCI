@@ -113,7 +113,7 @@ class Soal extends CI_Controller {
     public function validasi()
     {
         if($this->ion_auth->is_admin()){
-            $this->form_validation->set_rules('dosen_id', 'Lecturer', 'required');
+            $this->form_validation->set_rules('lecturer_id', 'Lecturer', 'required');
         }
         // $this->form_validation->set_rules('soal', 'Soal', 'required');
         // $this->form_validation->set_rules('jawaban_a', 'Jawaban A', 'required');
@@ -207,13 +207,13 @@ class Soal extends CI_Controller {
             }
                 
             if($this->ion_auth->is_admin()){
-                $pecah = $this->input->post('dosen_id', true);
+                $pecah = $this->input->post('lecturer_id', true);
                 $pecah = explode(':', $pecah);
-                $data['dosen_id'] = $pecah[0];
-                $data['matkul_id'] = end($pecah);
+                $data['lecturer_id'] = $pecah[0];
+                $data['course_id'] = end($pecah);
             }else{
-                $data['dosen_id'] = $this->input->post('dosen_id', true);
-                $data['matkul_id'] = $this->input->post('matkul_id', true);
+                $data['lecturer_id'] = $this->input->post('lecturer_id', true);
+                $data['course_id'] = $this->input->post('course_id', true);
             }
 
             if($method==='add'){

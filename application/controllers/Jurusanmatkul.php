@@ -75,33 +75,33 @@ class JurusanMatkul extends CI_Controller {
 	public function save()
 	{
 		$method = $this->input->post('method', true);
-		$this->form_validation->set_rules('matkul_id', 'Course', 'required');
+		$this->form_validation->set_rules('course_id', 'Course', 'required');
 		$this->form_validation->set_rules('jurusan_id[]', 'Department', 'required');
 	
 		if($this->form_validation->run() == FALSE){
 			$data = [
 				'status'	=> false,
 				'errors'	=> [
-					'matkul_id' => form_error('matkul_id'),
+					'course_id' => form_error('course_id'),
 					'jurusan_id[]' => form_error('jurusan_id[]'),
 				]
 			];
 			$this->output_json($data);
 		}else{
-			$matkul_id 	= $this->input->post('matkul_id', true);
+			$course_id 	= $this->input->post('course_id', true);
 			$jurusan_id = $this->input->post('jurusan_id', true);
 			$input = [];
 			foreach ($jurusan_id as $key => $val) {
 				$input[] = [
-					'matkul_id' 	=> $matkul_id,
+					'course_id' 	=> $course_id,
 					'jurusan_id'  	=> $val
 				];
 			}
 			if($method==='add'){
 				$action = $this->master->create('jurusan_matkul', $input, true);
 			}else if($method==='edit'){
-				$id = $this->input->post('matkul_id', true);
-				$this->master->delete('jurusan_matkul', $id, 'matkul_id');
+				$id = $this->input->post('course_id', true);
+				$this->master->delete('jurusan_matkul', $id, 'course_id');
 				$action = $this->master->create('jurusan_matkul', $input, true);
 			}
 			$data['status'] = $action ? TRUE : FALSE ;
@@ -115,7 +115,7 @@ class JurusanMatkul extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('jurusan_matkul', $chk, 'matkul_id')){
+            if($this->master->delete('jurusan_matkul', $chk, 'course_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }

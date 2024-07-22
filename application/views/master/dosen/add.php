@@ -12,13 +12,13 @@
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="form-group">
-                    <label for="nip">NIP</label>
-                    <input autofocus="autofocus" onfocus="this.select()" type="number" id="nip" class="form-control" name="nip" placeholder="NIP">
+                    <label for="teacher_id">NIP</label>
+                    <input autofocus="autofocus" onfocus="this.select()" type="number" id="teacher_id" class="form-control" name="teacher_id" placeholder="NIP">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="nama_dosen">Lecturer Name</label>
-                    <input type="text" class="form-control" name="nama_dosen" placeholder="Lecturer Name">
+                    <label for="lecturer_name">Lecturer Name</label>
+                    <input type="text" class="form-control" name="lecturer_name" placeholder="Lecturer Name">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">

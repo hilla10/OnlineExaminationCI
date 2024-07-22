@@ -17,7 +17,7 @@
                     </tr>
                     <tr>
                         <th>Lecturer</th>
-                        <td><?=$ujian->nama_dosen?></td>
+                        <td><?=$ujian->lecturer_name?></td>
                     </tr>
                     <tr>
                         <th>Class/Department</th>

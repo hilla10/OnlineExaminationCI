@@ -53,21 +53,21 @@
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td class="<?= $data['nip'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['nip'] == null ? 'NOT FILLED' : $data['nip']; ?>
+                                        <td class="<?= $data['teacher_id'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['teacher_id'] == null ? 'NOT FILLED' : $data['teacher_id']; ?>
                                         </td>
-                                        <td class="<?= $data['nama_dosen'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['nama_dosen'] == null ? 'NOT FILLED' : $data['nama_dosen'];; ?>
+                                        <td class="<?= $data['lecturer_name'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['lecturer_name'] == null ? 'NOT FILLED' : $data['lecturer_name'];; ?>
                                         </td>
                                         <td class="<?= $data['email'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['email'] == null ? 'NOT FILLED' : $data['email'];; ?>
                                         </td>
-                                        <td class="<?= $data['matkul_id'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['matkul_id'] == null ? 'NOT FILLED' : $data['matkul_id'];; ?>
+                                        <td class="<?= $data['course_id'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['course_id'] == null ? 'NOT FILLED' : $data['course_id'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['nip'] == null || $data['nama_dosen'] == null || $data['email'] == null || $data['matkul_id'] == null) {
+                                        if ($data['teacher_id'] == null || $data['lecturer_name'] == null || $data['email'] == null || $data['course_id'] == null) {
                                             $status = false;
                                         }
                                     endforeach;

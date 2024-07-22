@@ -21,7 +21,7 @@
 					</select>
 				<?php endif; ?>
 				<?php if ( $this->ion_auth->in_group('Lecturer') ) : ?>				
-					<input id="matkul_id" value="<?=$matkul->nama_matkul;?>" type="text" readonly="readonly" class="form-control">
+					<input id="course_id" value="<?=$matkul->nama_matkul;?>" type="text" readonly="readonly" class="form-control">
 				<?php endif; ?>
 			</div>
 			<div class="col-sm-4">
@@ -90,7 +90,7 @@ $(document).ready(function(){
 <?php if ( $this->ion_auth->in_group('Lecturer') ) : ?>
 <script type="text/javascript">
 $(document).ready(function(){
-	let id_matkul = '<?=$matkul->matkul_id?>';
+	let id_matkul = '<?=$matkul->course_id?>';
 	let lecturer_id = '<?=$matkul->lecturer_id?>';
 	let src = '<?=base_url()?>soal/data';
 	let url = src + '/' + id_matkul + '/' + lecturer_id;

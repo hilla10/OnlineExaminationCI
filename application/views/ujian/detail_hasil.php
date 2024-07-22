@@ -49,19 +49,19 @@
                     </tr>
                     <tr>
                         <th>Lecturer</th>
-                        <td><?=$ujian->nama_dosen?></td>
+                        <td><?=$ujian->lecturer_name?></td>
                     </tr>
                     <tr>
                         <th>Lowest Score</th>
-                        <td><?=$nilai->min_nilai?></td>
+                        <td><?=$score->min_score?></td>
                     </tr>
                     <tr>
                         <th>Highest Score</th>
-                        <td><?=$nilai->max_nilai?></td>
+                        <td><?=$score->max_score?></td>
                     </tr>
                     <tr>
                         <th>Average</th>
-                        <td><?=$nilai->avg_nilai?></td>
+                        <td><?=$score->avg_score?></td>
                     </tr>
                 </table>
             </div>

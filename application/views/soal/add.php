@@ -15,17 +15,17 @@
                         <div class="form-group col-sm-12">
                             <label>Lecturer (Course)</label>
                             <?php if ($this->ion_auth->is_admin()) : ?>
-                            <select name="dosen_id" required="required" id="dosen_id" class="select2 form-group" style="width:100% !important">
+                            <select name="lecturer_id" required="required" id="lecturer_id" class="select2 form-group" style="width:100% !important">
                                 <option value="" disabled selected>Choose Lecturer</option>
                                 <?php foreach ($lecturer as $d) : ?>
-                                    <option value="<?=$d->lecturer_id?>:<?=$d->matkul_id?>"><?=$d->nama_dosen?> (<?=$d->nama_matkul?>)</option>
+                                    <option value="<?=$d->lecturer_id?>:<?=$d->course_id?>"><?=$d->lecturer_name?> (<?=$d->nama_matkul?>)</option>
                                 <?php endforeach; ?>
                             </select>
-                            <small class="help-block" style="color: #dc3545"><?=form_error('dosen_id')?></small>
+                            <small class="help-block" style="color: #dc3545"><?=form_error('lecturer_id')?></small>
                             <?php else : ?>
-                            <input type="hidden" name="dosen_id" value="<?=$lecturer->lecturer_id;?>">
-                            <input type="hidden" name="matkul_id" value="<?=$lecturer->matkul_id;?>">
-                            <input type="text" readonly="readonly" class="form-control" value="<?=$lecturer->nama_dosen; ?> (<?=$lecturer->nama_matkul; ?>)">
+                            <input type="hidden" name="lecturer_id" value="<?=$lecturer->lecturer_id;?>">
+                            <input type="hidden" name="course_id" value="<?=$lecturer->course_id;?>">
+                            <input type="text" readonly="readonly" class="form-control" value="<?=$lecturer->lecturer_name; ?> (<?=$lecturer->nama_matkul; ?>)">
                             <?php endif; ?>
                         </div>
                         

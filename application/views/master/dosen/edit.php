@@ -12,13 +12,13 @@
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="form-group">
-                    <label for="nip">NIP</label>
-                    <input value="<?=$data->nip?>" autofocus="autofocus" onfocus="this.select()" type="number" id="nip" class="form-control" name="nip" placeholder="NIP">
+                    <label for="teacher_id">NIP</label>
+                    <input value="<?=$data->teacher_id?>" autofocus="autofocus" onfocus="this.select()" type="number" id="teacher_id" class="form-control" name="teacher_id" placeholder="NIP">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="nama_dosen">Lecturer Name</label>
-                    <input value="<?=$data->nama_dosen?>" type="text" class="form-control" name="nama_dosen" placeholder="Lecturer Name">
+                    <label for="lecturer_name">Lecturer Name</label>
+                    <input value="<?=$data->lecturer_name?>" type="text" class="form-control" name="lecturer_name" placeholder="Lecturer Name">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                     <select name="matkul" id="matkul" class="form-control select2" style="width: 100%!important">
                         <option value="" disabled selected>Choose Course</option>
                         <?php foreach ($matkul as $row) : ?>
-                            <option <?=$data->matkul_id===$row->id_matkul?"selected":""?> value="<?=$row->id_matkul?>"><?=$row->nama_matkul?></option>
+                            <option <?=$data->course_id===$row->id_matkul?"selected":""?> value="<?=$row->id_matkul?>"><?=$row->nama_matkul?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block"></small>

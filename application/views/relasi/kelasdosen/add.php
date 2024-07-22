@@ -24,10 +24,10 @@
                 <?=form_open('kelasdosen/save', array('id'=>'kelasdosen'), array('method'=>'add'))?>
                 <div class="form-group">
                     <label>Lecturer</label>
-                    <select name="dosen_id" class="form-control select2" style="width: 100%!important">
+                    <select name="lecturer_id" class="form-control select2" style="width: 100%!important">
                         <option value="" disabled selected></option>
                         <?php foreach ($lecturer as $d) : ?>
-                            <option value="<?=$d->lecturer_id?>"><?=$d->nama_dosen?></option>
+                            <option value="<?=$d->lecturer_id?>"><?=$d->lecturer_name?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block text-right"></small>

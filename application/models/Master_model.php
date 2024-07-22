@@ -118,7 +118,7 @@ class Master_model extends CI_Model
         } else {
             $this->db->select('jurusan_id');
             $this->db->from('jurusan_matkul');
-            $this->db->where('matkul_id', $id);
+            $this->db->where('course_id', $id);
             $jurusan = $this->db->get()->result();
             $id_jurusan = [];
             foreach ($jurusan as $j) {
@@ -148,9 +148,9 @@ class Master_model extends CI_Model
 
     public function getDataDosen()
     {
-        $this->datatables->select('a.lecturer_id,a.nip, a.nama_dosen, a.email, a.matkul_id, b.nama_matkul, (SELECT COUNT(id) FROM users WHERE username = a.nip OR email = a.email) AS ada');
+        $this->datatables->select('a.lecturer_id,a.teacher_id, a.lecturer_name, a.email, a.course_id, b.nama_matkul, (SELECT COUNT(id) FROM users WHERE username = a.teacher_id OR email = a.email) AS ada');
         $this->datatables->from('lecturer a');
-        $this->datatables->join('matkul b', 'a.matkul_id=b.id_matkul');
+        $this->datatables->join('matkul b', 'a.course_id=b.id_matkul');
         return $this->datatables->generate();
     }
 
@@ -194,31 +194,31 @@ class Master_model extends CI_Model
 
     public function getKelasDosen()
     {
-        $this->datatables->select('kelas_dosen.id, lecturer.lecturer_id, lecturer.nip, lecturer.nama_dosen, GROUP_CONCAT(kelas.nama_kelas) as kelas');
+        $this->datatables->select('kelas_dosen.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(kelas.nama_kelas) as kelas');
         $this->datatables->from('kelas_dosen');
         $this->datatables->join('kelas', 'kelas_id=id_kelas');
-        $this->datatables->join('lecturer', 'dosen_id=lecturer_id');
-        $this->datatables->group_by('lecturer.nama_dosen');
+        $this->datatables->join('lecturer', 'lecturer_id=lecturer_id');
+        $this->datatables->group_by('lecturer.lecturer_name');
         return $this->datatables->generate();
     }
 
     public function getAllDosen($id = null)
     {
-        $this->db->select('dosen_id');
+        $this->db->select('lecturer_id');
         $this->db->from('kelas_dosen');
         if ($id !== null) {
-            $this->db->where_not_in('dosen_id', [$id]);
+            $this->db->where_not_in('lecturer_id', [$id]);
         }
         $lecturer = $this->db->get()->result();
         $lecturer_id = [];
         foreach ($lecturer as $d) {
-            $lecturer_id[] = $d->dosen_id;
+            $lecturer_id[] = $d->lecturer_id;
         }
         if ($lecturer_id === []) {
             $lecturer_id = null;
         }
 
-        $this->db->select('lecturer_id, nip, nama_dosen');
+        $this->db->select('lecturer_id, teacher_id, lecturer_name');
         $this->db->from('lecturer');
         $this->db->where_not_in('lecturer_id', $lecturer_id);
         return $this->db->get()->result();
@@ -239,7 +239,7 @@ class Master_model extends CI_Model
         $this->db->select('kelas.id_kelas');
         $this->db->from('kelas_dosen');
         $this->db->join('kelas', 'kelas_dosen.kelas_id=kelas.id_kelas');
-        $this->db->where('dosen_id', $id);
+        $this->db->where('lecturer_id', $id);
         $query = $this->db->get()->result();
         return $query;
     }
@@ -251,7 +251,7 @@ class Master_model extends CI_Model
     {
         $this->datatables->select('jurusan_matkul.id, matkul.id_matkul, matkul.nama_matkul, jurusan.id_jurusan, GROUP_CONCAT(jurusan.nama_jurusan) as nama_jurusan');
         $this->datatables->from('jurusan_matkul');
-        $this->datatables->join('matkul', 'matkul_id=id_matkul');
+        $this->datatables->join('matkul', 'course_id=id_matkul');
         $this->datatables->join('jurusan', 'jurusan_id=id_jurusan');
         $this->datatables->group_by('matkul.nama_matkul');
         return $this->datatables->generate();
@@ -259,15 +259,15 @@ class Master_model extends CI_Model
 
     public function getMatkul($id = null)
     {
-        $this->db->select('matkul_id');
+        $this->db->select('course_id');
         $this->db->from('jurusan_matkul');
         if ($id !== null) {
-            $this->db->where_not_in('matkul_id', [$id]);
+            $this->db->where_not_in('course_id', [$id]);
         }
         $matkul = $this->db->get()->result();
         $id_matkul = [];
         foreach ($matkul as $d) {
-            $id_matkul[] = $d->matkul_id;
+            $id_matkul[] = $d->course_id;
         }
         if ($id_matkul === []) {
             $id_matkul = null;
@@ -284,7 +284,7 @@ class Master_model extends CI_Model
         $this->db->select('jurusan.id_jurusan');
         $this->db->from('jurusan_matkul');
         $this->db->join('jurusan', 'jurusan_matkul.jurusan_id=jurusan.id_jurusan');
-        $this->db->where('matkul_id', $id);
+        $this->db->where('course_id', $id);
         $query = $this->db->get()->result();
         return $query;
     }

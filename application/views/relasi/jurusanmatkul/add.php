@@ -24,7 +24,7 @@
                 <?=form_open('jurusanmatkul/save', array('id'=>'jurusanmatkul'), array('method'=>'add'))?>
                 <div class="form-group">
                     <label>Course</label>
-                    <select name="matkul_id" class="form-control select2" style="width: 100%!important">
+                    <select name="course_id" class="form-control select2" style="width: 100%!important">
                         <option value="" disabled selected></option>
                         <?php foreach ($matkul as $m) : ?>
                             <option value="<?=$m->id_matkul?>"><?=$m->nama_matkul?></option>
