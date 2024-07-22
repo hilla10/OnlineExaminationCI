@@ -47,8 +47,8 @@
                     <th>Class List</th>
                     <td>
                         <ol class="pl-4">
-                        <?php foreach ($kelas as $k) : ?>
-                            <li><?=$k->nama_kelas?></li>
+                        <?php foreach ($class as $k) : ?>
+                            <li><?=$k->class_name?></li>
                         <?php endforeach;?>
                         </ol>
                     </td>
@@ -87,27 +87,27 @@
             <table class="table table-hover">
                 <tr>
                     <th>NIM</th>
-                    <td><?=$mahasiswa->nim?></td>
+                    <td><?=$student->student_number?></td>
                 </tr>
                 <tr>
                     <th>Name</th>
-                    <td><?=$mahasiswa->nama?></td>
+                    <td><?=$student->name?></td>
                 </tr>
                 <tr>
                     <th>Gender</th>
-                    <td><?=$mahasiswa->jenis_kelamin === 'M' ? "Male" : "Female" ;?></td>
+                    <td><?=$student->gender === 'M' ? "Male" : "Female" ;?></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$mahasiswa->email?></td>
+                    <td><?=$student->email?></td>
                 </tr>
                 <tr>
                     <th>Department</th>
-                    <td><?=$mahasiswa->department_name?></td>
+                    <td><?=$student->department_name?></td>
                 </tr>
                 <tr>
                     <th>Class</th>
-                    <td><?=$mahasiswa->nama_kelas?></td>
+                    <td><?=$student->class_name?></td>
                 </tr>
             </table>
         </div>

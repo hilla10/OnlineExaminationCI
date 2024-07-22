@@ -135,7 +135,7 @@ $lang['forgot_password_validation_email_label']  = 'Alamat Surel';
 $lang['forgot_password_username_identity_label'] = 'Nama Pengguna';
 $lang['forgot_password_email_identity_label']    = 'Surel';
 $lang['forgot_password_email_not_found']         = 'Tidak ada data dari surel tersebut.';
-$lang['forgot_password_identity_not_found']      = 'Tidak ada data dari nama pengguna tersebut.';
+$lang['forgot_password_identity_not_found']      = 'Tidak ada data dari name pengguna tersebut.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Ganti Kata Sandi';

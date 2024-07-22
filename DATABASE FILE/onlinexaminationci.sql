@@ -133,20 +133,20 @@ INSERT INTO `department` (`department_id`, `department_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan_matkul`
+-- Table structure for table `department_course`
 --
 
-CREATE TABLE `jurusan_matkul` (
+CREATE TABLE `department_course` (
   `id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `jurusan_matkul`
+-- Dumping data for table `department_course`
 --
 
-INSERT INTO `jurusan_matkul` (`id`, `course_id`, `department_id`) VALUES
+INSERT INTO `department_course` (`id`, `course_id`, `department_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 2),
@@ -157,20 +157,20 @@ INSERT INTO `jurusan_matkul` (`id`, `course_id`, `department_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Table structure for table `class`
 --
 
-CREATE TABLE `kelas` (
-  `id_kelas` int(11) NOT NULL,
-  `nama_kelas` varchar(30) NOT NULL,
+CREATE TABLE `class` (
+  `class_id` int(11) NOT NULL,
+  `class_name` varchar(30) NOT NULL,
   `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data for table `class`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `department_id`) VALUES
+INSERT INTO `class` (`class_id`, `class_name`, `department_id`) VALUES
 (1, 'OES229', 1),
 (2, 'OES116', 1),
 (3, 'OES111', 1),
@@ -231,23 +231,23 @@ INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mahasiswa`
+-- Table structure for table `student`
 --
 
-CREATE TABLE `mahasiswa` (
-  `id_mahasiswa` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `nim` char(20) NOT NULL,
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `student_number` char(20) NOT NULL,
   `email` varchar(254) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
-  `kelas_id` int(11) NOT NULL COMMENT 'kelas&department'
+  `gender` enum('L','P') NOT NULL,
+  `kelas_id` int(11) NOT NULL COMMENT 'class&department'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mahasiswa`
+-- Dumping data for table `student`
 --
 
-INSERT INTO `mahasiswa` (`id_mahasiswa`, `nama`, `nim`, `email`, `jenis_kelamin`, `kelas_id`) VALUES
+INSERT INTO `student` (`student_id`, `name`, `student_number`, `email`, `gender`, `kelas_id`) VALUES
 (1, 'Liam Moore', '12183018', 'liamoore@mail.com', '', 1),
 (2, 'Demo Student', '01112004', 'demostd@mail.com', '', 9),
 (3, 'Test Student', '1111111111', 'teststudent@mail.com', '', 11);
@@ -465,18 +465,18 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`department_id`);
 
 --
--- Indexes for table `jurusan_matkul`
+-- Indexes for table `department_course`
 --
-ALTER TABLE `jurusan_matkul`
+ALTER TABLE `department_course`
   ADD PRIMARY KEY (`id`),
   ADD KEY `department_id` (`department_id`),
   ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `kelas`
+-- Indexes for table `class`
 --
-ALTER TABLE `kelas`
-  ADD PRIMARY KEY (`id_kelas`),
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`class_id`),
   ADD KEY `department_id` (`department_id`);
 
 --
@@ -494,11 +494,11 @@ ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mahasiswa`
+-- Indexes for table `student`
 --
-ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`id_mahasiswa`),
-  ADD UNIQUE KEY `nim` (`nim`),
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`),
+  ADD UNIQUE KEY `student_number` (`student_number`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `kelas_id` (`kelas_id`);
 
@@ -568,15 +568,15 @@ ALTER TABLE `exam`
 ALTER TABLE `department`
   MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `jurusan_matkul`
+-- AUTO_INCREMENT for table `department_course`
 --
-ALTER TABLE `jurusan_matkul`
+ALTER TABLE `department_course`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT for table `kelas`
+-- AUTO_INCREMENT for table `class`
 --
-ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `class`
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `kelas_dosen`
 --
@@ -588,10 +588,10 @@ ALTER TABLE `kelas_dosen`
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `mahasiswa`
+-- AUTO_INCREMENT for table `student`
 --
-ALTER TABLE `mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `matkul`
 --
@@ -632,27 +632,27 @@ ALTER TABLE `lecturer`
 --
 ALTER TABLE `exam`
   ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `m_ujian` (`id_ujian`),
-  ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `mahasiswa` (`id_mahasiswa`);
+  ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
 
 --
--- Constraints for table `jurusan_matkul`
+-- Constraints for table `department_course`
 --
-ALTER TABLE `jurusan_matkul`
-  ADD CONSTRAINT `jurusan_matkul_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
-  ADD CONSTRAINT `jurusan_matkul_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
+ALTER TABLE `department_course`
+  ADD CONSTRAINT `department_course_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
+  ADD CONSTRAINT `department_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
 
 --
 -- Constraints for table `kelas_dosen`
 --
 ALTER TABLE `kelas_dosen`
   ADD CONSTRAINT `kelas_dosen_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
-  ADD CONSTRAINT `kelas_dosen_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
+  ADD CONSTRAINT `kelas_dosen_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `class` (`class_id`);
 
 --
--- Constraints for table `mahasiswa`
+-- Constraints for table `student`
 --
-ALTER TABLE `mahasiswa`
-  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
+ALTER TABLE `student`
+  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `class` (`class_id`);
 
 --
 -- Constraints for table `m_ujian`

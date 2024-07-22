@@ -31,7 +31,7 @@ class Mahasiswa extends CI_Controller
 			'subjudul' => 'Data Student'
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('master/mahasiswa/data');
+		$this->load->view('master/student/data');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -48,7 +48,7 @@ class Mahasiswa extends CI_Controller
 			'subjudul' => 'Add Student Data'
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('master/mahasiswa/add');
+		$this->load->view('master/student/add');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -60,33 +60,33 @@ class Mahasiswa extends CI_Controller
 			'judul'		=> 'Student',
 			'subjudul'	=> 'Edit Student Data',
 			'department'	=> $this->master->getJurusan(),
-			'kelas'		=> $this->master->getKelasByJurusan($mhs->department_id),
-			'mahasiswa' => $mhs
+			'class'		=> $this->master->getKelasByJurusan($mhs->department_id),
+			'student' => $mhs
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('master/mahasiswa/edit');
+		$this->load->view('master/student/edit');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
 	public function validasi_mahasiswa($method)
 	{
-		$id_mahasiswa 	= $this->input->post('id_mahasiswa', true);
-		$nim 			= $this->input->post('nim', true);
+		$student_id 	= $this->input->post('student_id', true);
+		$student_number 			= $this->input->post('student_number', true);
 		$email 			= $this->input->post('email', true);
 		if ($method == 'add') {
-			$u_nim = '|is_unique[mahasiswa.nim]';
-			$u_email = '|is_unique[mahasiswa.email]';
+			$u_nim = '|is_unique[student.student_number]';
+			$u_email = '|is_unique[student.email]';
 		} else {
-			$dbdata 	= $this->master->getMahasiswaById($id_mahasiswa);
-			$u_nim		= $dbdata->nim === $nim ? "" : "|is_unique[mahasiswa.nim]";
-			$u_email	= $dbdata->email === $email ? "" : "|is_unique[mahasiswa.email]";
+			$dbdata 	= $this->master->getMahasiswaById($student_id);
+			$u_nim		= $dbdata->student_number === $student_number ? "" : "|is_unique[student.student_number]";
+			$u_email	= $dbdata->email === $email ? "" : "|is_unique[student.email]";
 		}
-		$this->form_validation->set_rules('nim', 'NIM', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nim);
-		$this->form_validation->set_rules('nama', 'Name', 'required|trim|min_length[3]|max_length[50]');
+		$this->form_validation->set_rules('student_number', 'NIM', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nim);
+		$this->form_validation->set_rules('name', 'Name', 'required|trim|min_length[3]|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
-		$this->form_validation->set_rules('jenis_kelamin', 'Gender', 'required');
+		$this->form_validation->set_rules('gender', 'Gender', 'required');
 		$this->form_validation->set_rules('department', 'Dept.', 'required');
-		$this->form_validation->set_rules('kelas', 'Class', 'required');
+		$this->form_validation->set_rules('class', 'Class', 'required');
 
 		$this->form_validation->set_message('required', 'Kolom {field} wajib diisi');
 	}
@@ -100,28 +100,28 @@ class Mahasiswa extends CI_Controller
 			$data = [
 				'status'	=> false,
 				'errors'	=> [
-					'nim' => form_error('nim'),
-					'nama' => form_error('nama'),
+					'student_number' => form_error('student_number'),
+					'name' => form_error('name'),
 					'email' => form_error('email'),
-					'jenis_kelamin' => form_error('jenis_kelamin'),
+					'gender' => form_error('gender'),
 					'department' => form_error('department'),
-					'kelas' => form_error('kelas'),
+					'class' => form_error('class'),
 				]
 			];
 			$this->output_json($data);
 		} else {
 			$input = [
-				'nim' 			=> $this->input->post('nim', true),
+				'student_number' 			=> $this->input->post('student_number', true),
 				'email' 		=> $this->input->post('email', true),
-				'nama' 			=> $this->input->post('nama', true),
-				'jenis_kelamin' => $this->input->post('jenis_kelamin', true),
-				'kelas_id' 		=> $this->input->post('kelas', true),
+				'name' 			=> $this->input->post('name', true),
+				'gender' => $this->input->post('gender', true),
+				'kelas_id' 		=> $this->input->post('class', true),
 			];
 			if ($method === 'add') {
-				$action = $this->master->create('mahasiswa', $input);
+				$action = $this->master->create('student', $input);
 			} else if ($method === 'edit') {
-				$id = $this->input->post('id_mahasiswa', true);
-				$action = $this->master->update('mahasiswa', $input, 'id_mahasiswa', $id);
+				$id = $this->input->post('student_id', true);
+				$action = $this->master->update('student', $input, 'student_id', $id);
 			}
 
 			if ($action) {
@@ -138,7 +138,7 @@ class Mahasiswa extends CI_Controller
 		if (!$chk) {
 			$this->output_json(['status' => false]);
 		} else {
-			if ($this->master->delete('mahasiswa', $chk, 'id_mahasiswa')) {
+			if ($this->master->delete('student', $chk, 'student_id')) {
 				$this->output_json(['status' => true, 'total' => count($chk)]);
 			}
 		}
@@ -148,12 +148,12 @@ class Mahasiswa extends CI_Controller
 	{
 		$id = $this->input->get('id', true);
 		$data = $this->master->getMahasiswaById($id);
-		$nama = explode(' ', $data->nama);
-		$first_name = $nama[0];
-		$last_name = end($nama);
+		$name = explode(' ', $data->name);
+		$first_name = $name[0];
+		$last_name = end($name);
 
-		$username = $data->nim;
-		$password = $data->nim;
+		$username = $data->student_number;
+		$password = $data->student_number;
 		$email = $data->email;
 		$additional_data = [
 			'first_name'	=> $first_name,
@@ -187,12 +187,12 @@ class Mahasiswa extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Student',
 			'subjudul' => 'Import Student Data',
-			'kelas' => $this->master->getAllKelas()
+			'class' => $this->master->getAllKelas()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 
 		$this->load->view('_templates/dashboard/_header', $data);
-		$this->load->view('master/mahasiswa/import');
+		$this->load->view('master/student/import');
 		$this->load->view('_templates/dashboard/_footer');
 	}
 	public function preview()
@@ -232,10 +232,10 @@ class Mahasiswa extends CI_Controller
 			$data = [];
 			for ($i = 1; $i < count($sheetData); $i++) {
 				$data[] = [
-					'nim' => $sheetData[$i][0],
-					'nama' => $sheetData[$i][1],
+					'student_number' => $sheetData[$i][0],
+					'name' => $sheetData[$i][1],
 					'email' => $sheetData[$i][2],
-					'jenis_kelamin' => $sheetData[$i][3],
+					'gender' => $sheetData[$i][3],
 					'kelas_id' => $sheetData[$i][4]
 				];
 			}
@@ -252,19 +252,19 @@ class Mahasiswa extends CI_Controller
 		$data = [];
 		foreach ($input as $d) {
 			$data[] = [
-				'nim' => $d->nim,
-				'nama' => $d->nama,
+				'student_number' => $d->student_number,
+				'name' => $d->name,
 				'email' => $d->email,
-				'jenis_kelamin' => $d->jenis_kelamin,
+				'gender' => $d->gender,
 				'kelas_id' => $d->kelas_id
 			];
 		}
 
-		$save = $this->master->create('mahasiswa', $data, true);
+		$save = $this->master->create('student', $data, true);
 		if ($save) {
-			redirect('mahasiswa');
+			redirect('student');
 		} else {
-			redirect('mahasiswa/import');
+			redirect('student/import');
 		}
 	}
 }

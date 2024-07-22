@@ -73,7 +73,7 @@ class HasilUjian extends CI_Controller {
 		$this->load->library('Pdf');
 
 		$mhs 	= $this->ujian->getIdMahasiswa($this->user->username);
-		$hasil 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa)->row();
+		$hasil 	= $this->ujian->HslUjian($id, $mhs->student_id)->row();
 		$ujian 	= $this->ujian->getUjianById($id);
 		
 		$data = [

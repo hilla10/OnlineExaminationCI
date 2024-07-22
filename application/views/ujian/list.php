@@ -2,7 +2,7 @@
 	<div class="col-sm-3">
         <div class="alert bg-green">
             <h4>Class<i class="pull-right fa fa-building-o"></i></h4>
-            <span class="d-block"> <?=$mhs->nama_kelas?></span>                
+            <span class="d-block"> <?=$mhs->class_name?></span>                
         </div>
     </div>
     <div class="col-sm-3">

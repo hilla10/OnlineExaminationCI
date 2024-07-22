@@ -136,9 +136,9 @@ class Lecturer extends CI_Controller
 	{
 		$id = $this->input->get('id', true);
 		$data = $this->master->getDosenById($id);
-		$nama = explode(' ', $data->lecturer_name);
-		$first_name = $nama[0];
-		$last_name = end($nama);
+		$name = explode(' ', $data->lecturer_name);
+		$first_name = $name[0];
+		$last_name = end($name);
 
 		$username = $data->teacher_id;
 		$password = $data->teacher_id;

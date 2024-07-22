@@ -11,15 +11,15 @@
             <div class="col-sm-offset-3 col-sm-6">
                 <div class="my-2">
                     <div class="form-horizontal form-inline">
-                        <a href="<?=base_url('kelas')?>" class="btn btn-default btn-xs">
+                        <a href="<?=base_url('class')?>" class="btn btn-default btn-xs">
                             <i class="fa fa-arrow-left"></i> Cancel
                         </a>
                         <div class="pull-right">
-                            <span> Amount : </span><label for=""><?=count($kelas)?></label>
+                            <span> Amount : </span><label for=""><?=count($class)?></label>
                         </div>
                     </div>
                 </div>
-                <?=form_open('kelas/save', array('id'=>'kelas'), array('mode'=>'edit'))?>
+                <?=form_open('class/save', array('id'=>'class'), array('mode'=>'edit'))?>
                 <table id="form-table" class="table text-center table-condensed">
                     <thead>
                         <tr>
@@ -31,13 +31,13 @@
                     <tbody>
                         <?php 
                         $i = 1;
-                        foreach($kelas as $row) : ?> 
+                        foreach($class as $row) : ?> 
                             <tr>
                                 <td><?=$i?></td>
                                 <td>
                                     <div class="form-group">
-                                        <?=form_hidden('id_kelas['.$i.']', $row->id_kelas);?>
-                                        <input required="required" autofocus="autofocus" onfocus="this.select()" value="<?=$row->nama_kelas?>" type="text" name="nama_kelas[<?=$i?>]" class="form-control">
+                                        <?=form_hidden('class_id['.$i.']', $row->class_id);?>
+                                        <input required="required" autofocus="autofocus" onfocus="this.select()" value="<?=$row->class_name?>" type="text" name="class_name[<?=$i?>]" class="form-control">
                                         <span class="d-none">DON'T DELETE THIS</span>
                                         <small class="help-block text-right"></small>
                                     </div>
@@ -66,4 +66,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/kelas/edit.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/class/edit.js"></script>

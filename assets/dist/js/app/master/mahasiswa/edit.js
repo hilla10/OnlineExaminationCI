@@ -1,18 +1,18 @@
 function load_kelas(id) {
-  $('#kelas').find('option').not(':first').remove();
+  $('#class').find('option').not(':first').remove();
 
   $.ajax({
-    url: base_url + 'kelas/kelas_by_jurusan/' + id,
+    url: base_url + 'class/kelas_by_jurusan/' + id,
     type: 'GET',
     success: function (data) {
       var option = [];
       for (let i = 0; i < data.length; i++) {
         option.push({
-          id: data[i].id_kelas,
-          text: data[i].nama_kelas,
+          id: data[i].class_id,
+          text: data[i].class_name,
         });
       }
-      $('#kelas').select2({
+      $('#class').select2({
         data: option,
       });
     },
@@ -27,16 +27,16 @@ $(document).ready(function () {
     load_kelas($(this).val());
   });
 
-  $('form#mahasiswa input, form#mahasiswa select').on('change', function () {
+  $('form#student input, form#student select').on('change', function () {
     $(this).closest('.form-group').removeClass('has-error has-success');
     $(this).nextAll('.help-block').eq(0).text('');
   });
 
-  $('[name="jenis_kelamin"]').on('change', function () {
+  $('[name="gender"]').on('change', function () {
     $(this).parent().nextAll('.help-block').eq(0).text('');
   });
 
-  $('form#mahasiswa').on('submit', function (e) {
+  $('form#student').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -56,7 +56,7 @@ $(document).ready(function () {
             type: 'success',
           }).then((result) => {
             if (result.value) {
-              window.location.href = base_url + 'mahasiswa';
+              window.location.href = base_url + 'student';
             }
           });
         } else {

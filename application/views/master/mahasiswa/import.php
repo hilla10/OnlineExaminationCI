@@ -13,11 +13,11 @@
             <li>For Class data, it can only be filled using Class ID. <a data-toggle="modal" href="#kelasId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
         </ul>
         <div class="text-center">
-            <a href="<?= base_url('uploads/import/format/mahasiswa.xlsx') ?>" class="btn-default btn">Download Format</a>
+            <a href="<?= base_url('uploads/import/format/student.xlsx') ?>" class="btn-default btn">Download Format</a>
         </div>
         <br>
         <div class="row">
-            <?= form_open_multipart('mahasiswa/preview'); ?>
+            <?= form_open_multipart('student/preview'); ?>
             <label for="file" class="col-sm-offset-1 col-sm-3 text-right">Choose File</label>
             <div class="col-sm-4">
                 <div class="form-group">
@@ -54,24 +54,24 @@
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td class="<?= $data['nim'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['nim'] == null ? 'NOT FILLED' : $data['nim']; ?>
+                                        <td class="<?= $data['student_number'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['student_number'] == null ? 'NOT FILLED' : $data['student_number']; ?>
                                         </td>
-                                        <td class="<?= $data['nama'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['nama'] == null ? 'NOT FILLED' : $data['nama'];; ?>
+                                        <td class="<?= $data['name'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['name'] == null ? 'NOT FILLED' : $data['name'];; ?>
                                         </td>
                                         <td class="<?= $data['email'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['email'] == null ? 'NOT FILLED' : $data['email'];; ?>
                                         </td>
-                                        <td class="<?= $data['jenis_kelamin'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['jenis_kelamin'] == null ? 'NOT FILLED' : $data['jenis_kelamin'];; ?>
+                                        <td class="<?= $data['gender'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['gender'] == null ? 'NOT FILLED' : $data['gender'];; ?>
                                         </td>
                                         <td class="<?= $data['kelas_id'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['kelas_id'] == null ? 'NOT FILLED' : $data['kelas_id'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['nim'] == null || $data['nama'] == null || $data['email'] == null || $data['jenis_kelamin'] == null || $data['kelas_id'] == null) {
+                                        if ($data['student_number'] == null || $data['name'] == null || $data['email'] == null || $data['gender'] == null || $data['kelas_id'] == null) {
                                             $status = false;
                                         }
                                     endforeach;
@@ -81,7 +81,7 @@
                     </table>
                     <?php if ($status) : ?>
 
-                        <?= form_open('mahasiswa/do_import', null, ['data' => json_encode($import)]); ?>
+                        <?= form_open('student/do_import', null, ['data' => json_encode($import)]); ?>
                         <button type='submit' class='btn btn-block btn-flat bg-purple'>Import</button>
                         <?= form_close(); ?>
 
@@ -102,17 +102,17 @@
                 <h4 class="modal-title">Class Data</h4>
             </div>
             <div class="modal-body">
-                <table id="kelas" class="table table-bordered table-condensed table-striped">
+                <table id="class" class="table table-bordered table-condensed table-striped">
                     <thead>
                         <th>ID</th>
                         <th>Class</th>
                         <th>Dept</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($kelas as $k) : ?>
+                        <?php foreach ($class as $k) : ?>
                             <tr>
-                                <td><?= $k->id_kelas; ?></td>
-                                <td><?= $k->nama_kelas; ?></td>
+                                <td><?= $k->class_id; ?></td>
+                                <td><?= $k->class_name; ?></td>
                                 <td><?= $k->department_name; ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -126,7 +126,7 @@
 <script>
     $(document).ready(function() {
         let table;
-        table = $("#kelas").DataTable({
+        table = $("#class").DataTable({
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "All"]

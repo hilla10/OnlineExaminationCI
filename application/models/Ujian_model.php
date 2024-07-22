@@ -14,15 +14,15 @@ class Ujian_model extends CI_Model {
         return $this->datatables->generate();
     }
     
-    public function getListUjian($id, $kelas)
+    public function getListUjian($id, $class)
     {
-        $this->datatables->select("a.id_ujian, e.lecturer_name, d.nama_kelas, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
+        $this->datatables->select("a.id_ujian, e.lecturer_name, d.class_name, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
         $this->datatables->from('m_ujian a');
         $this->datatables->join('matkul b', 'a.course_id = b.id_matkul');
         $this->datatables->join('kelas_dosen c', "a.lecturer_id = c.lecturer_id");
-        $this->datatables->join('kelas d', 'c.kelas_id = d.id_kelas');
+        $this->datatables->join('class d', 'c.kelas_id = d.class_id');
         $this->datatables->join('lecturer e', 'e.lecturer_id = c.lecturer_id');
-        $this->datatables->where('d.id_kelas', $kelas);
+        $this->datatables->where('d.class_id', $class);
         return $this->datatables->generate();
     }
 
@@ -50,13 +50,13 @@ class Ujian_model extends CI_Model {
         return $this->db->get()->row();
     }
 
-    public function getIdMahasiswa($nim)
+    public function getIdMahasiswa($student_number)
     {
         $this->db->select('*');
-        $this->db->from('mahasiswa a');
-        $this->db->join('kelas b', 'a.kelas_id=b.id_kelas');
+        $this->db->from('student a');
+        $this->db->join('class b', 'a.kelas_id=b.class_id');
         $this->db->join('department c', 'b.department_id=c.department_id');
-        $this->db->where('nim', $nim);
+        $this->db->where('student_number', $student_number);
         return $this->db->get()->row();
     }
 
@@ -124,11 +124,11 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.department_name, d.correct_count, d.score');
-        $this->$db->from('mahasiswa a');
-        $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
+        $this->$db->select('d.id, a.name, b.class_name, c.department_name, d.correct_count, d.score');
+        $this->$db->from('student a');
+        $this->$db->join('class b', 'a.kelas_id=b.class_id');
         $this->$db->join('department c', 'b.department_id=c.department_id');
-        $this->$db->join('exam d', 'a.id_mahasiswa=d.student_id');
+        $this->$db->join('exam d', 'a.student_id=d.student_id');
         $this->$db->where(['d.exam_id' => $id]);
         return $this->$db->$get();
     }

@@ -13,7 +13,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Name</th>
-                        <td><?=$mhs->nama?></td>
+                        <td><?=$mhs->name?></td>
                     </tr>
                     <tr>
                         <th>Lecturer</th>
@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>Class/Department</th>
-                        <td><?=$mhs->nama_kelas?> / <?=$mhs->department_name?></td>
+                        <td><?=$mhs->class_name?> / <?=$mhs->department_name?></td>
                     </tr>
                     <tr>
                         <th>Exam Name</th>

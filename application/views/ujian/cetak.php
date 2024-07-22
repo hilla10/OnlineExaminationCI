@@ -70,15 +70,15 @@ All the detailed information are provided below!
 <table id="data-peserta">
     <tr>
         <th>NIM</th>
-        <td>{$mhs->nim}</td>
+        <td>{$mhs->student_number}</td>
     </tr>
     <tr>
         <th>Name</th>
-        <td>{$mhs->nama}</td>
+        <td>{$mhs->name}</td>
     </tr>
     <tr>
         <th>Class</th>
-        <td>{$mhs->nama_kelas}</td>
+        <td>{$mhs->class_name}</td>
     </tr>
     <tr>
         <th>Department</th>
@@ -119,4 +119,4 @@ $pdf->lastPage();
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output($ujian->nama_ujian.'_'.$mhs->nim.'.pdf', 'I');
+$pdf->Output($ujian->nama_ujian.'_'.$mhs->student_number.'.pdf', 'I');

@@ -45,7 +45,7 @@ class KelasDosen extends CI_Controller {
 			'judul'		=> 'Add Lecturer Class',
 			'subjudul'	=> 'Add Lecturer Class Data',
 			'lecturer'		=> $this->master->getAllDosen(),
-			'kelas'	    => $this->master->getAllKelas()
+			'class'	    => $this->master->getAllKelas()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('relasi/kelasdosen/add');
@@ -61,7 +61,7 @@ class KelasDosen extends CI_Controller {
 			'lecturer'			=> $this->master->getDosenById($id),
 			'lecturer_id'		=> $id,
 			'all_kelas'	    => $this->master->getAllKelas(),
-			'kelas'		    => $this->master->getKelasByDosen($id)
+			'class'		    => $this->master->getKelasByDosen($id)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('relasi/kelasdosen/edit');

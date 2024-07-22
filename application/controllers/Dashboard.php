@@ -24,8 +24,8 @@ class Dashboard extends CI_Controller {
 			],
 			[
 				'box' 		=> 'green',
-				'total' 	=> $this->dashboard->total('kelas'),
-				'title'		=> 'kelas',
+				'total' 	=> $this->dashboard->total('class'),
+				'title'		=> 'class',
 				'text'      => 'Class',
 				'icon'		=> 'building-o'
 			],
@@ -38,8 +38,8 @@ class Dashboard extends CI_Controller {
 			],
 			[
 				'box' 		=> 'red',
-				'total' 	=> $this->dashboard->total('mahasiswa'),
-				'title'		=> 'mahasiswa',
+				'total' 	=> $this->dashboard->total('student'),
+				'title'		=> 'student',
 				'text'      => 'Student',
 				'icon'		=> 'graduation-cap'
 			],
@@ -91,14 +91,14 @@ class Dashboard extends CI_Controller {
 			$matkul = ['matkul' => 'lecturer.course_id=matkul.id_matkul'];
 			$data['lecturer'] = $this->dashboard->get_where('lecturer', 'teacher_id', $user->username, $matkul)->row();
 
-			$kelas = ['kelas' => 'kelas_dosen.kelas_id=kelas.id_kelas'];
-			$data['kelas'] = $this->dashboard->get_where('kelas_dosen', 'lecturer_id' , $data['lecturer']->lecturer_id, $kelas, ['nama_kelas'=>'ASC'])->result();
+			$class = ['class' => 'kelas_dosen.kelas_id=class.class_id'];
+			$data['class'] = $this->dashboard->get_where('kelas_dosen', 'lecturer_id' , $data['lecturer']->lecturer_id, $class, ['class_name'=>'ASC'])->result();
 		}else{
 			$join = [
-				'kelas b' 	=> 'a.kelas_id = b.id_kelas',
+				'class b' 	=> 'a.kelas_id = b.class_id',
 				'department c'	=> 'b.department_id = c.id_department'
 			];
-			$data['mahasiswa'] = $this->dashboard->get_where('mahasiswa a', 'nim', $user->username, $join)->row();
+			$data['student'] = $this->dashboard->get_where('student a', 'student_number', $user->username, $join)->row();
 		}
 
 		$this->load->view('_templates/dashboard/_header.php', $data);

@@ -11,7 +11,7 @@
             <div class="col-sm-offset-3 col-sm-6">
                 <div class="my-2">
                     <div class="form-horizontal form-inline">
-                        <a href="<?=base_url('kelas')?>" class="btn btn-default btn-xs">
+                        <a href="<?=base_url('class')?>" class="btn btn-default btn-xs">
                             <i class="fa fa-arrow-left"></i> Cancel
                         </a>
                         <div class="pull-right">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                <?=form_open('kelas/save', array('id'=>'kelas'), array('mode'=>'add'))?>
+                <?=form_open('class/save', array('id'=>'class'), array('mode'=>'add'))?>
                 <table id="form-table" class="table text-center table-condensed">
                     <thead>
                         <tr>
@@ -34,7 +34,7 @@
                                 <td><?=$i?></td>
                                 <td>
                                     <div class="form-group">
-                                        <input autofocus="autofocus" onfocus="this.select()" required="required" autocomplete="off" type="text" name="nama_kelas[<?=$i?>]" class="form-control">
+                                        <input autofocus="autofocus" onfocus="this.select()" required="required" autocomplete="off" type="text" name="class_name[<?=$i?>]" class="form-control">
                                         <span class="d-none">DON'T DELETE THIS</span>
                                         <small class="help-block text-right"></small>
                                     </div>
@@ -68,4 +68,4 @@
     var banyak = '<?=$banyak;?>';
 </script>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/kelas/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/class/add.js"></script>

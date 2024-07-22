@@ -13,11 +13,11 @@
             <li>For departmental data, it can only be filled in using the Department ID. <a data-toggle="modal" href="#jurusanId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
         </ul>
         <div class="text-center">
-            <a href="<?= base_url('uploads/import/format/kelas.xlsx') ?>" class="btn-default btn">Download Format</a>
+            <a href="<?= base_url('uploads/import/format/class.xlsx') ?>" class="btn-default btn">Download Format</a>
         </div>
         <br>
         <div class="row">
-            <?= form_open_multipart('kelas/preview'); ?>
+            <?= form_open_multipart('class/preview'); ?>
             <label for="file" class="col-sm-offset-1 col-sm-3 text-right">Choose File</label>
             <div class="col-sm-4">
                 <div class="form-group">
@@ -51,15 +51,15 @@
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td class="<?= $data['kelas'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['kelas'] == null ? 'NOT FILLED' : $data['kelas']; ?>
+                                        <td class="<?= $data['class'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['class'] == null ? 'NOT FILLED' : $data['class']; ?>
                                         </td>
                                         <td class="<?= $data['department'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['department'] == null ? 'NOT FILLED' : $data['department'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['kelas'] == null || $data['department'] == null) {
+                                        if ($data['class'] == null || $data['department'] == null) {
                                             $status = false;
                                         }
                                     endforeach;
@@ -69,7 +69,7 @@
                     </table>
                     <?php if ($status) : ?>
 
-                        <?= form_open('kelas/do_import', null, ['data' => json_encode($import)]); ?>
+                        <?= form_open('class/do_import', null, ['data' => json_encode($import)]); ?>
                         <button type='submit' class='btn btn-block btn-flat bg-purple'>Import</button>
                         <?= form_close(); ?>
 

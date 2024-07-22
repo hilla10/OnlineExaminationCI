@@ -204,7 +204,7 @@ class Ujian extends CI_Controller {
 	{
 		$this->akses_mahasiswa();
 		
-		$list = $this->ujian->getListUjian($this->mhs->id_mahasiswa, $this->mhs->kelas_id);
+		$list = $this->ujian->getListUjian($this->mhs->student_id, $this->mhs->kelas_id);
 		$this->output_json($list, false);
 	}
 	
@@ -271,7 +271,7 @@ class Ujian extends CI_Controller {
 		$soal 		= $this->ujian->getSoal($id);
 		
 		$mhs		= $this->mhs;
-		$exam 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa);
+		$exam 	= $this->ujian->HslUjian($id, $mhs->student_id);
 	
 		$cek_sudah_ikut = $exam->num_rows();
 
@@ -309,7 +309,7 @@ class Ujian extends CI_Controller {
 
 			$input = [
 				'exam_id' 		=> $id,
-				'student_id'	=> $mhs->id_mahasiswa,
+				'student_id'	=> $mhs->student_id,
 				'question_list'		=> $list_id_soal,
 				'answer_list' 	=> $list_jw_soal,
 				'correct_count'		=> 0,

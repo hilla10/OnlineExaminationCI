@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url('mahasiswa')?>" class="btn btn-sm btn-flat btn-warning">
+            <a href="<?=base_url('student')?>" class="btn btn-sm btn-flat btn-warning">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -10,28 +10,28 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                <?=form_open('mahasiswa/save', array('id'=>'mahasiswa'), array('method'=>'edit', 'id_mahasiswa'=>$mahasiswa->id_mahasiswa))?>
+                <?=form_open('student/save', array('id'=>'student'), array('method'=>'edit', 'student_id'=>$student->student_id))?>
                     <div class="form-group">
-                        <label for="nim">NIM</label>
-                        <input value="<?=$mahasiswa->nim?>" autofocus="autofocus" onfocus="this.select()" placeholder="NIM" type="text" name="nim" class="form-control">
+                        <label for="student_number">NIM</label>
+                        <input value="<?=$student->student_number?>" autofocus="autofocus" onfocus="this.select()" placeholder="NIM" type="text" name="student_number" class="form-control">
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="nama">Name</label>
-                        <input value="<?=$mahasiswa->nama?>" placeholder="Nama" type="text" name="nama" class="form-control">
+                        <label for="name">Name</label>
+                        <input value="<?=$student->name?>" placeholder="Nama" type="text" name="name" class="form-control">
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input value="<?=$mahasiswa->email?>" placeholder="Email" type="email" name="email" class="form-control">
+                        <input value="<?=$student->email?>" placeholder="Email" type="email" name="email" class="form-control">
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_kelamin">Gender</label>
-                        <select name="jenis_kelamin" class="form-control select2">
+                        <label for="gender">Gender</label>
+                        <select name="gender" class="form-control select2">
                             <option value="">-- Choose --</option>
-                            <option <?=$mahasiswa->jenis_kelamin === "M" ? "selected" : "" ?> value="M">Male</option>
-                            <option <?=$mahasiswa->jenis_kelamin === "F" ? "selected" : "" ?> value="F">Female</option>
+                            <option <?=$student->gender === "M" ? "selected" : "" ?> value="M">Male</option>
+                            <option <?=$student->gender === "F" ? "selected" : "" ?> value="F">Female</option>
                         </select>
                         <small class="help-block"></small>
                     </div>
@@ -40,7 +40,7 @@
                         <select id="department" name="department" class="form-control select2">
                             <option value="" disabled selected>-- Choose --</option>
                             <?php foreach ($department as $j) : ?>
-                            <option <?=$mahasiswa->department_id === $j->department_id ? "selected" : "" ?> value="<?=$j->department_id?>">
+                            <option <?=$student->department_id === $j->department_id ? "selected" : "" ?> value="<?=$j->department_id?>">
                                 <?=$j->department_name?>
                             </option>
                             <?php endforeach ?>
@@ -48,12 +48,12 @@
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="kelas">Class</label>
-                        <select id="kelas" name="kelas" class="form-control select2">
+                        <label for="class">Class</label>
+                        <select id="class" name="class" class="form-control select2">
                             <option value="" disabled selected>-- Choose --</option>
-                            <?php foreach ($kelas as $k) : ?>
-                            <option <?=$mahasiswa->id_kelas === $k->id_kelas ? "selected" : "" ?> value="<?=$k->id_kelas?>">
-                                <?=$k->nama_kelas?>
+                            <?php foreach ($class as $k) : ?>
+                            <option <?=$student->class_id === $k->class_id ? "selected" : "" ?> value="<?=$k->class_id?>">
+                                <?=$k->class_name?>
                             </option>
                             <?php endforeach ?>
                         </select>
@@ -69,4 +69,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/mahasiswa/edit.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/student/edit.js"></script>

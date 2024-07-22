@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url('mahasiswa')?>" class="btn btn-sm btn-flat btn-warning">
+            <a href="<?=base_url('student')?>" class="btn btn-sm btn-flat btn-warning">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -10,15 +10,15 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                <?=form_open('mahasiswa/save', array('id'=>'mahasiswa'), array('method'=>'add'))?>
+                <?=form_open('student/save', array('id'=>'student'), array('method'=>'add'))?>
                     <div class="form-group">
-                        <label for="nim">NIM</label>
-                        <input autofocus="autofocus" onfocus="this.select()" placeholder="Std ID" type="text" name="nim" class="form-control">
+                        <label for="student_number">NIM</label>
+                        <input autofocus="autofocus" onfocus="this.select()" placeholder="Std ID" type="text" name="student_number" class="form-control">
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="nama">Name</label>
-                        <input placeholder="Student's Name" type="text" name="nama" class="form-control">
+                        <label for="name">Name</label>
+                        <input placeholder="Student's Name" type="text" name="name" class="form-control">
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
@@ -27,8 +27,8 @@
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_kelamin">Gender</label>
-                        <select name="jenis_kelamin" class="form-control select2">
+                        <label for="gender">Gender</label>
+                        <select name="gender" class="form-control select2">
                             <option value="">-- Choose --</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
@@ -43,8 +43,8 @@
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="kelas">Class</label>
-                        <select id="kelas" name="kelas" class="form-control select2">
+                        <label for="class">Class</label>
+                        <select id="class" name="class" class="form-control select2">
                             <option value="">-- Choose --</option>
                         </select>
                         <small class="help-block"></small>
@@ -59,4 +59,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/mahasiswa/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/student/add.js"></script>

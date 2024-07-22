@@ -4,7 +4,7 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#kelas').DataTable({
+  table = $('#class').DataTable({
     initComplete: function () {
       var api = this.api();
       $('#kelas_filter input')
@@ -41,17 +41,17 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'kelas/data',
+      url: base_url + 'class/data',
       type: 'POST',
       //data: csrf
     },
     columns: [
       {
-        data: 'id_kelas',
+        data: 'class_id',
         orderable: false,
         searchable: false,
       },
-      { data: 'nama_kelas' },
+      { data: 'class_name' },
       { data: 'department_name' },
       {
         data: 'bulk_select',
@@ -90,9 +90,9 @@ $(document).ready(function () {
     }
   });
 
-  $('#kelas tbody').on('click', 'tr .check', function () {
-    var check = $('#kelas tbody tr .check').length;
-    var checked = $('#kelas tbody tr .check:checked').length;
+  $('#class tbody').on('click', 'tr .check', function () {
+    var check = $('#class tbody tr .check').length;
+    var checked = $('#class tbody tr .check:checked').length;
     if (check === checked) {
       $('#select_all').prop('checked', true);
     } else {
@@ -101,7 +101,7 @@ $(document).ready(function () {
   });
 
   $('#bulk').on('submit', function (e) {
-    if ($(this).attr('action') == base_url + 'kelas/delete') {
+    if ($(this).attr('action') == base_url + 'class/delete') {
       e.preventDefault();
       e.stopImmediatePropagation();
 
@@ -159,14 +159,14 @@ function load_jurusan() {
 }
 
 function bulk_delete() {
-  if ($('#kelas tbody tr .check:checked').length == 0) {
+  if ($('#class tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',
       type: 'error',
     });
   } else {
-    $('#bulk').attr('action', base_url + 'kelas/delete');
+    $('#bulk').attr('action', base_url + 'class/delete');
     Swal({
       title: 'You sure?',
       text: 'Data will be deleted!',
@@ -184,14 +184,14 @@ function bulk_delete() {
 }
 
 function bulk_edit() {
-  if ($('#kelas tbody tr .check:checked').length == 0) {
+  if ($('#class tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',
       type: 'error',
     });
   } else {
-    $('#bulk').attr('action', base_url + 'kelas/edit');
+    $('#bulk').attr('action', base_url + 'class/edit');
     $('#bulk').submit();
   }
 }

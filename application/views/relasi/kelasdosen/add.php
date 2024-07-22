@@ -34,9 +34,9 @@
                 </div>
                 <div class="form-group">
                     <label>Class</label>
-                    <select id="kelas" multiple="multiple" name="kelas_id[]" class="form-control select2" style="width: 100%!important">
-                        <?php foreach ($kelas as $k) : ?>
-                            <option value="<?=$k->id_kelas?>"><?=$k->nama_kelas?> - <?=$k->department_name?></option>
+                    <select id="class" multiple="multiple" name="kelas_id[]" class="form-control select2" style="width: 100%!important">
+                        <?php foreach ($class as $k) : ?>
+                            <option value="<?=$k->class_id?>"><?=$k->class_name?> - <?=$k->department_name?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block text-right"></small>

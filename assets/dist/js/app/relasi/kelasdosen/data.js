@@ -59,11 +59,11 @@ $(document).ready(function () {
         searchable: false,
         orderable: false,
         title: 'Kelas',
-        data: 'kelas',
+        data: 'class',
         render: function (data, type, row, meta) {
-          let kelas = data.split(',');
+          let class = data.split(',');
           let badge = [];
-          $.each(kelas, function (i, val) {
+          $.each(class, function (i, val) {
             var newkelas = `<span class="badge bg-green">${val}</span>`;
             badge.push(newkelas);
           });
