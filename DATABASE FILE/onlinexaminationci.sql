@@ -112,19 +112,19 @@ INSERT INTO `exam` (`id`, `exam_id`, `student_id`, `question_list`, `answer_list
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan`
+-- Table structure for table `department`
 --
 
-CREATE TABLE `jurusan` (
-  `id_jurusan` int(11) NOT NULL,
-  `nama_jurusan` varchar(30) NOT NULL
+CREATE TABLE `department` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `jurusan`
+-- Dumping data for table `department`
 --
 
-INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
+INSERT INTO `department` (`department_id`, `department_name`) VALUES
 (1, 'Information System'),
 (2, 'Technical Information'),
 (3, 'Test Dept'),
@@ -139,14 +139,14 @@ INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
 CREATE TABLE `jurusan_matkul` (
   `id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `jurusan_id` int(11) NOT NULL
+  `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jurusan_matkul`
 --
 
-INSERT INTO `jurusan_matkul` (`id`, `course_id`, `jurusan_id`) VALUES
+INSERT INTO `jurusan_matkul` (`id`, `course_id`, `department_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 2),
@@ -163,14 +163,14 @@ INSERT INTO `jurusan_matkul` (`id`, `course_id`, `jurusan_id`) VALUES
 CREATE TABLE `kelas` (
   `id_kelas` int(11) NOT NULL,
   `nama_kelas` varchar(30) NOT NULL,
-  `jurusan_id` int(11) NOT NULL
+  `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `jurusan_id`) VALUES
+INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `department_id`) VALUES
 (1, 'OES229', 1),
 (2, 'OES116', 1),
 (3, 'OES111', 1),
@@ -240,7 +240,7 @@ CREATE TABLE `mahasiswa` (
   `nim` char(20) NOT NULL,
   `email` varchar(254) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
-  `kelas_id` int(11) NOT NULL COMMENT 'kelas&jurusan'
+  `kelas_id` int(11) NOT NULL COMMENT 'kelas&department'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -459,17 +459,17 @@ ALTER TABLE `exam`
   ADD KEY `student_id` (`student_id`);
 
 --
--- Indexes for table `jurusan`
+-- Indexes for table `department`
 --
-ALTER TABLE `jurusan`
-  ADD PRIMARY KEY (`id_jurusan`);
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`department_id`);
 
 --
 -- Indexes for table `jurusan_matkul`
 --
 ALTER TABLE `jurusan_matkul`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `jurusan_id` (`jurusan_id`),
+  ADD KEY `department_id` (`department_id`),
   ADD KEY `course_id` (`course_id`);
 
 --
@@ -477,7 +477,7 @@ ALTER TABLE `jurusan_matkul`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
-  ADD KEY `jurusan_id` (`jurusan_id`);
+  ADD KEY `department_id` (`department_id`);
 
 --
 -- Indexes for table `kelas_dosen`
@@ -563,10 +563,10 @@ ALTER TABLE `groups`
 ALTER TABLE `exam`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `jurusan`
+-- AUTO_INCREMENT for table `department`
 --
-ALTER TABLE `jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `department`
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `jurusan_matkul`
 --
@@ -638,7 +638,7 @@ ALTER TABLE `exam`
 -- Constraints for table `jurusan_matkul`
 --
 ALTER TABLE `jurusan_matkul`
-  ADD CONSTRAINT `jurusan_matkul_ibfk_1` FOREIGN KEY (`jurusan_id`) REFERENCES `jurusan` (`id_jurusan`),
+  ADD CONSTRAINT `jurusan_matkul_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
   ADD CONSTRAINT `jurusan_matkul_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
 
 --

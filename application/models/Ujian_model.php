@@ -55,7 +55,7 @@ class Ujian_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('mahasiswa a');
         $this->db->join('kelas b', 'a.kelas_id=b.id_kelas');
-        $this->db->join('jurusan c', 'b.jurusan_id=c.id_jurusan');
+        $this->db->join('department c', 'b.department_id=c.department_id');
         $this->db->where('nim', $nim);
         return $this->db->get()->row();
     }
@@ -124,10 +124,10 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jurusan, d.correct_count, d.score');
+        $this->$db->select('d.id, a.nama, b.nama_kelas, c.department_name, d.correct_count, d.score');
         $this->$db->from('mahasiswa a');
         $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
-        $this->$db->join('jurusan c', 'b.jurusan_id=c.id_jurusan');
+        $this->$db->join('department c', 'b.department_id=c.department_id');
         $this->$db->join('exam d', 'a.id_mahasiswa=d.student_id');
         $this->$db->where(['d.exam_id' => $id]);
         return $this->$db->$get();

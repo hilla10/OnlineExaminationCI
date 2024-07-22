@@ -126,7 +126,7 @@ $html .= <<<EOD
         <td align="center" width="5%">{$no}</td>
         <td width="35%">{$row->nama}</td>
         <td width="15%">{$row->nama_kelas}</td>
-        <td width="25%">{$row->nama_jurusan}</td>
+        <td width="25%">{$row->department_name}</td>
         <td width="10%">{$row->correct_count}</td>
         <td width="10%">{$row->score}</td>
     </tr>

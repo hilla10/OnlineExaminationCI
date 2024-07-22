@@ -8,7 +8,7 @@
     <div class="col-sm-3">
         <div class="alert bg-blue">
             <h4>Department<i class="pull-right fa fa-graduation-cap"></i></h4>
-            <span class="d-block"> <?=$mhs->nama_jurusan?></span>                
+            <span class="d-block"> <?=$mhs->department_name?></span>                
         </div>
     </div>
     <div class="col-sm-3">

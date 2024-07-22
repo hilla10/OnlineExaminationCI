@@ -20,7 +20,7 @@
 			<!-- Optionally, you can add icons to the links -->
 			<?php 
 			$page = $this->uri->segment(1);
-			$master = ["jurusan", "kelas", "matkul", "lecturer", "mahasiswa"];
+			$master = ["department", "kelas", "matkul", "lecturer", "mahasiswa"];
 			$relasi = ["kelasdosen", "jurusanmatkul"];
 			$users = ["users"];
 			?>
@@ -33,8 +33,8 @@
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="<?=$page==='jurusan'?"active":""?>">
-						<a href="<?=base_url('jurusan')?>">
+					<li class="<?=$page==='department'?"active":""?>">
+						<a href="<?=base_url('department')?>">
 							<i class="fa fa-bars"></i> 
 							 Department
 						</a>

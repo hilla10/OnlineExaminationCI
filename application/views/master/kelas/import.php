@@ -54,12 +54,12 @@
                                         <td class="<?= $data['kelas'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['kelas'] == null ? 'NOT FILLED' : $data['kelas']; ?>
                                         </td>
-                                        <td class="<?= $data['jurusan'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['jurusan'] == null ? 'NOT FILLED' : $data['jurusan'];; ?>
+                                        <td class="<?= $data['department'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['department'] == null ? 'NOT FILLED' : $data['department'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['kelas'] == null || $data['jurusan'] == null) {
+                                        if ($data['kelas'] == null || $data['department'] == null) {
                                             $status = false;
                                         }
                                     endforeach;
@@ -90,16 +90,16 @@
                 <h4 class="modal-title">Department Data</h4>
             </div>
             <div class="modal-body">
-                <table id="jurusan" class="table table-condensed table-striped">
+                <table id="department" class="table table-condensed table-striped">
                     <thead>
                         <th>ID</th>
                         <th>Dept</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($jurusan as $j) : ?>
+                        <?php foreach ($department as $j) : ?>
                             <tr>
-                                <td><?= $j->id_jurusan; ?></td>
-                                <td><?= $j->nama_jurusan; ?></td>
+                                <td><?= $j->department_id; ?></td>
+                                <td><?= $j->department_name; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -112,7 +112,7 @@
 <script>
     $(document).ready(function() {
         let table;
-        table = $("#jurusan").DataTable({
+        table = $("#department").DataTable({
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "All"]

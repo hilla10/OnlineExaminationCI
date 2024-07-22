@@ -82,7 +82,7 @@ All the detailed information are provided below!
     </tr>
     <tr>
         <th>Department</th>
-        <td>{$mhs->nama_jurusan}</td>
+        <td>{$mhs->department_name}</td>
     </tr>
 </table>
 <h2>Exam Data</h2>

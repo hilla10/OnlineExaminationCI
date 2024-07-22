@@ -25,7 +25,7 @@
                             $sk[] = $val->id_kelas;
                         }
                         foreach ($all_kelas as $m) : ?>
-                            <option <?=in_array($m->id_kelas, $sk) ? "selected" : "" ?> value="<?=$m->id_kelas?>"><?=$m->nama_kelas?> - <?=$m->nama_jurusan?></option>
+                            <option <?=in_array($m->id_kelas, $sk) ? "selected" : "" ?> value="<?=$m->id_kelas?>"><?=$m->nama_kelas?> - <?=$m->department_name?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block text-right"></small>

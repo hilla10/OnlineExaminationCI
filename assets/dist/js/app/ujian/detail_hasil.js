@@ -29,7 +29,7 @@ $(document).ready(function () {
       },
       { data: 'nama' },
       { data: 'nama_kelas' },
-      { data: 'nama_jurusan' },
+      { data: 'department_name' },
       { data: 'correct_count' },
       { data: 'score' },
     ],

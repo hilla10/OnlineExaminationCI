@@ -59,8 +59,8 @@ class Mahasiswa extends CI_Controller
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Student',
 			'subjudul'	=> 'Edit Student Data',
-			'jurusan'	=> $this->master->getJurusan(),
-			'kelas'		=> $this->master->getKelasByJurusan($mhs->jurusan_id),
+			'department'	=> $this->master->getJurusan(),
+			'kelas'		=> $this->master->getKelasByJurusan($mhs->department_id),
 			'mahasiswa' => $mhs
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -85,7 +85,7 @@ class Mahasiswa extends CI_Controller
 		$this->form_validation->set_rules('nama', 'Name', 'required|trim|min_length[3]|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
 		$this->form_validation->set_rules('jenis_kelamin', 'Gender', 'required');
-		$this->form_validation->set_rules('jurusan', 'Dept.', 'required');
+		$this->form_validation->set_rules('department', 'Dept.', 'required');
 		$this->form_validation->set_rules('kelas', 'Class', 'required');
 
 		$this->form_validation->set_message('required', 'Kolom {field} wajib diisi');
@@ -104,7 +104,7 @@ class Mahasiswa extends CI_Controller
 					'nama' => form_error('nama'),
 					'email' => form_error('email'),
 					'jenis_kelamin' => form_error('jenis_kelamin'),
-					'jurusan' => form_error('jurusan'),
+					'department' => form_error('department'),
 					'kelas' => form_error('kelas'),
 				]
 			];

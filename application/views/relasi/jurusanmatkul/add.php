@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label>Department</label>
-                    <select id="jurusan" multiple="multiple" name="jurusan_id[]" class="form-control select2" style="width: 100%!important">
+                    <select id="department" multiple="multiple" name="department_id[]" class="form-control select2" style="width: 100%!important">
                     </select>
                     <small class="help-block text-right"></small>
                 </div>

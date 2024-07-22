@@ -47,7 +47,7 @@ class Kelas extends CI_Controller
 			'judul'		=> 'Add Class',
 			'subjudul'	=> 'Add Data Class',
 			'banyak'	=> $this->input->post('banyak', true),
-			'jurusan'	=> $this->master->getAllJurusan()
+			'department'	=> $this->master->getAllJurusan()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('master/kelas/add');
@@ -65,7 +65,7 @@ class Kelas extends CI_Controller
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Class',
 				'subjudul'	=> 'Edit Data Class',
-				'jurusan'	=> $this->master->getAllJurusan(),
+				'department'	=> $this->master->getAllJurusan(),
 				'kelas'		=> $kelas
 			];
 			$this->load->view('_templates/dashboard/_header.php', $data);
@@ -80,28 +80,28 @@ class Kelas extends CI_Controller
 		$mode = $this->input->post('mode', true);
 		for ($i = 1; $i <= $rows; $i++) {
 			$nama_kelas 	= 'nama_kelas[' . $i . ']';
-			$jurusan_id 	= 'jurusan_id[' . $i . ']';
+			$department_id 	= 'department_id[' . $i . ']';
 			$this->form_validation->set_rules($nama_kelas, 'Class', 'required');
-			$this->form_validation->set_rules($jurusan_id, 'Dept.', 'required');
+			$this->form_validation->set_rules($department_id, 'Dept.', 'required');
 			$this->form_validation->set_message('required', '{field} Required');
 
 			if ($this->form_validation->run() === FALSE) {
 				$error[] = [
 					$nama_kelas 	=> form_error($nama_kelas),
-					$jurusan_id 	=> form_error($jurusan_id),
+					$department_id 	=> form_error($department_id),
 				];
 				$status = FALSE;
 			} else {
 				if ($mode == 'add') {
 					$insert[] = [
 						'nama_kelas' 	=> $this->input->post($nama_kelas, true),
-						'jurusan_id' 	=> $this->input->post($jurusan_id, true)
+						'department_id' 	=> $this->input->post($department_id, true)
 					];
 				} else if ($mode == 'edit') {
 					$update[] = array(
 						'id_kelas'		=> $this->input->post('id_kelas[' . $i . ']', true),
 						'nama_kelas' 	=> $this->input->post($nama_kelas, true),
-						'jurusan_id' 	=> $this->input->post($jurusan_id, true)
+						'department_id' 	=> $this->input->post($department_id, true)
 					);
 				}
 				$status = TRUE;
@@ -148,7 +148,7 @@ class Kelas extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Class',
 			'subjudul' => 'Import Class',
-			'jurusan' => $this->master->getAllJurusan()
+			'department' => $this->master->getAllJurusan()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 
@@ -195,7 +195,7 @@ class Kelas extends CI_Controller
 			for ($i = 1; $i < count($sheetData); $i++) {
 				$data[] = [
 					'kelas' => $sheetData[$i][0],
-					'jurusan' => $sheetData[$i][1]
+					'department' => $sheetData[$i][1]
 				];
 			}
 
@@ -209,7 +209,7 @@ class Kelas extends CI_Controller
 		$input = json_decode($this->input->post('data', true));
 		$data = [];
 		foreach ($input as $d) {
-			$data[] = ['nama_kelas' => $d->kelas, 'jurusan_id' => $d->jurusan];
+			$data[] = ['nama_kelas' => $d->kelas, 'department_id' => $d->department];
 		}
 
 		$save = $this->master->create('kelas', $data, true);

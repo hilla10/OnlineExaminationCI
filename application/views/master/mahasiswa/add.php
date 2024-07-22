@@ -36,8 +36,8 @@
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="jurusan">Department</label>
-                        <select id="jurusan" name="jurusan" class="form-control select2">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" class="form-control select2">
                             <option value="" disabled selected>-- Choose --</option>
                         </select>
                         <small class="help-block"></small>

@@ -36,12 +36,12 @@
                         <small class="help-block"></small>
                     </div>
                     <div class="form-group">
-                        <label for="jurusan">Department</label>
-                        <select id="jurusan" name="jurusan" class="form-control select2">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" class="form-control select2">
                             <option value="" disabled selected>-- Choose --</option>
-                            <?php foreach ($jurusan as $j) : ?>
-                            <option <?=$mahasiswa->id_jurusan === $j->id_jurusan ? "selected" : "" ?> value="<?=$j->id_jurusan?>">
-                                <?=$j->nama_jurusan?>
+                            <?php foreach ($department as $j) : ?>
+                            <option <?=$mahasiswa->department_id === $j->department_id ? "selected" : "" ?> value="<?=$j->department_id?>">
+                                <?=$j->department_name?>
                             </option>
                             <?php endforeach ?>
                         </select>

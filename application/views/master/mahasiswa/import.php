@@ -113,7 +113,7 @@
                             <tr>
                                 <td><?= $k->id_kelas; ?></td>
                                 <td><?= $k->nama_kelas; ?></td>
-                                <td><?= $k->nama_jurusan; ?></td>
+                                <td><?= $k->department_name; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

@@ -44,10 +44,10 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <select required="required" name="jurusan_id[<?=$i?>]" class="input-sm form-control select2" style="width: 100%!important">
+                                        <select required="required" name="department_id[<?=$i?>]" class="input-sm form-control select2" style="width: 100%!important">
                                             <option value="" disabled>-- Choose --</option>
-                                            <?php foreach ($jurusan as $j) : ?>
-                                                <option <?= $row->jurusan_id == $j->id_jurusan ? "selected='selected'" : "" ?> value="<?=$j->id_jurusan?>"><?=$j->nama_jurusan?></option>
+                                            <?php foreach ($department as $j) : ?>
+                                                <option <?= $row->department_id == $j->department_id ? "selected='selected'" : "" ?> value="<?=$j->department_id?>"><?=$j->department_name?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <small class="help-block text-right"></small>

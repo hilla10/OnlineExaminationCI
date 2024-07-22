@@ -103,7 +103,7 @@
                 </tr>
                 <tr>
                     <th>Department</th>
-                    <td><?=$mahasiswa->nama_jurusan?></td>
+                    <td><?=$mahasiswa->department_name?></td>
                 </tr>
                 <tr>
                     <th>Class</th>

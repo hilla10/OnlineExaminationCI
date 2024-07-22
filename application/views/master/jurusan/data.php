@@ -9,7 +9,7 @@
     <div class="box-body">
 		<div class="mt-2 mb-4">
             <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-sm bg-blue btn-flat"><i class="fa fa-plus"></i> Add Data</button>
-            <a href="<?=base_url('jurusan/import')?>" class="btn btn-sm btn-flat btn-success"><i class="fa fa-upload"></i> Import</a>
+            <a href="<?=base_url('department/import')?>" class="btn btn-sm btn-flat btn-success"><i class="fa fa-upload"></i> Import</a>
             <button type="button" onclick="reload_ajax()" class="btn btn-sm bg-maroon btn-flat btn-default"><i class="fa fa-refresh"></i> Reload</button>
 			<div class="pull-right">
 				<button onclick="bulk_edit()" class="btn btn-sm btn-warning btn-flat" type="button"><i class="fa fa-edit"></i> Edit</button>
@@ -17,7 +17,7 @@
 			</div>
 		</div>
         <?=form_open('',array('id'=>'bulk'))?>
-        <table id="jurusan" class="w-100 table table-striped table-bordered table-hover">
+        <table id="department" class="w-100 table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>#</th>
@@ -40,7 +40,7 @@
 					<span aria-hidden="true">×</span></button>
 				<h4 class="modal-title">Add Data</h4>
             </div>
-            <?=form_open('jurusan/add', array('id', 'tambah'));?>
+            <?=form_open('department/add', array('id', 'tambah'));?>
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="banyak">Number of Data</label>
@@ -58,4 +58,4 @@
 	<!-- /.modal-dialog -->
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/jurusan/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/department/data.js"></script>

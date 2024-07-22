@@ -36,7 +36,7 @@ class Jurusan extends CI_Controller
 			'subjudul' => 'Data Department'
 		];
 		$this->load->view('_templates/dashboard/_header', $data);
-		$this->load->view('master/jurusan/data');
+		$this->load->view('master/department/data');
 		$this->load->view('_templates/dashboard/_footer');
 	}
 
@@ -49,7 +49,7 @@ class Jurusan extends CI_Controller
 			'banyak'	=> $this->input->post('banyak', true)
 		];
 		$this->load->view('_templates/dashboard/_header', $data);
-		$this->load->view('master/jurusan/add');
+		$this->load->view('master/department/add');
 		$this->load->view('_templates/dashboard/_footer');
 	}
 
@@ -62,44 +62,44 @@ class Jurusan extends CI_Controller
 	{
 		$chk = $this->input->post('checked', true);
 		if (!$chk) {
-			redirect('jurusan');
+			redirect('department');
 		} else {
-			$jurusan = $this->master->getJurusanById($chk);
+			$department = $this->master->getJurusanById($chk);
 			$data = [
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Department',
 				'subjudul'	=> 'Edit Department Data',
-				'jurusan'	=> $jurusan
+				'department'	=> $department
 			];
 			$this->load->view('_templates/dashboard/_header', $data);
-			$this->load->view('master/jurusan/edit');
+			$this->load->view('master/department/edit');
 			$this->load->view('_templates/dashboard/_footer');
 		}
 	}
 
 	public function save()
 	{
-		$rows = count($this->input->post('nama_jurusan', true));
+		$rows = count($this->input->post('nama_department', true));
 		$mode = $this->input->post('mode', true);
 		for ($i = 1; $i <= $rows; $i++) {
-			$nama_jurusan = 'nama_jurusan[' . $i . ']';
-			$this->form_validation->set_rules($nama_jurusan, 'Dept.', 'required');
+			$nama_department = 'nama_department[' . $i . ']';
+			$this->form_validation->set_rules($nama_department, 'Dept.', 'required');
 			$this->form_validation->set_message('required', '{field} Required');
 
 			if ($this->form_validation->run() === FALSE) {
 				$error[] = [
-					$nama_jurusan => form_error($nama_jurusan)
+					$nama_department => form_error($nama_department)
 				];
 				$status = FALSE;
 			} else {
 				if ($mode == 'add') {
 					$insert[] = [
-						'nama_jurusan' => $this->input->post($nama_jurusan, true)
+						'nama_department' => $this->input->post($nama_department, true)
 					];
 				} else if ($mode == 'edit') {
 					$update[] = array(
-						'id_jurusan'	=> $this->input->post('id_jurusan[' . $i . ']', true),
-						'nama_jurusan' 	=> $this->input->post($nama_jurusan, true)
+						'id_department'	=> $this->input->post('id_department[' . $i . ']', true),
+						'nama_department' 	=> $this->input->post($nama_department, true)
 					);
 				}
 				$status = TRUE;
@@ -107,10 +107,10 @@ class Jurusan extends CI_Controller
 		}
 		if ($status) {
 			if ($mode == 'add') {
-				$this->master->create('jurusan', $insert, true);
+				$this->master->create('department', $insert, true);
 				$data['insert']	= $insert;
 			} else if ($mode == 'edit') {
-				$this->master->update('jurusan', $update, 'id_jurusan', null, true);
+				$this->master->update('department', $update, 'id_department', null, true);
 				$data['update'] = $update;
 			}
 		} else {
@@ -128,13 +128,13 @@ class Jurusan extends CI_Controller
 		if (!$chk) {
 			$this->output_json(['status' => false]);
 		} else {
-			if ($this->master->delete('jurusan', $chk, 'id_jurusan')) {
+			if ($this->master->delete('department', $chk, 'id_department')) {
 				$this->output_json(['status' => true, 'total' => count($chk)]);
 			}
 		}
 	}
 
-	public function load_jurusan()
+	public function load_department()
 	{
 		$data = $this->master->getJurusan();
 		$this->output_json($data);
@@ -150,7 +150,7 @@ class Jurusan extends CI_Controller
 		if ($import_data != null) $data['import'] = $import_data;
 
 		$this->load->view('_templates/dashboard/_header', $data);
-		$this->load->view('master/jurusan/import');
+		$this->load->view('master/department/import');
 		$this->load->view('_templates/dashboard/_footer');
 	}
 
@@ -188,31 +188,31 @@ class Jurusan extends CI_Controller
 
 			$spreadsheet = $reader->load($file);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray();
-			$jurusan = [];
+			$department = [];
 			for ($i = 1; $i < count($sheetData); $i++) {
 				if ($sheetData[$i][0] != null) {
-					$jurusan[] = $sheetData[$i][0];
+					$department[] = $sheetData[$i][0];
 				}
 			}
 
 			unlink($file);
 
-			$this->import($jurusan);
+			$this->import($department);
 		}
 	}
 	public function do_import()
 	{
-		$data = json_decode($this->input->post('jurusan', true));
-		$jurusan = [];
+		$data = json_decode($this->input->post('department', true));
+		$department = [];
 		foreach ($data as $j) {
-			$jurusan[] = ['nama_jurusan' => $j];
+			$department[] = ['nama_department' => $j];
 		}
 
-		$save = $this->master->create('jurusan', $jurusan, true);
+		$save = $this->master->create('department', $department, true);
 		if ($save) {
-			redirect('jurusan');
+			redirect('department');
 		} else {
-			redirect('jurusan/import');
+			redirect('department/import');
 		}
 	}
 }

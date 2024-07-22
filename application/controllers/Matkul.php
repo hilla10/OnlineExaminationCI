@@ -197,12 +197,12 @@ class Matkul extends CI_Controller
 	public function do_import()
 	{
 		$data = json_decode($this->input->post('matkul', true));
-		$jurusan = [];
+		$department = [];
 		foreach ($data as $j) {
-			$jurusan[] = ['nama_matkul' => $j];
+			$department[] = ['nama_matkul' => $j];
 		}
 
-		$save = $this->master->create('matkul', $jurusan, true);
+		$save = $this->master->create('matkul', $department, true);
 		if ($save) {
 			redirect('matkul');
 		} else {

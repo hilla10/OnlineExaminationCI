@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>Class/Department</th>
-                        <td><?=$mhs->nama_kelas?> / <?=$mhs->nama_jurusan?></td>
+                        <td><?=$mhs->nama_kelas?> / <?=$mhs->department_name?></td>
                     </tr>
                     <tr>
                         <th>Exam Name</th>

@@ -1,13 +1,13 @@
 function loadJurusan(id) {
-  $('#jurusan option').remove();
+  $('#department option').remove();
   $.getJSON(base_url + 'jurusanmatkul/getJurusanId/' + id, function (data) {
     console.log(data);
     let opsi;
     $.each(data, function (key, val) {
       opsi = `
-                    <option value="${val.id_jurusan}">${val.nama_jurusan}</option>
+                    <option value="${val.department_id}">${val.department_name}</option>
                 `;
-      $('#jurusan').append(opsi);
+      $('#department').append(opsi);
     });
   });
 }

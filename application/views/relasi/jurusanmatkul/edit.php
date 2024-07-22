@@ -18,14 +18,14 @@
                 </div>
                 <div class="form-group">
                     <label>Department</label>
-                    <select id="jurusan" multiple="multiple" name="jurusan_id[]" class="form-control select2" style="width: 100%!important">
+                    <select id="department" multiple="multiple" name="department_id[]" class="form-control select2" style="width: 100%!important">
                         <?php 
                         $sj = [];
-                        foreach ($jurusan as $key => $val) {
-                            $sj[] = $val->id_jurusan;
+                        foreach ($department as $key => $val) {
+                            $sj[] = $val->department_id;
                         }
                         foreach ($all_jurusan as $m) : ?>
-                            <option <?=in_array($m->id_jurusan, $sj) ? "selected" : "" ?> value="<?=$m->id_jurusan?>"><?=$m->nama_jurusan?></option>
+                            <option <?=in_array($m->department_id, $sj) ? "selected" : "" ?> value="<?=$m->department_id?>"><?=$m->department_name?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block text-right"></small>

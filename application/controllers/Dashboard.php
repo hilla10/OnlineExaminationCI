@@ -17,8 +17,8 @@ class Dashboard extends CI_Controller {
 		$box = [
 			[
 				'box' 		=> 'yellow',
-				'total' 	=> $this->dashboard->total('jurusan'),
-				'title'		=> 'jurusan',
+				'total' 	=> $this->dashboard->total('department'),
+				'title'		=> 'department',
 				'text'      => 'Department',
 				'icon'		=> 'th-large'
 			],
@@ -96,7 +96,7 @@ class Dashboard extends CI_Controller {
 		}else{
 			$join = [
 				'kelas b' 	=> 'a.kelas_id = b.id_kelas',
-				'jurusan c'	=> 'b.jurusan_id = c.id_jurusan'
+				'department c'	=> 'b.department_id = c.id_department'
 			];
 			$data['mahasiswa'] = $this->dashboard->get_where('mahasiswa a', 'nim', $user->username, $join)->row();
 		}

@@ -1,14 +1,14 @@
 var table;
 
-$(document).ready(function() {
+$(document).ready(function () {
   ajaxcsrf();
 
-  table = $("#jurusan").DataTable({
-    initComplete: function() {
+  table = $('#department').DataTable({
+    initComplete: function () {
       var api = this.api();
-      $("#jurusan_filter input")
-        .off(".DT")
-        .on("keyup.DT", function(e) {
+      $('#jurusan_filter input')
+        .off('.DT')
+        .on('keyup.DT', function (e) {
           api.search(this.value).draw();
         });
     },
@@ -18,162 +18,159 @@ $(document).ready(function() {
       "<'row'<'col-sm-5'i><'col-sm-7'p>>",
     buttons: [
       {
-        extend: "copy",
-        exportOptions: { columns: [1] }
+        extend: 'copy',
+        exportOptions: { columns: [1] },
       },
       {
-        extend: "print",
-        exportOptions: { columns: [1] }
+        extend: 'print',
+        exportOptions: { columns: [1] },
       },
       {
-        extend: "excel",
-        exportOptions: { columns: [1] }
+        extend: 'excel',
+        exportOptions: { columns: [1] },
       },
       {
-        extend: "pdf",
-        exportOptions: { columns: [1] }
-      }
+        extend: 'pdf',
+        exportOptions: { columns: [1] },
+      },
     ],
     oLanguage: {
-      sProcessing: "loading..."
+      sProcessing: 'loading...',
     },
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + "jurusan/data",
-      type: "POST"
+      url: base_url + 'department/data',
+      type: 'POST',
       //data: csrf
     },
     columns: [
       {
-        data: "id_jurusan",
+        data: 'department_id',
         orderable: false,
-        searchable: false
+        searchable: false,
       },
       {
-        data: "nama_jurusan"
+        data: 'department_name',
       },
       {
-        data: "bulk_select",
+        data: 'bulk_select',
         orderable: false,
-        searchable: false
-      }
+        searchable: false,
+      },
     ],
-    order: [[1, "asc"]],
-    rowId: function(a) {
+    order: [[1, 'asc']],
+    rowId: function (a) {
       return a;
     },
-    rowCallback: function(row, data, iDisplayIndex) {
+    rowCallback: function (row, data, iDisplayIndex) {
       var info = this.fnPagingInfo();
       var page = info.iPage;
       var length = info.iLength;
       var index = page * length + (iDisplayIndex + 1);
-      $("td:eq(0)", row).html(index);
-    }
+      $('td:eq(0)', row).html(index);
+    },
   });
 
-  table
-    .buttons()
-    .container()
-    .appendTo("#jurusan_wrapper .col-md-6:eq(0)");
+  table.buttons().container().appendTo('#jurusan_wrapper .col-md-6:eq(0)');
 
-  $("#myModal").on("shown.modal.bs", function() {
+  $('#myModal').on('shown.modal.bs', function () {
     $(':input[name="banyak"]').select();
   });
 
-  $("#select_all").on("click", function() {
+  $('#select_all').on('click', function () {
     if (this.checked) {
-      $(".check").each(function() {
+      $('.check').each(function () {
         this.checked = true;
       });
     } else {
-      $(".check").each(function() {
+      $('.check').each(function () {
         this.checked = false;
       });
     }
   });
 
-  $("#jurusan tbody").on("click", "tr .check", function() {
-    var check = $("#jurusan tbody tr .check").length;
-    var checked = $("#jurusan tbody tr .check:checked").length;
+  $('#department tbody').on('click', 'tr .check', function () {
+    var check = $('#department tbody tr .check').length;
+    var checked = $('#department tbody tr .check:checked').length;
     if (check === checked) {
-      $("#select_all").prop("checked", true);
+      $('#select_all').prop('checked', true);
     } else {
-      $("#select_all").prop("checked", false);
+      $('#select_all').prop('checked', false);
     }
   });
 
-  $("#bulk").on("submit", function(e) {
-    if ($(this).attr("action") == base_url + "jurusan/delete") {
+  $('#bulk').on('submit', function (e) {
+    if ($(this).attr('action') == base_url + 'department/delete') {
       e.preventDefault();
       e.stopImmediatePropagation();
 
       $.ajax({
-        url: $(this).attr("action"),
+        url: $(this).attr('action'),
         data: $(this).serialize(),
-        type: "POST",
-        success: function(respon) {
+        type: 'POST',
+        success: function (respon) {
           if (respon.status) {
             Swal({
-              title: "Successful",
-              text: respon.total + " data deleted successfully",
-              type: "success"
+              title: 'Successful',
+              text: respon.total + ' data deleted successfully',
+              type: 'success',
             });
           } else {
             Swal({
-              title: "Failed",
-              text: "No data selected",
-              type: "error"
+              title: 'Failed',
+              text: 'No data selected',
+              type: 'error',
             });
           }
           reload_ajax();
         },
-        error: function() {
+        error: function () {
           Swal({
-            title: "Failed",
-            text: "There is data in use",
-            type: "error"
+            title: 'Failed',
+            text: 'There is data in use',
+            type: 'error',
           });
-        }
+        },
       });
     }
   });
 });
 
 function bulk_delete() {
-  if ($("#jurusan tbody tr .check:checked").length == 0) {
+  if ($('#department tbody tr .check:checked').length == 0) {
     Swal({
-      title: "Failed",
-      text: "No data selected",
-      type: "error"
+      title: 'Failed',
+      text: 'No data selected',
+      type: 'error',
     });
   } else {
-    $("#bulk").attr("action", base_url + "jurusan/delete");
+    $('#bulk').attr('action', base_url + 'department/delete');
     Swal({
-      title: "Are you sure?",
-      text: "Data will be deleted!",
-      type: "warning",
+      title: 'Are you sure?',
+      text: 'Data will be deleted!',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Delete!"
-    }).then(result => {
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete!',
+    }).then((result) => {
       if (result.value) {
-        $("#bulk").submit();
+        $('#bulk').submit();
       }
     });
   }
 }
 
 function bulk_edit() {
-  if ($("#jurusan tbody tr .check:checked").length == 0) {
+  if ($('#department tbody tr .check:checked').length == 0) {
     Swal({
-      title: "Failed",
-      text: "No data selected",
-      type: "error"
+      title: 'Failed',
+      text: 'No data selected',
+      type: 'error',
     });
   } else {
-    $("#bulk").attr("action", base_url + "jurusan/edit");
-    $("#bulk").submit();
+    $('#bulk').attr('action', base_url + 'department/edit');
+    $('#bulk').submit();
   }
 }

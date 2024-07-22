@@ -41,10 +41,10 @@
                                 </td>
                                 <td width="200">
                                     <div class="form-group">
-                                        <select required="required" name="jurusan_id[<?=$i?>]" class="form-control input-sm select2" style="width: 100%!important">
+                                        <select required="required" name="department_id[<?=$i?>]" class="form-control input-sm select2" style="width: 100%!important">
                                             <option value="" disabled selected>-- Choose --</option>
-                                            <?php foreach ($jurusan as $j) : ?>
-                                                <option value="<?=$j->id_jurusan?>"><?=$j->nama_jurusan?></option>
+                                            <?php foreach ($department as $j) : ?>
+                                                <option value="<?=$j->department_id?>"><?=$j->department_name?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <small class="help-block text-right"></small>
