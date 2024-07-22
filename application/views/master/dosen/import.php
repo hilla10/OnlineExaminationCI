@@ -98,16 +98,16 @@
                 <h4 class="modal-title">Course Data</h4>
             </div>
             <div class="modal-body">
-                <table id="matkul" class="table table-condensed table-striped">
+                <table id="course" class="table table-condensed table-striped">
                     <thead>
                         <th>ID</th>
                         <th>Course</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($matkul as $m) : ?>
+                        <?php foreach ($course as $m) : ?>
                             <tr>
-                                <td><?= $m->id_matkul; ?></td>
-                                <td><?= $m->nama_matkul; ?></td>
+                                <td><?= $m->course_id; ?></td>
+                                <td><?= $m->course_name; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -120,7 +120,7 @@
 <script>
     $(document).ready(function() {
         let table;
-        table = $("#matkul").DataTable({
+        table = $("#course").DataTable({
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "All"]

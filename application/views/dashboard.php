@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <th>Course</th>
-                    <td><?=$lecturer->nama_matkul?></td>
+                    <td><?=$lecturer->course_name?></td>
                 </tr>
                 <tr>
                     <th>Class List</th>

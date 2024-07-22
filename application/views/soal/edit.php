@@ -22,14 +22,14 @@
                                     $sdm = $soal->lecturer_id.':'.$soal->course_id;
                                     foreach ($lecturer as $d) :
                                         $dm = $d->lecturer_id.':'.$d->course_id;?>
-                                        <option <?=$sdm===$dm?"selected":"";?> value="<?=$dm?>"><?=$d->lecturer_name?> (<?=$d->nama_matkul?>)</option>
+                                        <option <?=$sdm===$dm?"selected":"";?> value="<?=$dm?>"><?=$d->lecturer_name?> (<?=$d->course_name?>)</option>
                                     <?php endforeach; ?>
                                 </select>
                                 <small class="help-block" style="color: #dc3545"><?=form_error('lecturer_id')?></small>
                                 <?php else : ?>
                                 <input type="hidden" name="lecturer_id" value="<?=$lecturer->lecturer_id;?>">
                                 <input type="hidden" name="course_id" value="<?=$lecturer->course_id;?>">
-                                <input type="text" readonly="readonly" class="form-control" value="<?=$lecturer->lecturer_name; ?> (<?=$lecturer->nama_matkul; ?>)">
+                                <input type="text" readonly="readonly" class="form-control" value="<?=$lecturer->lecturer_name; ?> (<?=$lecturer->course_name; ?>)">
                                 <?php endif; ?>
                             </div>
                             

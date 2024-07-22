@@ -5,9 +5,9 @@ class Ujian_model extends CI_Model {
     
     public function getDataUjian($id)
     {
-        $this->datatables->select('a.id_ujian, a.token, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, " <br/> (", a.waktu, " Minute)") as waktu, a.jenis');
+        $this->datatables->select('a.id_ujian, a.token, a.nama_ujian, b.course_name, a.jumlah_soal, CONCAT(a.start_time, " <br/> (", a.waktu, " Minute)") as waktu, a.jenis');
         $this->datatables->from('m_ujian a');
-        $this->datatables->join('matkul b', 'a.course_id = b.id_matkul');
+        $this->datatables->join('course b', 'a.course_id = b.course_id');
         if($id!==null){
             $this->datatables->where('lecturer_id', $id);
         }
@@ -16,9 +16,9 @@ class Ujian_model extends CI_Model {
     
     public function getListUjian($id, $class)
     {
-        $this->datatables->select("a.id_ujian, e.lecturer_name, d.class_name, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
+        $this->datatables->select("a.id_ujian, e.lecturer_name, d.class_name, a.nama_ujian, b.course_name, a.jumlah_soal, CONCAT(a.start_time, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
         $this->datatables->from('m_ujian a');
-        $this->datatables->join('matkul b', 'a.course_id = b.id_matkul');
+        $this->datatables->join('course b', 'a.course_id = b.course_id');
         $this->datatables->join('kelas_dosen c', "a.lecturer_id = c.lecturer_id");
         $this->datatables->join('class d', 'c.kelas_id = d.class_id');
         $this->datatables->join('lecturer e', 'e.lecturer_id = c.lecturer_id');
@@ -31,7 +31,7 @@ class Ujian_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('m_ujian a');
         $this->db->join('lecturer b', 'a.lecturer_id=b.lecturer_id');
-        $this->db->join('matkul c', 'a.course_id=c.id_matkul');
+        $this->db->join('course c', 'a.course_id=c.course_id');
         $this->db->where('id_ujian', $id);
         return $this->db->get()->row();
     }
@@ -102,10 +102,10 @@ class Ujian_model extends CI_Model {
     public function getHasilUjian($teacher_id = null)
     {
         $this->datatables->select('b.id_ujian, b.nama_ujian, b.jumlah_soal, CONCAT(b.waktu, " Minute") as waktu, b.start_time');
-        $this->datatables->select('c.nama_matkul, d.lecturer_name');
+        $this->datatables->select('c.course_name, d.lecturer_name');
         $this->datatables->from('exam a');
         $this->datatables->join('m_ujian b', 'a.exam_id = b.id_ujian');
-        $this->datatables->join('matkul c', 'b.course_id = c.id_matkul');
+        $this->datatables->join('course c', 'b.course_id = c.course_id');
         $this->datatables->join('lecturer d', 'b.lecturer_id = d.lecturer_id');
         $this->datatables->group_by('b.id_ujian');
         if($teacher_id !== null){

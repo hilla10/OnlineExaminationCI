@@ -55,7 +55,7 @@ $(document).ready(function () {
         searchable: false,
       },
       { data: 'lecturer_name' },
-      { data: 'nama_matkul' },
+      { data: 'course_name' },
       { data: 'soal' },
       { data: 'created_on' },
     ],

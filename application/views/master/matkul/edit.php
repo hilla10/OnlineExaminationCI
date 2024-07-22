@@ -11,15 +11,15 @@
             <div class="col-sm-offset-4 col-sm-4">
                 <div class="my-2">
                     <div class="form-horizontal form-inline">
-                        <a href="<?=base_url('matkul')?>" class="btn btn-default btn-xs">
+                        <a href="<?=base_url('course')?>" class="btn btn-default btn-xs">
                             <i class="fa fa-arrow-left"></i> Cancel
                         </a>
                         <div class="pull-right">
-                            <span> Amount : </span><label for=""><?=count($matkul)?></label>
+                            <span> Amount : </span><label for=""><?=count($course)?></label>
                         </div>
                     </div>
                 </div>
-                <?=form_open('matkul/save', array('id'=>'matkul'), array('mode'=>'edit'))?>
+                <?=form_open('course/save', array('id'=>'course'), array('mode'=>'edit'))?>
                 <table id="form-table" class="table text-center table-condensed">
                     <thead>
                         <tr>
@@ -30,13 +30,13 @@
                     <tbody>
                         <?php 
                         $no = 1;
-                        foreach ($matkul as $row) : ?>
+                        foreach ($course as $row) : ?>
                         <tr>
                             <td><?=$no?></td>
                             <td>
                                 <div class="form-group">
-                                    <?=form_hidden('id_matkul['.$no.']', $row->id_matkul)?>
-                                    <input autofocus="autofocus" onfocus="this.select()" autocomplete="off" value="<?=$row->nama_matkul?>" type="text" name="nama_matkul[<?=$no?>]" class="input-sm form-control">
+                                    <?=form_hidden('course_id['.$no.']', $row->course_id)?>
+                                    <input autofocus="autofocus" onfocus="this.select()" autocomplete="off" value="<?=$row->course_name?>" type="text" name="course_name[<?=$no?>]" class="input-sm form-control">
                                     <small class="help-block text-right"></small>
                                 </div>
                             </td>
@@ -56,4 +56,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/master/matkul/edit.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/master/course/edit.js"></script>

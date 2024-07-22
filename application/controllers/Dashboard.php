@@ -45,8 +45,8 @@ class Dashboard extends CI_Controller {
 			],
 			[
 				'box' 		=> 'maroon',
-				'total' 	=> $this->dashboard->total('matkul'),
-				'title'		=> 'matkul',
+				'total' 	=> $this->dashboard->total('course'),
+				'title'		=> 'course',
 				'text'      => 'Course',
 				'icon'		=> 'th'
 			],
@@ -88,8 +88,8 @@ class Dashboard extends CI_Controller {
 		if ( $this->ion_auth->is_admin() ) {
 			$data['info_box'] = $this->admin_box();
 		} elseif ( $this->ion_auth->in_group('Lecturer') ) {
-			$matkul = ['matkul' => 'lecturer.course_id=matkul.id_matkul'];
-			$data['lecturer'] = $this->dashboard->get_where('lecturer', 'teacher_id', $user->username, $matkul)->row();
+			$course = ['course' => 'lecturer.course_id=course.course_id'];
+			$data['lecturer'] = $this->dashboard->get_where('lecturer', 'teacher_id', $user->username, $course)->row();
 
 			$class = ['class' => 'kelas_dosen.kelas_id=class.class_id'];
 			$data['class'] = $this->dashboard->get_where('kelas_dosen', 'lecturer_id' , $data['lecturer']->lecturer_id, $class, ['class_name'=>'ASC'])->result();

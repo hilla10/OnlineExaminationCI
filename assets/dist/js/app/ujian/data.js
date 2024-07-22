@@ -33,7 +33,7 @@ $(document).ready(function () {
         searchable: false,
       },
       { data: 'nama_ujian' },
-      { data: 'nama_matkul' },
+      { data: 'course_name' },
       { data: 'jumlah_soal' },
       { data: 'waktu' },
       { data: 'jenis' },

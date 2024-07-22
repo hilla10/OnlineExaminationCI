@@ -20,7 +20,7 @@
 			<!-- Optionally, you can add icons to the links -->
 			<?php 
 			$page = $this->uri->segment(1);
-			$master = ["department", "class", "matkul", "lecturer", "student"];
+			$master = ["department", "class", "course", "lecturer", "student"];
 			$relasi = ["kelasdosen", "jurusanmatkul"];
 			$users = ["users"];
 			?>
@@ -45,8 +45,8 @@
 							 Class
 						</a>
 					</li>
-					<li class="<?=$page==='matkul'?"active":""?>">
-						<a href="<?=base_url('matkul')?>">
+					<li class="<?=$page==='course'?"active":""?>">
+						<a href="<?=base_url('course')?>">
 							<i class="fa fa-bars"></i>
 							 Course
 						</a>

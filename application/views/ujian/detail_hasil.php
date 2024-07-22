@@ -45,7 +45,7 @@
                 <table class="table w-100">
                     <tr>
                         <th>Course</th>
-                        <td><?=$ujian->nama_matkul?></td>
+                        <td><?=$ujian->course_name?></td>
                     </tr>
                     <tr>
                         <th>Lecturer</th>

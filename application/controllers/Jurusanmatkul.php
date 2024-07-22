@@ -49,7 +49,7 @@ class JurusanMatkul extends CI_Controller {
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Add Course Department',
 			'subjudul'	=> 'Add Course Dept. Data',
-			'matkul'	=> $this->master->getMatkul()
+			'course'	=> $this->master->getMatkul()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('relasi/departmentmatkul/add');
@@ -62,8 +62,8 @@ class JurusanMatkul extends CI_Controller {
 			'user' 			=> $this->ion_auth->user()->row(),
 			'judul'			=> 'Edit Course Dept.',
 			'subjudul'		=> 'Edit Data Course Dept.',
-			'matkul'		=> $this->master->getMatkulById($id, true),
-			'id_matkul'		=> $id,
+			'course'		=> $this->master->getMatkulById($id, true),
+			'course_id'		=> $id,
 			'all_department'	=> $this->master->getAllJurusan(),
 			'department'		=> $this->master->getJurusanByIdMatkul($id)
 		];

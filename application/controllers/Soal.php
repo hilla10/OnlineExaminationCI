@@ -33,11 +33,11 @@ class Soal extends CI_Controller {
         ];
         
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua matkul
-            $data['matkul'] = $this->master->getAllMatkul();
+            //Jika admin maka tampilkan semua course
+            $data['course'] = $this->master->getAllMatkul();
         }else{
-            //Jika bukan maka matkul dipilih otomatis sesuai matkul lecturer
-            $data['matkul'] = $this->soal->getMatkulDosen($user->username);
+            //Jika bukan maka course dipilih otomatis sesuai course lecturer
+            $data['course'] = $this->soal->getMatkulDosen($user->username);
         }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -70,10 +70,10 @@ class Soal extends CI_Controller {
         ];
 
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua matkul
+            //Jika admin maka tampilkan semua course
             $data['lecturer'] = $this->soal->getAllDosen();
         }else{
-            //Jika bukan maka matkul dipilih otomatis sesuai matkul lecturer
+            //Jika bukan maka course dipilih otomatis sesuai course lecturer
             $data['lecturer'] = $this->soal->getMatkulDosen($user->username);
         }
 
@@ -93,10 +93,10 @@ class Soal extends CI_Controller {
         ];
         
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua matkul
+            //Jika admin maka tampilkan semua course
             $data['lecturer'] = $this->soal->getAllDosen();
         }else{
-            //Jika bukan maka matkul dipilih otomatis sesuai matkul lecturer
+            //Jika bukan maka course dipilih otomatis sesuai course lecturer
             $data['lecturer'] = $this->soal->getMatkulDosen($user->username);
         }
 

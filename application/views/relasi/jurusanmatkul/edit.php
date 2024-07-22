@@ -10,10 +10,10 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                    <?=form_open('jurusanmatkul/save', array('id'=>'jurusanmatkul'), array('method'=>'edit', 'course_id'=>$id_matkul))?>
+                    <?=form_open('jurusanmatkul/save', array('id'=>'jurusanmatkul'), array('method'=>'edit', 'course_id'=>$course_id))?>
                 <div class="form-group">
                     <label>Course</label>
-                    <input type="text" readonly="readonly" value="<?=$matkul->nama_matkul?>" class="form-control">
+                    <input type="text" readonly="readonly" value="<?=$course->course_name?>" class="form-control">
                     <small class="help-block text-right"></small>
                 </div>
                 <div class="form-group">

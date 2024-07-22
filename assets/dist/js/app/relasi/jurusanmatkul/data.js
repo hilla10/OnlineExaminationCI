@@ -50,7 +50,7 @@ $(document).ready(function () {
         orderable: false,
         searchable: false,
       },
-      { data: 'nama_matkul' },
+      { data: 'course_name' },
     ],
     columnDefs: [
       {
@@ -60,9 +60,9 @@ $(document).ready(function () {
         title: 'Jurusan',
         data: 'department_name',
         render: function (data, type, row, meta) {
-          let matkul = data.split(',');
+          let course = data.split(',');
           let badge = [];
-          $.each(matkul, function (i, val) {
+          $.each(course, function (i, val) {
             var newmatkul = `<span class="badge bg-green">${val}</span>`;
             badge.push(newmatkul);
           });
@@ -73,7 +73,7 @@ $(document).ready(function () {
         targets: 3,
         searchable: false,
         orderable: false,
-        data: 'id_matkul',
+        data: 'course_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
 									<a href="${base_url}jurusanmatkul/edit/${data}" class="btn btn-warning btn-xs">
@@ -84,7 +84,7 @@ $(document).ready(function () {
       },
       {
         targets: 4,
-        data: 'id_matkul',
+        data: 'course_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
 									<input name="checked[]" class="check" value="${data}" type="checkbox">

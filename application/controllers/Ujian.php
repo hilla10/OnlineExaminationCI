@@ -73,7 +73,7 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Add Exam',
-			'matkul'	=> $this->soal->getMatkulDosen($user->username),
+			'course'	=> $this->soal->getMatkulDosen($user->username),
 			'lecturer'		=> $this->ujian->getIdDosen($user->username),
 		];
 
@@ -92,7 +92,7 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Edit Exam',
-			'matkul'	=> $this->soal->getMatkulDosen($user->username),
+			'course'	=> $this->soal->getMatkulDosen($user->username),
 			'lecturer'		=> $this->ujian->getIdDosen($user->username),
 			'ujian'		=> $this->ujian->getUjianById($id),
 		];

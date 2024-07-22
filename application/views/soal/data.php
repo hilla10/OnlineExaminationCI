@@ -15,13 +15,13 @@
 				<?php if ( $this->ion_auth->is_admin() ) : ?>
 					<select id="matkul_filter" class="form-control select2" style="width:100% !important">
 						<option value="all">All Course</option>
-						<?php foreach ($matkul as $m) :?>
-							<option value="<?=$m->id_matkul?>"><?=$m->nama_matkul?></option>
+						<?php foreach ($course as $m) :?>
+							<option value="<?=$m->course_id?>"><?=$m->course_name?></option>
 						<?php endforeach; ?>
 					</select>
 				<?php endif; ?>
 				<?php if ( $this->ion_auth->in_group('Lecturer') ) : ?>				
-					<input id="course_id" value="<?=$matkul->nama_matkul;?>" type="text" readonly="readonly" class="form-control">
+					<input id="course_id" value="<?=$course->course_name;?>" type="text" readonly="readonly" class="form-control">
 				<?php endif; ?>
 			</div>
 			<div class="col-sm-4">
@@ -72,12 +72,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#matkul_filter').on('change', function(){
-		let id_matkul = $(this).val();
+		let course_id = $(this).val();
 		let src = '<?=base_url()?>soal/data';
 		let url;
 
-		if(id_matkul !== 'all'){
-			let src2 = src + '/' + id_matkul;
+		if(course_id !== 'all'){
+			let src2 = src + '/' + course_id;
 			url = $(this).prop('checked') === true ? src : src2;
 		}else{
 			url = src;
@@ -90,10 +90,10 @@ $(document).ready(function(){
 <?php if ( $this->ion_auth->in_group('Lecturer') ) : ?>
 <script type="text/javascript">
 $(document).ready(function(){
-	let id_matkul = '<?=$matkul->course_id?>';
-	let lecturer_id = '<?=$matkul->lecturer_id?>';
+	let course_id = '<?=$course->course_id?>';
+	let lecturer_id = '<?=$course->lecturer_id?>';
 	let src = '<?=base_url()?>soal/data';
-	let url = src + '/' + id_matkul + '/' + lecturer_id;
+	let url = src + '/' + course_id + '/' + lecturer_id;
 
 	table.ajax.url(url).load();
 });

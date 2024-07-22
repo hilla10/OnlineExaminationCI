@@ -131,8 +131,8 @@ class Master_model extends CI_Model
             $this->db->select('*');
             $this->db->from('department');
             $this->db->where_not_in('department_id', $department_id);
-            $matkul = $this->db->get()->result();
-            return $matkul;
+            $course = $this->db->get()->result();
+            return $course;
         }
     }
 
@@ -148,9 +148,9 @@ class Master_model extends CI_Model
 
     public function getDataDosen()
     {
-        $this->datatables->select('a.lecturer_id,a.teacher_id, a.lecturer_name, a.email, a.course_id, b.nama_matkul, (SELECT COUNT(id) FROM users WHERE username = a.teacher_id OR email = a.email) AS ada');
+        $this->datatables->select('a.lecturer_id,a.teacher_id, a.lecturer_name, a.email, a.course_id, b.course_name, (SELECT COUNT(id) FROM users WHERE username = a.teacher_id OR email = a.email) AS ada');
         $this->datatables->from('lecturer a');
-        $this->datatables->join('matkul b', 'a.course_id=b.id_matkul');
+        $this->datatables->join('course b', 'a.course_id=b.course_id');
         return $this->datatables->generate();
     }
 
@@ -166,24 +166,24 @@ class Master_model extends CI_Model
 
     public function getDataMatkul()
     {
-        $this->datatables->select('id_matkul, nama_matkul');
-        $this->datatables->from('matkul');
+        $this->datatables->select('course_id, course_name');
+        $this->datatables->from('course');
         return $this->datatables->generate();
     }
 
     public function getAllMatkul()
     {
-        return $this->db->get('matkul')->result();
+        return $this->db->get('course')->result();
     }
 
     public function getMatkulById($id, $single = false)
     {
         if ($single === false) {
-            $this->db->where_in('id_matkul', $id);
-            $this->db->order_by('nama_matkul');
-            $query = $this->db->get('matkul')->result();
+            $this->db->where_in('course_id', $id);
+            $this->db->order_by('course_name');
+            $query = $this->db->get('course')->result();
         } else {
-            $query = $this->db->get_where('matkul', array('id_matkul'=>$id))->row();
+            $query = $this->db->get_where('course', array('course_id'=>$id))->row();
         }
         return $query;
     }
@@ -249,11 +249,11 @@ class Master_model extends CI_Model
 
     public function getJurusanMatkul()
     {
-        $this->datatables->select('department_course.id, matkul.id_matkul, matkul.nama_matkul, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
+        $this->datatables->select('department_course.id, course.course_id, course.course_name, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
         $this->datatables->from('department_course');
-        $this->datatables->join('matkul', 'course_id=id_matkul');
+        $this->datatables->join('course', 'course_id=course_id');
         $this->datatables->join('department', 'department_id=department_id');
-        $this->datatables->group_by('matkul.nama_matkul');
+        $this->datatables->group_by('course.course_name');
         return $this->datatables->generate();
     }
 
@@ -264,18 +264,18 @@ class Master_model extends CI_Model
         if ($id !== null) {
             $this->db->where_not_in('course_id', [$id]);
         }
-        $matkul = $this->db->get()->result();
-        $id_matkul = [];
-        foreach ($matkul as $d) {
-            $id_matkul[] = $d->course_id;
+        $course = $this->db->get()->result();
+        $course_id = [];
+        foreach ($course as $d) {
+            $course_id[] = $d->course_id;
         }
-        if ($id_matkul === []) {
-            $id_matkul = null;
+        if ($course_id === []) {
+            $course_id = null;
         }
 
-        $this->db->select('id_matkul, nama_matkul');
-        $this->db->from('matkul');
-        $this->db->where_not_in('id_matkul', $id_matkul);
+        $this->db->select('course_id, course_name');
+        $this->db->from('course');
+        $this->db->where_not_in('course_id', $course_id);
         return $this->db->get()->result();
     }
 

@@ -36,7 +36,7 @@ class Matkul extends CI_Controller
 			'subjudul' => 'Course Data'
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('master/matkul/data');
+		$this->load->view('master/course/data');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -54,7 +54,7 @@ class Matkul extends CI_Controller
 			'banyak'	=> $this->input->post('banyak', true)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('master/matkul/add');
+		$this->load->view('master/course/add');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -62,44 +62,44 @@ class Matkul extends CI_Controller
 	{
 		$chk = $this->input->post('checked', true);
 		if (!$chk) {
-			redirect('matkul');
+			redirect('course');
 		} else {
-			$matkul = $this->master->getMatkulById($chk);
+			$course = $this->master->getMatkulById($chk);
 			$data = [
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Course',
 				'subjudul'	=> 'Edit Course Data',
-				'matkul'	=> $matkul
+				'course'	=> $course
 			];
 			$this->load->view('_templates/dashboard/_header.php', $data);
-			$this->load->view('master/matkul/edit');
+			$this->load->view('master/course/edit');
 			$this->load->view('_templates/dashboard/_footer.php');
 		}
 	}
 
 	public function save()
 	{
-		$rows = count($this->input->post('nama_matkul', true));
+		$rows = count($this->input->post('course_name', true));
 		$mode = $this->input->post('mode', true);
 		for ($i = 1; $i <= $rows; $i++) {
-			$nama_matkul = 'nama_matkul[' . $i . ']';
-			$this->form_validation->set_rules($nama_matkul, 'Course', 'required');
+			$course_name = 'course_name[' . $i . ']';
+			$this->form_validation->set_rules($course_name, 'Course', 'required');
 			$this->form_validation->set_message('required', '{field} Required');
 
 			if ($this->form_validation->run() === FALSE) {
 				$error[] = [
-					$nama_matkul => form_error($nama_matkul)
+					$course_name => form_error($course_name)
 				];
 				$status = FALSE;
 			} else {
 				if ($mode == 'add') {
 					$insert[] = [
-						'nama_matkul' => $this->input->post($nama_matkul, true)
+						'course_name' => $this->input->post($course_name, true)
 					];
 				} else if ($mode == 'edit') {
 					$update[] = array(
-						'id_matkul'	=> $this->input->post('id_matkul[' . $i . ']', true),
-						'nama_matkul' 	=> $this->input->post($nama_matkul, true)
+						'course_id'	=> $this->input->post('course_id[' . $i . ']', true),
+						'course_name' 	=> $this->input->post($course_name, true)
 					);
 				}
 				$status = TRUE;
@@ -107,10 +107,10 @@ class Matkul extends CI_Controller
 		}
 		if ($status) {
 			if ($mode == 'add') {
-				$this->master->create('matkul', $insert, true);
+				$this->master->create('course', $insert, true);
 				$data['insert']	= $insert;
 			} else if ($mode == 'edit') {
-				$this->master->update('matkul', $update, 'id_matkul', null, true);
+				$this->master->update('course', $update, 'course_id', null, true);
 				$data['update'] = $update;
 			}
 		} else {
@@ -128,7 +128,7 @@ class Matkul extends CI_Controller
 		if (!$chk) {
 			$this->output_json(['status' => false]);
 		} else {
-			if ($this->master->delete('matkul', $chk, 'id_matkul')) {
+			if ($this->master->delete('course', $chk, 'course_id')) {
 				$this->output_json(['status' => true, 'total' => count($chk)]);
 			}
 		}
@@ -144,7 +144,7 @@ class Matkul extends CI_Controller
 		if ($import_data != null) $data['import'] = $import_data;
 
 		$this->load->view('_templates/dashboard/_header', $data);
-		$this->load->view('master/matkul/import');
+		$this->load->view('master/course/import');
 		$this->load->view('_templates/dashboard/_footer');
 	}
 
@@ -182,31 +182,31 @@ class Matkul extends CI_Controller
 
 			$spreadsheet = $reader->load($file);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray();
-			$matkul = [];
+			$course = [];
 			for ($i = 1; $i < count($sheetData); $i++) {
 				if ($sheetData[$i][0] != null) {
-					$matkul[] = $sheetData[$i][0];
+					$course[] = $sheetData[$i][0];
 				}
 			}
 
 			unlink($file);
 
-			$this->import($matkul);
+			$this->import($course);
 		}
 	}
 	public function do_import()
 	{
-		$data = json_decode($this->input->post('matkul', true));
+		$data = json_decode($this->input->post('course', true));
 		$department = [];
 		foreach ($data as $j) {
-			$department[] = ['nama_matkul' => $j];
+			$department[] = ['course_name' => $j];
 		}
 
-		$save = $this->master->create('matkul', $department, true);
+		$save = $this->master->create('course', $department, true);
 		if ($save) {
-			redirect('matkul');
+			redirect('course');
 		} else {
-			redirect('matkul/import');
+			redirect('course/import');
 		}
 	}
 }

@@ -89,7 +89,7 @@ All the detailed information are provided below!
 <table id="data-hasil">
     <tr>
         <th>Course</th>
-        <td>{$ujian->nama_matkul}</td>
+        <td>{$ujian->course_name}</td>
     </tr>
     <tr>
         <th>Exam Name</th>

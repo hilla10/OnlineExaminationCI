@@ -74,7 +74,7 @@ All the detailed information are provided below with Highest, Lowest and Average
         <th><b>Exam Name</b></th>
         <td>{$ujian->nama_ujian}</td>
         <th><b>Course</b></th>
-        <td>{$ujian->nama_matkul}</td> 
+        <td>{$ujian->course_name}</td> 
     </tr>
     <tr>
         <th><b>Total Ques.</b></th>

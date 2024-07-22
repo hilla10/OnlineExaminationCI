@@ -52,7 +52,7 @@ $(document).ready(function () {
       { data: 'teacher_id' },
       { data: 'lecturer_name' },
       { data: 'email' },
-      { data: 'nama_matkul' },
+      { data: 'course_name' },
     ],
     columnDefs: [
       {

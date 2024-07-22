@@ -12,7 +12,7 @@
             <div class="col-sm-4">
                 <div class="alert bg-purple">
                     <h4>Course <i class="fa fa-book pull-right"></i></h4>
-                    <p><?=$matkul->nama_matkul?></p>
+                    <p><?=$course->course_name?></p>
                 </div>
                 <div class="alert bg-purple">
                     <h4>Lecturer <i class="fa fa-address-book-o pull-right"></i></h4>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <?=form_open('ujian/save', array('id'=>'formujian'), array('method'=>'add','lecturer_id'=>$lecturer->lecturer_id, 'course_id'=>$matkul->course_id))?>
+                <?=form_open('ujian/save', array('id'=>'formujian'), array('method'=>'add','lecturer_id'=>$lecturer->lecturer_id, 'course_id'=>$course->course_id))?>
                 <div class="form-group">
                     <label for="nama_ujian">Exam Name</label>
                     <input autofocus="autofocus" onfocus="this.select()" placeholder="Exam Name" type="text" class="form-control" name="nama_ujian">

@@ -26,8 +26,8 @@
                     <label>Course</label>
                     <select name="course_id" class="form-control select2" style="width: 100%!important">
                         <option value="" disabled selected></option>
-                        <?php foreach ($matkul as $m) : ?>
-                            <option value="<?=$m->id_matkul?>"><?=$m->nama_matkul?></option>
+                        <?php foreach ($course as $m) : ?>
+                            <option value="<?=$m->course_id?>"><?=$m->course_name?></option>
                         <?php endforeach; ?>
                     </select>
                     <small class="help-block text-right"></small>

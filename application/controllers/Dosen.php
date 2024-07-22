@@ -46,7 +46,7 @@ class Lecturer extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Add Lecturer',
 			'subjudul' => 'Add Lecturer Data',
-			'matkul'	=> $this->master->getAllMatkul()
+			'course'	=> $this->master->getAllMatkul()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('master/lecturer/add');
@@ -59,7 +59,7 @@ class Lecturer extends CI_Controller
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Edit Lecturer',
 			'subjudul'	=> 'Edit Lecturer Data',
-			'matkul'	=> $this->master->getAllMatkul(),
+			'course'	=> $this->master->getAllMatkul(),
 			'data' 		=> $this->master->getDosenById($id)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -74,7 +74,7 @@ class Lecturer extends CI_Controller
 		$teacher_id 		= $this->input->post('teacher_id', true);
 		$lecturer_name = $this->input->post('lecturer_name', true);
 		$email 		= $this->input->post('email', true);
-		$matkul 	= $this->input->post('matkul', true);
+		$course 	= $this->input->post('course', true);
 		if ($method == 'add') {
 			$u_nip = '|is_unique[lecturer.teacher_id]';
 			$u_email = '|is_unique[lecturer.email]';
@@ -86,7 +86,7 @@ class Lecturer extends CI_Controller
 		$this->form_validation->set_rules('teacher_id', 'NIP', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nip);
 		$this->form_validation->set_rules('lecturer_name', 'Nama Lecturer', 'required|trim|min_length[3]|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
-		$this->form_validation->set_rules('matkul', 'Mata Kuliah', 'required');
+		$this->form_validation->set_rules('course', 'Mata Kuliah', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = [
@@ -95,7 +95,7 @@ class Lecturer extends CI_Controller
 					'teacher_id' => form_error('teacher_id'),
 					'lecturer_name' => form_error('lecturer_name'),
 					'email' => form_error('email'),
-					'matkul' => form_error('matkul'),
+					'course' => form_error('course'),
 				]
 			];
 			$this->output_json($data);
@@ -104,7 +104,7 @@ class Lecturer extends CI_Controller
 				'teacher_id'			=> $teacher_id,
 				'lecturer_name' 	=> $lecturer_name,
 				'email' 		=> $email,
-				'course_id' 	=> $matkul
+				'course_id' 	=> $course
 			];
 			if ($method === 'add') {
 				$action = $this->master->create('lecturer', $input);
@@ -175,7 +175,7 @@ class Lecturer extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Lecturer',
 			'subjudul' => 'Import Lecturer Data',
-			'matkul' => $this->master->getAllMatkul()
+			'course' => $this->master->getAllMatkul()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 

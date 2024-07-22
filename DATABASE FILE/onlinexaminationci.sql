@@ -255,19 +255,19 @@ INSERT INTO `student` (`student_id`, `name`, `student_number`, `email`, `gender`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matkul`
+-- Table structure for table `course`
 --
 
-CREATE TABLE `matkul` (
-  `id_matkul` int(11) NOT NULL,
-  `nama_matkul` varchar(50) NOT NULL
+CREATE TABLE `course` (
+  `course_id` int(11) NOT NULL,
+  `course_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `matkul`
+-- Dumping data for table `course`
 --
 
-INSERT INTO `matkul` (`id_matkul`, `nama_matkul`) VALUES
+INSERT INTO `course` (`course_id`, `course_name`) VALUES
 (1, 'Database Management'),
 (2, 'Internet Programming'),
 (3, 'Networking'),
@@ -503,10 +503,10 @@ ALTER TABLE `student`
   ADD KEY `kelas_id` (`kelas_id`);
 
 --
--- Indexes for table `matkul`
+-- Indexes for table `course`
 --
-ALTER TABLE `matkul`
-  ADD PRIMARY KEY (`id_matkul`);
+ALTER TABLE `course`
+  ADD PRIMARY KEY (`course_id`);
 
 --
 -- Indexes for table `m_ujian`
@@ -593,10 +593,10 @@ ALTER TABLE `login_attempts`
 ALTER TABLE `student`
   MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `matkul`
+-- AUTO_INCREMENT for table `course`
 --
-ALTER TABLE `matkul`
-  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `course`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `m_ujian`
 --
@@ -625,7 +625,7 @@ ALTER TABLE `users_groups`
 -- Constraints for table `lecturer`
 --
 ALTER TABLE `lecturer`
-  ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
+  ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
 -- Constraints for table `exam`
@@ -639,7 +639,7 @@ ALTER TABLE `exam`
 --
 ALTER TABLE `department_course`
   ADD CONSTRAINT `department_course_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
-  ADD CONSTRAINT `department_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
+  ADD CONSTRAINT `department_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
 -- Constraints for table `kelas_dosen`
@@ -659,13 +659,13 @@ ALTER TABLE `student`
 --
 ALTER TABLE `m_ujian`
   ADD CONSTRAINT `m_ujian_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
-  ADD CONSTRAINT `m_ujian_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`);
+  ADD CONSTRAINT `m_ujian_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
 -- Constraints for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `matkul` (`id_matkul`),
+  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
   ADD CONSTRAINT `tb_soal_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`);
 
 --

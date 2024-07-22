@@ -15,11 +15,11 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="<?= base_url('uploads/import/format/matkul.xlsx') ?>" class="btn-default btn">Download Format</a>
+            <a href="<?= base_url('uploads/import/format/course.xlsx') ?>" class="btn-default btn">Download Format</a>
         </div>
         <br>
         <div class="row">
-            <?= form_open_multipart('matkul/preview'); ?>
+            <?= form_open_multipart('course/preview'); ?>
             <label for="file" class="col-sm-offset-1 col-sm-3 text-right">Choose File</label>
             <div class="col-sm-4">
                 <div class="form-group">
@@ -47,11 +47,11 @@
                                     echo '<tr><td colspan="2" class="text-center">Empty data! Make sure you use the format provided.</td></tr>';
                                 } else {
                                     $no = 1;
-                                    foreach ($import as $matkul) :
+                                    foreach ($import as $course) :
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $matkul; ?></td>
+                                        <td><?= $course; ?></td>
                                     </tr>
                             <?php
                                     endforeach;
@@ -61,7 +61,7 @@
                     </table>
                     <?php if (!empty($import)) : ?>
 
-                        <?= form_open('matkul/do_import', null, ['matkul' => json_encode($import)]); ?>
+                        <?= form_open('course/do_import', null, ['course' => json_encode($import)]); ?>
                         <button type='submit' class='btn btn-block btn-flat bg-purple'>Import</button>
                         <?= form_close(); ?>
 
