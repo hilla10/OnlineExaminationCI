@@ -60,7 +60,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 $pdf->AddPage();
 
-$mulai = strftime('%A, %d %B %Y', strtotime($ujian->tgl_mulai));
+$mulai = strftime('%A, %d %B %Y', strtotime($ujian->start_time));
 $selesai = strftime('%A, %d %B %Y', strtotime($ujian->terlambat));
 
 // create some HTML content

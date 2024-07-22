@@ -93,8 +93,8 @@ CREATE TABLE `exam` (
   `correct_count` int(11) NOT NULL,
   `score` decimal(10,2) NOT NULL,
   `weighted_score` decimal(10,2) NOT NULL,
-  `tgl_mulai` datetime NOT NULL,
-  `tgl_selesai` datetime NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
   `status` enum('Y','N') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -102,7 +102,7 @@ CREATE TABLE `exam` (
 -- Dumping data for table `exam`
 --
 
-INSERT INTO `exam` (`id`, `exam_id`, `student_id`, `question_list`, `answer_list`, `correct_count`, `score`, `weighted_score`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
+INSERT INTO `exam` (`id`, `exam_id`, `student_id`, `question_list`, `answer_list`, `correct_count`, `score`, `weighted_score`, `start_time`, `end_time`, `status`) VALUES
 (1, 1, 1, '1,2,3', '1:B:N,2:A:N,3:D:N', 3, '100.00', '100.00', '2019-02-16 08:35:05', '2019-02-16 08:36:05', 'N'),
 (2, 2, 1, '3,2,1', '3:D:N,2:C:N,1:D:N', 1, '33.00', '100.00', '2019-02-16 10:11:14', '2019-02-16 10:12:14', 'N'),
 (3, 3, 1, '5,6', '5:C:N,6:D:N', 2, '100.00', '100.00', '2019-02-16 11:06:25', '2019-02-16 11:07:25', 'N'),
@@ -289,7 +289,7 @@ CREATE TABLE `m_ujian` (
   `jumlah_soal` int(11) NOT NULL,
   `waktu` int(11) NOT NULL,
   `jenis` enum('Random','Sort') NOT NULL,
-  `tgl_mulai` datetime NOT NULL,
+  `start_time` datetime NOT NULL,
   `terlambat` datetime NOT NULL,
   `token` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -298,7 +298,7 @@ CREATE TABLE `m_ujian` (
 -- Dumping data for table `m_ujian`
 --
 
-INSERT INTO `m_ujian` (`id_ujian`, `lecturer_id`, `course_id`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
+INSERT INTO `m_ujian` (`id_ujian`, `lecturer_id`, `course_id`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `start_time`, `terlambat`, `token`) VALUES
 (1, 1, 1, 'First Test', 3, 1, 'Random', '2019-02-15 17:25:40', '2019-02-20 17:25:44', 'DPEHL'),
 (2, 1, 1, 'Second Test', 3, 1, 'Random', '2019-02-16 10:05:08', '2019-02-17 10:05:10', 'GOEMB'),
 (3, 3, 5, 'Try Out 01', 2, 1, 'Random', '2019-02-16 07:00:00', '2019-02-28 14:00:00', 'GETQB'),

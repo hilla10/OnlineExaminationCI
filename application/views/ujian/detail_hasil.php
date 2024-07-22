@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <th>Start Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->tgl_mulai))?></td>
+                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->start_time))?></td>
                     </tr>
                     <tr>
                         <th>Completion Date</th>

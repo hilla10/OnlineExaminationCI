@@ -24,7 +24,7 @@ if(time() >= $soal->waktu_habis)
             <div class="box-header with-border">
                 <h3 class="box-title"><span class="badge bg-blue">Question #<span id="soalke"></span> </span></h3>
                 <div class="box-tools pull-right">
-                    <span class="badge bg-red">Remaining time <span class="sisawaktu" data-time="<?=$soal->tgl_selesai?>"></span></span>
+                    <span class="badge bg-red">Remaining time <span class="sisawaktu" data-time="<?=$soal->end_time?>"></span></span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                 </div>

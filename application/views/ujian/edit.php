@@ -32,13 +32,13 @@
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="tgl_mulai">Start Date</label>
-                    <input id="tgl_mulai" name="tgl_mulai" type="text" class="datetimepicker form-control" placeholder="Start Date">
+                    <label for="start_time">Start Date</label>
+                    <input id="start_time" name="start_time" type="text" class="datetimepicker form-control" placeholder="Start Date">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="tgl_selesai">Completion Date</label>
-                    <input id="tgl_selesai" name="tgl_selesai" type="text" class="datetimepicker form-control" placeholder="Completion Date">
+                    <label for="end_time">Completion Date</label>
+                    <input id="end_time" name="end_time" type="text" class="datetimepicker form-control" placeholder="Completion Date">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
@@ -68,7 +68,7 @@
 </div>
 
 <script type="text/javascript">
-    var tgl_mulai = '<?=$ujian->tgl_mulai?>';
+    var start_time = '<?=$ujian->start_time?>';
     var terlambat = '<?=$ujian->terlambat?>';
 </script>
 

@@ -119,8 +119,8 @@ class Ujian extends CI_Controller {
 
 		$this->form_validation->set_rules('nama_ujian', 'Exam Name', 'required|alpha_numeric_spaces|max_length[50]');
 		$this->form_validation->set_rules('jumlah_soal', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Soal tidak cukup, anda hanya punya {$jml} soal"]);
-		$this->form_validation->set_rules('tgl_mulai', 'Start Date', 'required');
-		$this->form_validation->set_rules('tgl_selesai', 'Completion Date', 'required');
+		$this->form_validation->set_rules('start_time', 'Start Date', 'required');
+		$this->form_validation->set_rules('end_time', 'Completion Date', 'required');
 		$this->form_validation->set_rules('waktu', 'Time', 'required|integer|max_length[4]|greater_than[0]');
 		$this->form_validation->set_rules('jenis', 'Random Question', 'required|in_list[Random,Sort]');
 	}
@@ -135,8 +135,8 @@ class Ujian extends CI_Controller {
 		$course_id 		= $this->input->post('course_id', true);
 		$nama_ujian 	= $this->input->post('nama_ujian', true);
 		$jumlah_soal 	= $this->input->post('jumlah_soal', true);
-		$tgl_mulai 		= $this->convert_tgl($this->input->post('tgl_mulai', 	true));
-		$tgl_selesai	= $this->convert_tgl($this->input->post('tgl_selesai', true));
+		$start_time 		= $this->convert_tgl($this->input->post('start_time', 	true));
+		$end_time	= $this->convert_tgl($this->input->post('end_time', true));
 		$waktu			= $this->input->post('waktu', true);
 		$jenis			= $this->input->post('jenis', true);
 		$token 			= strtoupper(random_string('alpha', 5));
@@ -146,8 +146,8 @@ class Ujian extends CI_Controller {
 			$data['errors'] = [
 				'nama_ujian' 	=> form_error('nama_ujian'),
 				'jumlah_soal' 	=> form_error('jumlah_soal'),
-				'tgl_mulai' 	=> form_error('tgl_mulai'),
-				'tgl_selesai' 	=> form_error('tgl_selesai'),
+				'start_time' 	=> form_error('start_time'),
+				'end_time' 	=> form_error('end_time'),
 				'waktu' 		=> form_error('waktu'),
 				'jenis' 		=> form_error('jenis'),
 			];
@@ -155,8 +155,8 @@ class Ujian extends CI_Controller {
 			$input = [
 				'nama_ujian' 	=> $nama_ujian,
 				'jumlah_soal' 	=> $jumlah_soal,
-				'tgl_mulai' 	=> $tgl_mulai,
-				'terlambat' 	=> $tgl_selesai,
+				'start_time' 	=> $start_time,
+				'terlambat' 	=> $end_time,
 				'waktu' 		=> $waktu,
 				'jenis' 		=> $jenis,
 			];
@@ -315,8 +315,8 @@ class Ujian extends CI_Controller {
 				'correct_count'		=> 0,
 				'score'			=> 0,
 				'weighted_score'	=> 0,
-				'tgl_mulai'		=> $time_mulai,
-				'tgl_selesai'	=> $waktu_selesai,
+				'start_time'		=> $time_mulai,
+				'end_time'	=> $waktu_selesai,
 				'status'		=> 'Y'
 			];
 			$this->master->create('exam', $input);

@@ -54,7 +54,7 @@ $(document).ready(function () {
       { data: 'lecturer_name' },
       { data: 'jumlah_soal' },
       { data: 'waktu' },
-      { data: 'tgl_mulai' },
+      { data: 'start_time' },
       {
         orderable: false,
         searchable: false,

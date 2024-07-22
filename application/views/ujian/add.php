@@ -32,13 +32,13 @@
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="tgl_mulai">Start Date</label>
-                    <input name="tgl_mulai" type="text" class="datetimepicker form-control" placeholder="Start Date">
+                    <label for="start_time">Start Date</label>
+                    <input name="start_time" type="text" class="datetimepicker form-control" placeholder="Start Date">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="tgl_selesai">Date of completion</label>
-                    <input name="tgl_selesai" type="text" class="datetimepicker form-control" placeholder="Date of completion">
+                    <label for="end_time">Date of completion</label>
+                    <input name="end_time" type="text" class="datetimepicker form-control" placeholder="Date of completion">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">

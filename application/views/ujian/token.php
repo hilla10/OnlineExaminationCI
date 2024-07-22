@@ -59,7 +59,7 @@
                             </p>
                         </div>
                         <?php
-                        $mulai = strtotime($ujian->tgl_mulai);
+                        $mulai = strtotime($ujian->start_time);
                         $terlambat = strtotime($ujian->terlambat);
                         $now = time();
                         if($mulai > $now) : 
@@ -67,7 +67,7 @@
                         <div class="callout callout-success">
                             <strong><i class="fa fa-clock-o"></i> The exam will start on</strong>
                             <br>
-                            <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->tgl_mulai))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
+                            <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                         </div>
                         <?php elseif( $terlambat > $now ) : ?>
                         <button id="btncek" data-id="<?=$ujian->id_ujian?>" class="btn btn-success btn-lg mb-4">

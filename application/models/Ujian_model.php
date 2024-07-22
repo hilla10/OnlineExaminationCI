@@ -5,7 +5,7 @@ class Ujian_model extends CI_Model {
     
     public function getDataUjian($id)
     {
-        $this->datatables->select('a.id_ujian, a.token, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.tgl_mulai, " <br/> (", a.waktu, " Minute)") as waktu, a.jenis');
+        $this->datatables->select('a.id_ujian, a.token, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, " <br/> (", a.waktu, " Minute)") as waktu, a.jenis');
         $this->datatables->from('m_ujian a');
         $this->datatables->join('matkul b', 'a.course_id = b.id_matkul');
         if($id!==null){
@@ -16,7 +16,7 @@ class Ujian_model extends CI_Model {
     
     public function getListUjian($id, $kelas)
     {
-        $this->datatables->select("a.id_ujian, e.lecturer_name, d.nama_kelas, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.tgl_mulai, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
+        $this->datatables->select("a.id_ujian, e.lecturer_name, d.nama_kelas, a.nama_ujian, b.nama_matkul, a.jumlah_soal, CONCAT(a.start_time, ' <br/> (', a.waktu, ' Minute)') as waktu,  (SELECT COUNT(id) FROM exam h WHERE h.student_id = {$id} AND h.exam_id = a.id_ujian) AS ada");
         $this->datatables->from('m_ujian a');
         $this->datatables->join('matkul b', 'a.course_id = b.id_matkul');
         $this->datatables->join('kelas_dosen c', "a.lecturer_id = c.lecturer_id");
@@ -62,7 +62,7 @@ class Ujian_model extends CI_Model {
 
     public function HslUjian($id, $mhs)
     {
-        $this->db->select('*, UNIX_TIMESTAMP(tgl_selesai) as waktu_habis');
+        $this->db->select('*, UNIX_TIMESTAMP(end_time) as waktu_habis');
         $this->db->from('exam');
         $this->db->where('exam_id', $id);
         $this->db->where('student_id', $mhs);
@@ -101,7 +101,7 @@ class Ujian_model extends CI_Model {
 
     public function getHasilUjian($teacher_id = null)
     {
-        $this->datatables->select('b.id_ujian, b.nama_ujian, b.jumlah_soal, CONCAT(b.waktu, " Minute") as waktu, b.tgl_mulai');
+        $this->datatables->select('b.id_ujian, b.nama_ujian, b.jumlah_soal, CONCAT(b.waktu, " Minute") as waktu, b.start_time');
         $this->datatables->select('c.nama_matkul, d.lecturer_name');
         $this->datatables->from('exam a');
         $this->datatables->join('m_ujian b', 'a.exam_id = b.id_ujian');
