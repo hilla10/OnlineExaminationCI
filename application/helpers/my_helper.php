@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-function tampil_media($file,$width="",$height="") {
+function display_media($file,$width="",$height="") {
 	$ret = '';
 
 	$pc_file = explode(".", $file);

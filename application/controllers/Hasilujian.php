@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class HasilUjian extends CI_Controller {
+class examResult extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -11,7 +11,7 @@ class HasilUjian extends CI_Controller {
 		
 		$this->load->library(['datatables']);// Load Library Ignited-Datatables
 		$this->load->model('Master_model', 'master');
-		$this->load->model('Ujian_model', 'ujian');
+		$this->load->model('Exam_model', 'save_one');
 		
 		$this->user = $this->ion_auth->user()->row();
 	}
@@ -24,18 +24,18 @@ class HasilUjian extends CI_Controller {
 
 	public function data()
 	{
-		$nip_dosen = null;
+		$nip_lecturer = null;
 		
 		if( $this->ion_auth->in_group('Lecturer') ) {
-			$nip_dosen = $this->user->username;
+			$nip_lecturer = $this->user->username;
 		}
 
-		$this->output_json($this->ujian->getHasilUjian($nip_dosen), false);
+		$this->output_json($this->save_one->getExamResults($nip_lecturer), false);
 	}
 
 	public function ScoreMhs($id)
 	{
-		$this->output_json($this->ujian->HslUjianById($id, true), false);
+		$this->output_json($this->save_one->ExamResultsByID($id, true), false);
 	}
 
 	public function index()
@@ -46,25 +46,25 @@ class HasilUjian extends CI_Controller {
 			'subjudul'=> 'Exam results',
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/hasil');
+		$this->load->view('save_one/hasil');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 	
 	public function detail($id)
 	{
-		$ujian = $this->ujian->getUjianById($id);
-		$score = $this->ujian->bandingScore($id);
+		$save_one = $this->save_one->getExamById($id);
+		$score = $this->save_one->bandingScore($id);
 
 		$data = [
 			'user' => $this->user,
 			'judul'	=> 'Exam',
 			'subjudul'=> 'Detail Exam results',
-			'ujian'	=> $ujian,
+			'save_one'	=> $save_one,
 			'score'	=> $score
 		];
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/detail_hasil');
+		$this->load->view('save_one/detail_hasil');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -72,34 +72,34 @@ class HasilUjian extends CI_Controller {
 	{
 		$this->load->library('Pdf');
 
-		$mhs 	= $this->ujian->getIdMahasiswa($this->user->username);
-		$hasil 	= $this->ujian->HslUjian($id, $mhs->student_id)->row();
-		$ujian 	= $this->ujian->getUjianById($id);
+		$mhs 	= $this->save_one->getIdStudent($this->user->username);
+		$hasil 	= $this->save_one->examResults($id, $mhs->student_id)->row();
+		$save_one 	= $this->save_one->getExamById($id);
 		
 		$data = [
-			'ujian' => $ujian,
+			'save_one' => $save_one,
 			'hasil' => $hasil,
 			'mhs'	=> $mhs
 		];
 		
-		$this->load->view('ujian/cetak', $data);
+		$this->load->view('save_one/cetak', $data);
 	}
 
 	public function cetak_detail($id)
 	{
 		$this->load->library('Pdf');
 
-		$ujian = $this->ujian->getUjianById($id);
-		$score = $this->ujian->bandingScore($id);
-		$hasil = $this->ujian->HslUjianById($id)->result();
+		$save_one = $this->save_one->getExamById($id);
+		$score = $this->save_one->bandingScore($id);
+		$hasil = $this->save_one->ExamResultsByID($id)->result();
 
 		$data = [
-			'ujian'	=> $ujian,
+			'save_one'	=> $save_one,
 			'score'	=> $score,
 			'hasil'	=> $hasil
 		];
 
-		$this->load->view('ujian/cetak_detail', $data);
+		$this->load->view('save_one/cetak_detail', $data);
 	}
 	
 }

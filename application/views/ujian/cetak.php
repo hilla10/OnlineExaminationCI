@@ -89,15 +89,15 @@ All the detailed information are provided below!
 <table id="data-hasil">
     <tr>
         <th>Course</th>
-        <td>{$ujian->course_name}</td>
+        <td>{$save_one->course_name}</td>
     </tr>
     <tr>
         <th>Exam Name</th>
-        <td>{$ujian->exam_name}</td>
+        <td>{$save_one->exam_name}</td>
     </tr>
     <tr>
         <th>Total Questions</th>
-        <td>{$ujian->number_of_questions}</td>
+        <td>{$save_one->total_questions}</td>
     </tr>
 </table>
 <h2>Exam Results</h2>
@@ -119,4 +119,4 @@ $pdf->lastPage();
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output($ujian->exam_name.'_'.$mhs->student_number.'.pdf', 'I');
+$pdf->Output($save_one->exam_name.'_'.$mhs->student_number.'.pdf', 'I');

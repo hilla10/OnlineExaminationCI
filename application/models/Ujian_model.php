@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ujian_model extends CI_Model {
+class Exam_model extends CI_Model {
     
-    public function getDataUjian($id)
+    public function getDataExam($id)
     {
-        $this->datatables->select('a.exam_id, a.token, a.exam_name, b.course_name, a.number_of_questions, CONCAT(a.start_time, " <br/> (", a.duration, " Minute)") as duration, a.type');
+        $this->datatables->select('a.exam_id, a.token, a.exam_name, b.course_name, a.total_questions, CONCAT(a.start_time, " <br/> (", a.duration, " Minute)") as duration, a.type');
         $this->datatables->from('exam a');
         $this->datatables->join('course b', 'a.course_id = b.course_id');
         if($id!==null){
@@ -14,19 +14,19 @@ class Ujian_model extends CI_Model {
         return $this->datatables->generate();
     }
     
-    public function getListUjian($id, $class)
+    public function getListExam($id, $class)
     {
-        $this->datatables->select("a.exam_id, e.lecturer_name, d.class_name, a.exam_name, b.course_name, a.number_of_questions, CONCAT(a.start_time, ' <br/> (', a.duration, ' Minute)') as duration,  (SELECT COUNT(id) FROM exam_history h WHERE h.student_id = {$id} AND h.exam_id = a.exam_id) AS ada");
+        $this->datatables->select("a.exam_id, e.lecturer_name, d.class_name, a.exam_name, b.course_name, a.total_questions, CONCAT(a.start_time, ' <br/> (', a.duration, ' Minute)') as duration,  (SELECT COUNT(id) FROM exam_history h WHERE h.student_id = {$id} AND h.exam_id = a.exam_id) AS ada");
         $this->datatables->from('exam a');
         $this->datatables->join('course b', 'a.course_id = b.course_id');
-        $this->datatables->join('kelas_dosen c', "a.lecturer_id = c.lecturer_id");
-        $this->datatables->join('class d', 'c.kelas_id = d.class_id');
+        $this->datatables->join('lecturer_class c', "a.lecturer_id = c.lecturer_id");
+        $this->datatables->join('class d', 'c.class_id = d.class_id');
         $this->datatables->join('lecturer e', 'e.lecturer_id = c.lecturer_id');
         $this->datatables->where('d.class_id', $class);
         return $this->datatables->generate();
     }
 
-    public function getUjianById($id)
+    public function getExamById($id)
     {
         $this->db->select('*');
         $this->db->from('exam a');
@@ -36,31 +36,31 @@ class Ujian_model extends CI_Model {
         return $this->db->get()->row();
     }
 
-    public function getIdDosen($teacher_id)
+    public function getIdLecturer($teacher_id)
     {
         $this->db->select('lecturer_id, lecturer_name')->from('lecturer')->where('teacher_id', $teacher_id);
         return $this->db->get()->row();
     }
 
-    public function getJumlahSoal($lecturer)
+    public function getTotalQuestions($lecturer)
     {
-        $this->db->select('COUNT(id_soal) as jml_soal');
-        $this->db->from('tb_soal');
+        $this->db->select('COUNT(question_id) as total_questions');
+        $this->db->from('tb_question');
         $this->db->where('lecturer_id', $lecturer);
         return $this->db->get()->row();
     }
 
-    public function getIdMahasiswa($student_number)
+    public function getIdStudent($student_number)
     {
         $this->db->select('*');
         $this->db->from('student a');
-        $this->db->join('class b', 'a.kelas_id=b.class_id');
+        $this->db->join('class b', 'a.class_id=b.class_id');
         $this->db->join('department c', 'b.department_id=c.department_id');
         $this->db->where('student_number', $student_number);
         return $this->db->get()->row();
     }
 
-    public function HslUjian($id, $mhs)
+    public function examResults($id, $mhs)
     {
         $this->db->select('*, UNIX_TIMESTAMP(end_time) as times_up');
         $this->db->from('exam_history');
@@ -69,29 +69,29 @@ class Ujian_model extends CI_Model {
         return $this->db->get();
     }
 
-    public function getSoal($id)
+    public function getQuestion($id)
     {
-        $ujian = $this->getUjianById($id);
-        $order = $ujian->type==="Random" ? 'rand()' : 'id_soal';
+        $save_one = $this->getExamById($id);
+        $order = $save_one->type==="Random" ? 'rand()' : 'question_id';
 
-        $this->db->select('id_soal, soal, file, tipe_file, opsi_a, opsi_b, opsi_c, opsi_d, opsi_e, jawaban');
-        $this->db->from('tb_soal');
-        $this->db->where('lecturer_id', $ujian->lecturer_id);
-        $this->db->where('course_id', $ujian->course_id);
+        $this->db->select('question_id, question, file, file_type, option_a, option_b, option_c, option_d, option_e, answer');
+        $this->db->from('tb_question');
+        $this->db->where('lecturer_id', $save_one->lecturer_id);
+        $this->db->where('course_id', $save_one->course_id);
         $this->db->order_by($order);
-        $this->db->limit($ujian->number_of_questions);
+        $this->db->limit($save_one->total_questions);
         return $this->db->get()->result();
     }
 
-    public function ambilSoal($pc_urut_soal1, $pc_urut_soal_arr)
+    public function ambilQuestion($pc_question_order1, $pc_question_order_arr)
     {
-        $this->db->select("*, {$pc_urut_soal1} AS jawaban");
-        $this->db->from('tb_soal');
-        $this->db->where('id_soal', $pc_urut_soal_arr);
+        $this->db->select("*, {$pc_question_order1} AS answer");
+        $this->db->from('tb_question');
+        $this->db->where('question_id', $pc_question_order_arr);
         return $this->db->get()->row();
     }
 
-    public function getJawaban($id_tes)
+    public function getAnswer($id_tes)
     {
         $this->db->select('answer_list');
         $this->db->from('exam_history');
@@ -99,9 +99,9 @@ class Ujian_model extends CI_Model {
         return $this->db->get()->row()->answer_list;
     }
 
-    public function getHasilUjian($teacher_id = null)
+    public function getExamResults($teacher_id = null)
     {
-        $this->datatables->select('b.exam_id, b.exam_name, b.number_of_questions, CONCAT(b.duration, " Minute") as duration, b.start_time');
+        $this->datatables->select('b.exam_id, b.exam_name, b.total_questions, CONCAT(b.duration, " Minute") as duration, b.start_time');
         $this->datatables->select('c.course_name, d.lecturer_name');
         $this->datatables->from('exam_history a');
         $this->datatables->join('exam b', 'a.exam_id = b.exam_id');
@@ -114,7 +114,7 @@ class Ujian_model extends CI_Model {
         return $this->datatables->generate();
     }
 
-    public function HslUjianById($id, $dt=false)
+    public function ExamResultsByID($id, $dt=false)
     {
         if($dt===false){
             $db = "db";
@@ -126,7 +126,7 @@ class Ujian_model extends CI_Model {
         
         $this->$db->select('d.id, a.name, b.class_name, c.department_name, d.correct_count, d.score');
         $this->$db->from('student a');
-        $this->$db->join('class b', 'a.kelas_id=b.class_id');
+        $this->$db->join('class b', 'a.class_id=b.class_id');
         $this->$db->join('department c', 'b.department_id=c.department_id');
         $this->$db->join('exam_history d', 'a.student_id=d.student_id');
         $this->$db->where(['d.exam_id' => $id]);

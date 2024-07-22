@@ -17,7 +17,7 @@
                     </tr>
                     <tr>
                         <th>Lecturer</th>
-                        <td><?=$ujian->lecturer_name?></td>
+                        <td><?=$save_one->lecturer_name?></td>
                     </tr>
                     <tr>
                         <th>Class/Department</th>
@@ -25,21 +25,21 @@
                     </tr>
                     <tr>
                         <th>Exam Name</th>
-                        <td><?=$ujian->exam_name?></td>
+                        <td><?=$save_one->exam_name?></td>
                     </tr>
                     <tr>
                         <th>Number of Questions</th>
-                        <td><?=$ujian->number_of_questions?></td>
+                        <td><?=$save_one->total_questions?></td>
                     </tr>
                     <tr>
                         <th>Time</th>
-                        <td><?=$ujian->duration?> Minute</td>
+                        <td><?=$save_one->duration?> Minute</td>
                     </tr>
                     <tr>
                         <th>Late</th>
                         <td>
-                            <?=strftime('%d %B %Y', strtotime($ujian->late_time))?> 
-                            <?=date('H:i:s', strtotime($ujian->late_time))?>
+                            <?=strftime('%d %B %Y', strtotime($save_one->late_time))?> 
+                            <?=date('H:i:s', strtotime($save_one->late_time))?>
                         </td>
                     </tr>
                     <tr>
@@ -59,22 +59,22 @@
                             </p>
                         </div>
                         <?php
-                        $mulai = strtotime($ujian->start_time);
-                        $late_time = strtotime($ujian->late_time);
+                        $mulai = strtotime($save_one->start_time);
+                        $late_time = strtotime($save_one->late_time);
                         $now = time();
                         if($mulai > $now) : 
                         ?>
                         <div class="callout callout-success">
                             <strong><i class="fa fa-clock-o"></i> The exam_history will start on</strong>
                             <br>
-                            <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
+                            <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($save_one->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                         </div>
                         <?php elseif( $late_time > $now ) : ?>
-                        <button id="btncek" data-id="<?=$ujian->exam_id?>" class="btn btn-success btn-lg mb-4">
+                        <button id="btncek" data-id="<?=$save_one->exam_id?>" class="btn btn-success btn-lg mb-4">
                             <i class="fa fa-pencil"></i> Start
                         </button>
                         <div class="callout callout-danger">
-                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($ujian->late_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
+                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($save_one->late_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                             Timeout of pressing the start button.
                         </div>
                         <?php else : ?>
@@ -90,4 +90,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/token.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/token.js"></script>

@@ -8,7 +8,7 @@
     </div>
     <div class="box-body">
         <div class="mt-2 mb-3">
-            <a href="<?=base_url('jurusanmatkul/add')?>" class="btn btn-sm btn-flat bg-blue"><i class="fa fa-plus"></i> Add Data</a>
+            <a href="<?=base_url('departmentCourse/add')?>" class="btn btn-sm btn-flat bg-blue"><i class="fa fa-plus"></i> Add Data</a>
             <button type="button" onclick="reload_ajax()" class="btn btn-sm bg-maroon btn-flat btn-default"><i class="fa fa-refresh"></i> Reload</button>
 			<div class="pull-right">
 				<button onclick="bulk_delete()" class="btn btn-sm btn-flat btn-danger" type="button"><i class="fa fa-trash"></i> Delete</button>
@@ -17,7 +17,7 @@
     </div>
 	<?=form_open('',array('id'=>'bulk'))?>
 	<div class="table-responsive px-4 pb-3" style="border:0">
-	<table id="jurusanmatkul" class="w-100 table table-striped table-bordered table-hover">
+	<table id="departmentCourse" class="w-100 table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -45,4 +45,4 @@
 	<?=form_close()?>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/jurusanmatkul/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/departmentCourse/data.js"></script>

@@ -37,7 +37,7 @@ class Lecturer extends CI_Controller
 
 	public function data()
 	{
-		$this->output_json($this->master->getDataDosen(), false);
+		$this->output_json($this->master->getDataLecturer(), false);
 	}
 
 	public function add()
@@ -46,7 +46,7 @@ class Lecturer extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Add Lecturer',
 			'subjudul' => 'Add Lecturer Data',
-			'course'	=> $this->master->getAllMatkul()
+			'course'	=> $this->master->getAllCourse()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('master/lecturer/add');
@@ -59,8 +59,8 @@ class Lecturer extends CI_Controller
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Edit Lecturer',
 			'subjudul'	=> 'Edit Lecturer Data',
-			'course'	=> $this->master->getAllMatkul(),
-			'data' 		=> $this->master->getDosenById($id)
+			'course'	=> $this->master->getAllCourse(),
+			'data' 		=> $this->master->getLecturerById($id)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('master/lecturer/edit');
@@ -79,7 +79,7 @@ class Lecturer extends CI_Controller
 			$u_nip = '|is_unique[lecturer.teacher_id]';
 			$u_email = '|is_unique[lecturer.email]';
 		} else {
-			$dbdata 	= $this->master->getDosenById($lecturer_id);
+			$dbdata 	= $this->master->getLecturerById($lecturer_id);
 			$u_nip		= $dbdata->teacher_id === $teacher_id ? "" : "|is_unique[lecturer.teacher_id]";
 			$u_email	= $dbdata->email === $email ? "" : "|is_unique[lecturer.email]";
 		}
@@ -135,7 +135,7 @@ class Lecturer extends CI_Controller
 	public function create_user()
 	{
 		$id = $this->input->get('id', true);
-		$data = $this->master->getDosenById($id);
+		$data = $this->master->getLecturerById($id);
 		$name = explode(' ', $data->lecturer_name);
 		$first_name = $name[0];
 		$last_name = end($name);
@@ -175,7 +175,7 @@ class Lecturer extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Lecturer',
 			'subjudul' => 'Import Lecturer Data',
-			'course' => $this->master->getAllMatkul()
+			'course' => $this->master->getAllCourse()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 

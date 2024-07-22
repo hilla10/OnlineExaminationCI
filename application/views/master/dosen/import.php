@@ -10,7 +10,7 @@
         <ul class="alert alert-info" style="padding-left: 40px">
             <li>Please import data from excel, using the provided format</li>
             <li>Data must not be empty, all must be filled in.</li>
-            <li>For course data, it can only be filled in using the course ID. <a data-toggle="modal" href="#matkulId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
+            <li>For course data, it can only be filled in using the course ID. <a data-toggle="modal" href="#courseId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
         </ul>
         <div class="text-center">
             <a href="<?= base_url('uploads/import/format/lecturer.xlsx') ?>" class="btn-default btn">Download Format</a>
@@ -89,7 +89,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="matkulId">
+<div class="modal fade" id="courseId">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

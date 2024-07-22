@@ -7,7 +7,7 @@ $(document).ready(function () {
   table = $('#course').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#matkul_filter input')
+      $('#course_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -77,7 +77,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#matkul_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#course_wrapper .col-md-6:eq(0)');
 
   $('#myModal').on('shown.modal.bs', function () {
     $(':input[name="banyak"]').select();

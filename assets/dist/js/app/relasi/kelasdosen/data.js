@@ -4,10 +4,10 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#kelasdosen').DataTable({
+  table = $('#lecturerClass').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#kelasdosen_filter input')
+      $('#LecturerClass_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -41,7 +41,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'kelasdosen/data',
+      url: base_url + 'lecturerClass/data',
       type: 'POST',
     },
     columns: [
@@ -58,14 +58,14 @@ $(document).ready(function () {
         targets: 3,
         searchable: false,
         orderable: false,
-        title: 'Kelas',
+        title: 'ClassRoom',
         data: 'class',
         render: function (data, type, row, meta) {
           let class = data.split(',');
           let badge = [];
           $.each(class, function (i, val) {
-            var newkelas = `<span class="badge bg-green">${val}</span>`;
-            badge.push(newkelas);
+            var newclass = `<span class="badge bg-green">${val}</span>`;
+            badge.push(newclass);
           });
           return badge.join(' ');
         },
@@ -77,7 +77,7 @@ $(document).ready(function () {
         data: 'lecturer_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-									<a href="${base_url}kelasdosen/edit/${data}" class="btn btn-warning btn-xs">
+									<a href="${base_url}lecturerClass/edit/${data}" class="btn btn-warning btn-xs">
 										<i class="fa fa-pencil"></i>
 									</a>
 								</div>`;
@@ -108,7 +108,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#kelasdosen_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#LecturerClass_wrapper .col-md-6:eq(0)');
 
   $('.select_all').on('click', function () {
     if (this.checked) {
@@ -124,9 +124,9 @@ $(document).ready(function () {
     }
   });
 
-  $('#kelasdosen tbody').on('click', 'tr .check', function () {
-    var check = $('#kelasdosen tbody tr .check').length;
-    var checked = $('#kelasdosen tbody tr .check:checked').length;
+  $('#lecturerClass tbody').on('click', 'tr .check', function () {
+    var check = $('#lecturerClass tbody tr .check').length;
+    var checked = $('#lecturerClass tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
@@ -135,7 +135,7 @@ $(document).ready(function () {
   });
 
   $('#bulk').on('submit', function (e) {
-    if ($(this).attr('action') == base_url + 'kelasdosen/delete') {
+    if ($(this).attr('action') == base_url + 'lecturerClass/delete') {
       e.preventDefault();
       e.stopImmediatePropagation();
 
@@ -172,14 +172,14 @@ $(document).ready(function () {
 });
 
 function bulk_delete() {
-  if ($('#kelasdosen tbody tr .check:checked').length == 0) {
+  if ($('#lecturerClass tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',
       type: 'error',
     });
   } else {
-    $('#bulk').attr('action', base_url + 'kelasdosen/delete');
+    $('#bulk').attr('action', base_url + 'lecturerClass/delete');
     Swal({
       title: 'You sure?',
       text: 'Data will be deleted!',

@@ -1,4 +1,4 @@
-<?=form_open('lecturer/save', array('id'=>'formdosen'), array('method'=>'add'));?>
+<?=form_open('lecturer/save', array('id'=>'formlecturer'), array('method'=>'add'));?>
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$subjudul?></h3>

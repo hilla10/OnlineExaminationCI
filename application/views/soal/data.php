@@ -13,7 +13,7 @@
 			</div>
 			<div class="form-group col-sm-4 text-center">
 				<?php if ( $this->ion_auth->is_admin() ) : ?>
-					<select id="matkul_filter" class="form-control select2" style="width:100% !important">
+					<select id="course_filter" class="form-control select2" style="width:100% !important">
 						<option value="all">All Course</option>
 						<?php foreach ($course as $m) :?>
 							<option value="<?=$m->course_id?>"><?=$m->course_name?></option>
@@ -26,15 +26,15 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="pull-right">
-					<a href="<?=base_url('soal/add')?>" class="btn bg-blue btn-flat btn-sm"><i class="fa fa-plus"></i> Create Questions</a>
+					<a href="<?=base_url('question/add')?>" class="btn bg-blue btn-flat btn-sm"><i class="fa fa-plus"></i> Create Questions</a>
 					<button type="button" onclick="reload_ajax()" class="btn btn-flat btn-sm bg-maroon"><i class="fa fa-refresh"></i> Reload</button>
 				</div>
 			</div>
 		</div>
     </div>
-	<?=form_open('soal/delete', array('id'=>'bulk'))?>
+	<?=form_open('question/delete', array('id'=>'bulk'))?>
     <div class="table-responsive px-4 pb-3" style="border: 0">
-        <table id="soal" class="w-100 table table-striped table-bordered table-hover">
+        <table id="question" class="w-100 table table-striped table-bordered table-hover">
         <thead>
             <tr>
 				<th class="text-center">
@@ -66,14 +66,14 @@
 	<?=form_close();?>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/soal/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/question/data.js"></script>
 
 <?php if ( $this->ion_auth->is_admin() ) : ?>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#matkul_filter').on('change', function(){
+	$('#course_filter').on('change', function(){
 		let course_id = $(this).val();
-		let src = '<?=base_url()?>soal/data';
+		let src = '<?=base_url()?>question/data';
 		let url;
 
 		if(course_id !== 'all'){
@@ -92,7 +92,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	let course_id = '<?=$course->course_id?>';
 	let lecturer_id = '<?=$course->lecturer_id?>';
-	let src = '<?=base_url()?>soal/data';
+	let src = '<?=base_url()?>question/data';
 	let url = src + '/' + course_id + '/' + lecturer_id;
 
 	table.ajax.url(url).load();

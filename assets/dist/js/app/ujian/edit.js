@@ -8,12 +8,12 @@ $(document).ready(function () {
     date: late_time,
   });
 
-  $('#formujian input, #formujian select').on('change', function () {
+  $('#formexam input, #formexam select').on('change', function () {
     $(this).closest('.form-group').eq(0).removeClass('has-error');
     $(this).nextAll('.help-block').eq(0).text('');
   });
 
-  $('#formujian').on('submit', function (e) {
+  $('#formexam').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
             type: 'success',
             text: 'Data saved successfully',
           }).then((result) => {
-            window.location.href = base_url + 'ujian/master';
+            window.location.href = base_url + 'save_one/master';
           });
         } else {
           if (data.errors) {

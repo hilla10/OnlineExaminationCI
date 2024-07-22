@@ -2,10 +2,10 @@
     <div class="box-header with-header">
         <h3 class="box-title">Detail Question</h3>
         <div class="pull-right">
-            <a href="<?=base_url()?>soal" class="btn btn-xs btn-flat btn-default">
+            <a href="<?=base_url()?>question" class="btn btn-xs btn-flat btn-default">
                 <i class="fa fa-arrow-left"></i> Back
             </a>
-            <a href="<?=base_url()?>soal/edit/<?=$this->uri->segment(3)?>" class="btn btn-xs btn-flat btn-warning">
+            <a href="<?=base_url()?>question/edit/<?=$this->uri->segment(3)?>" class="btn btn-xs btn-flat btn-warning">
                 <i class="fa fa-edit"></i> Edit
             </a>
         </div>
@@ -14,12 +14,12 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <h3 class="text-center">Question</h3>
-                <?php if(!empty($soal->file)): ?>
+                <?php if(!empty($question->file)): ?>
                     <div class="w-50">
-                        <?= tampil_media('uploads/bank_soal/'.$soal->file); ?>
+                        <?= display_media('uploads/bank_question/'.$question->file); ?>
                     </div>
                 <?php endif; ?>
-                <?=$soal->soal?>
+                <?=$question->question?>
                 <hr class="my-4">
                 <h3 class="text-center">Answer</h3>
                 
@@ -30,25 +30,25 @@
                 foreach ($abjad as $abj) :
                 
                     $ABJ = strtoupper($abj);
-                    $opsi = 'opsi_'.$abj;
+                    $option = 'option_'.$abj;
                     $file = 'file_'.$abj;
                 ?>
                 
-                    <h4>Choice <?=$ABJ?> <?=$soal->jawaban===$ABJ?$benar:""?></h4>
-                    <?=$soal->$opsi?>
+                    <h4>Choice <?=$ABJ?> <?=$question->answer===$ABJ?$benar:""?></h4>
+                    <?=$question->$option?>
                     
-                    <?php if(!empty($soal->$file)): ?>
+                    <?php if(!empty($question->$file)): ?>
                     <div class="w-50 mx-auto">
-                        <?= tampil_media('uploads/bank_soal/'.$soal->$file); ?>
+                        <?= display_media('uploads/bank_question/'.$question->$file); ?>
                     </div>
                     <?php endif;?>
                 
                 <?php endforeach;?>
                 
                 <hr class="my-4">
-                <strong>Created on:</strong> <?=strftime("%A, %d %B %Y", date($soal->created_on))?>
+                <strong>Created on:</strong> <?=strftime("%A, %d %B %Y", date($question->created_on))?>
                 <br>
-                <strong>Last updated :</strong> <?=strftime("%A, %d %B %Y", date($soal->updated_on))?>
+                <strong>Last updated :</strong> <?=strftime("%A, %d %B %Y", date($question->updated_on))?>
             </div>
         </div>
     </div>

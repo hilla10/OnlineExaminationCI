@@ -3,10 +3,10 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#soal').DataTable({
+  table = $('#question').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#soal_filter input')
+      $('#question_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -40,29 +40,29 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'soal/data',
+      url: base_url + 'question/data',
       type: 'POST',
     },
     columns: [
       {
-        data: 'id_soal',
+        data: 'question_id',
         orderable: false,
         searchable: false,
       },
       {
-        data: 'id_soal',
+        data: 'question_id',
         orderable: false,
         searchable: false,
       },
       { data: 'lecturer_name' },
       { data: 'course_name' },
-      { data: 'soal' },
+      { data: 'question' },
       { data: 'created_on' },
     ],
     columnDefs: [
       {
         targets: 0,
-        data: 'id_soal',
+        data: 'question_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
 									<input name="checked[]" class="check" value="${data}" type="checkbox">
@@ -71,13 +71,13 @@ $(document).ready(function () {
       },
       {
         targets: 6,
-        data: 'id_soal',
+        data: 'question_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-                                <a href="${base_url}soal/detail/${data}" class="btn btn-xs btn-success">
+                                <a href="${base_url}question/detail/${data}" class="btn btn-xs btn-success">
                                     <i class="fa fa-eye"></i> Detail
                                 </a>
-                                <a href="${base_url}soal/edit/${data}" class="btn btn-xs btn-warning">
+                                <a href="${base_url}question/edit/${data}" class="btn btn-xs btn-warning">
                                     <i class="fa fa-edit"></i> Edit
                                 </a>
                             </div>`;
@@ -97,7 +97,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#soal_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#question_wrapper .col-md-6:eq(0)');
 
   $('.select_all').on('click', function () {
     if (this.checked) {
@@ -113,9 +113,9 @@ $(document).ready(function () {
     }
   });
 
-  $('#soal tbody').on('click', 'tr .check', function () {
-    var check = $('#soal tbody tr .check').length;
-    var checked = $('#soal tbody tr .check:checked').length;
+  $('#question tbody').on('click', 'tr .check', function () {
+    var check = $('#question tbody tr .check').length;
+    var checked = $('#question tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
@@ -159,7 +159,7 @@ $(document).ready(function () {
 });
 
 function bulk_delete() {
-  if ($('#soal tbody tr .check:checked').length == 0) {
+  if ($('#question tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',

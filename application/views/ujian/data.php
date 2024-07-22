@@ -9,13 +9,13 @@
     <div class="box-body">
         <button type="button" onclick="bulk_delete()" class="btn btn-sm btn-flat btn-danger"><i class="fa fa-trash"></i> Bulk Delete</button>
         <div class="pull-right">
-            <a href="<?=base_url('ujian/add')?>" class="btn bg-blue btn-sm btn-flat"><i class="fa fa-plus"></i> Conduct New Exam</a>
+            <a href="<?=base_url('save_one/add')?>" class="btn bg-blue btn-sm btn-flat"><i class="fa fa-plus"></i> Conduct New Exam</a>
             <button type="button" onclick="reload_ajax()" class="btn btn-sm btn-flat bg-maroon"><i class="fa fa-refresh"></i> Reload</button>
         </div>
     </div>
-	<?=form_open('ujian/delete', array('id'=>'bulk'))?>
+	<?=form_open('save_one/delete', array('id'=>'bulk'))?>
     <div class="table-responsive px-4 pb-3" style="border: 0">
-        <table id="ujian" class="w-100 table table-striped table-bordered table-hover">
+        <table id="save_one" class="w-100 table table-striped table-bordered table-hover">
         <thead>
             <tr>
 				<th class="text-center">
@@ -55,4 +55,4 @@
 	var lecturer_id = '<?=$lecturer->lecturer_id?>';
 </script>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/data.js"></script>

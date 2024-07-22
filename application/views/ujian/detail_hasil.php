@@ -9,10 +9,10 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12 mb-4">
-                <a href="<?=base_url()?>hasilujian" class="btn btn-flat btn-sm btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
+                <a href="<?=base_url()?>examResult" class="btn btn-flat btn-sm btn-warning"><i class="fa fa-arrow-left"></i> Back</a>
                 <button type="button" onclick="reload_ajax()" class="btn btn-flat btn-sm bg-purple"><i class="fa fa-refresh"></i> Reload</button>
                 <div class="pull-right">
-                    <a target="_blank" href="<?=base_url()?>hasilujian/cetak_detail/<?=$this->uri->segment(3)?>" class="btn bg-maroon btn-flat btn-sm">
+                    <a target="_blank" href="<?=base_url()?>examResult/cetak_detail/<?=$this->uri->segment(3)?>" class="btn bg-maroon btn-flat btn-sm">
                         <i class="fa fa-download"></i> Download/Print
                     </a>
                 </div>
@@ -21,23 +21,23 @@
                 <table class="table w-100">
                     <tr>
                         <th>Exam Name</th>
-                        <td><?=$ujian->exam_name?></td>
+                        <td><?=$save_one->exam_name?></td>
                     </tr>
                     <tr>
                         <th>Total Questions</th>
-                        <td><?=$ujian->number_of_questions?></td>
+                        <td><?=$save_one->total_questions?></td>
                     </tr>
                     <tr>
                         <th>Time</th>
-                        <td><?=$ujian->duration?> Minute</td>
+                        <td><?=$save_one->duration?> Minute</td>
                     </tr>
                     <tr>
                         <th>Start Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->start_time))?></td>
+                        <td><?=strftime('%A, %d %B %Y', strtotime($save_one->start_time))?></td>
                     </tr>
                     <tr>
                         <th>Completion Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($ujian->late_time))?></td>
+                        <td><?=strftime('%A, %d %B %Y', strtotime($save_one->late_time))?></td>
                     </tr>
                 </table>
             </div>
@@ -45,11 +45,11 @@
                 <table class="table w-100">
                     <tr>
                         <th>Course</th>
-                        <td><?=$ujian->course_name?></td>
+                        <td><?=$save_one->course_name?></td>
                     </tr>
                     <tr>
                         <th>Lecturer</th>
-                        <td><?=$ujian->lecturer_name?></td>
+                        <td><?=$save_one->lecturer_name?></td>
                     </tr>
                     <tr>
                         <th>Lowest Score</th>
@@ -97,4 +97,4 @@
     var id = '<?=$this->uri->segment(3)?>';
 </script>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/detail_hasil.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/detail_hasil.js"></script>

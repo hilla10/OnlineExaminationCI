@@ -303,7 +303,7 @@
                   a file, all the extraction process is stopped. 
 
   Corrected in Version 1.3 :
-    - Corrected : Support of static synopsis for method extract() is broken.
+    - Corrected : Support of static synoptions for method extract() is broken.
     - Corrected : invalid size of archive content field (0xFF) should be (0xFFFF).
     - Corrected : When an extract is done with a remove_path parameter, the entry for
       the directory with exactly the same path is not skipped/filtered.

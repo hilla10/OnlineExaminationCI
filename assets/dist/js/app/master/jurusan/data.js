@@ -6,7 +6,7 @@ $(document).ready(function () {
   table = $('#department').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#jurusan_filter input')
+      $('#department_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -72,7 +72,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#jurusan_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#department_wrapper .col-md-6:eq(0)');
 
   $('#myModal').on('shown.modal.bs', function () {
     $(':input[name="banyak"]').select();

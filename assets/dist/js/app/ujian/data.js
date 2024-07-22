@@ -3,10 +3,10 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#ujian').DataTable({
+  table = $('#save_one').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#ujian_filter input')
+      $('#exam_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -18,7 +18,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'ujian/json',
+      url: base_url + 'save_one/json',
       type: 'POST',
     },
     columns: [
@@ -34,7 +34,7 @@ $(document).ready(function () {
       },
       { data: 'exam_name' },
       { data: 'course_name' },
-      { data: 'number_of_questions' },
+      { data: 'total_questions' },
       { data: 'duration' },
       { data: 'type' },
       {
@@ -69,7 +69,7 @@ $(document).ready(function () {
 									<button type="button" data-id="${data}" class="btn btn-token btn-xs bg-purple">
 										<i class="fa fa-refresh"></i>
 									</button>
-									<a href="${base_url}ujian/edit/${data}" class="btn btn-xs btn-warning">
+									<a href="${base_url}save_one/edit/${data}" class="btn btn-xs btn-warning">
 										<i class="fa fa-edit"></i>
 									</a>
 								</div>`;
@@ -103,9 +103,9 @@ $(document).ready(function () {
     }
   });
 
-  $('#ujian tbody').on('click', 'tr .check', function () {
-    var check = $('#ujian tbody tr .check').length;
-    var checked = $('#ujian tbody tr .check:checked').length;
+  $('#save_one tbody').on('click', 'tr .check', function () {
+    var check = $('#save_one tbody tr .check').length;
+    var checked = $('#save_one tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
@@ -113,12 +113,12 @@ $(document).ready(function () {
     }
   });
 
-  $('#ujian').on('click', '.btn-token', function () {
+  $('#save_one').on('click', '.btn-token', function () {
     let id = $(this).data('id');
 
     $(this).attr('disabled', 'disabled').children().addClass('fa-spin');
     $.ajax({
-      url: base_url + 'ujian/refresh_token/' + id,
+      url: base_url + 'save_one/refresh_token/' + id,
       type: 'get',
       dataType: 'json',
       success: function (data) {
@@ -164,11 +164,11 @@ $(document).ready(function () {
     });
   });
 
-  table.ajax.url(base_url + 'ujian/json/' + lecturer_id).load();
+  table.ajax.url(base_url + 'save_one/json/' + lecturer_id).load();
 });
 
 function bulk_delete() {
-  if ($('#ujian tbody tr .check:checked').length == 0) {
+  if ($('#save_one tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',

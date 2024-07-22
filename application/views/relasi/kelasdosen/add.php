@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url()?>kelasdosen" class="btn btn-warning btn-flat btn-sm">
+            <a href="<?=base_url()?>lecturerClass" class="btn btn-warning btn-flat btn-sm">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <?=form_open('kelasdosen/save', array('id'=>'kelasdosen'), array('method'=>'add'))?>
+                <?=form_open('lecturerClass/save', array('id'=>'lecturerClass'), array('method'=>'add'))?>
                 <div class="form-group">
                     <label>Lecturer</label>
                     <select name="lecturer_id" class="form-control select2" style="width: 100%!important">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label>Class</label>
-                    <select id="class" multiple="multiple" name="kelas_id[]" class="form-control select2" style="width: 100%!important">
+                    <select id="class" multiple="multiple" name="class_id[]" class="form-control select2" style="width: 100%!important">
                         <?php foreach ($class as $k) : ?>
                             <option value="<?=$k->class_id?>"><?=$k->class_name?> - <?=$k->department_name?></option>
                         <?php endforeach; ?>
@@ -55,4 +55,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/kelasdosen/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/lecturerClass/add.js"></script>

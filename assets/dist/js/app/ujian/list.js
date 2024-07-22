@@ -3,10 +3,10 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#ujian').DataTable({
+  table = $('#save_one').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#ujian_filter input')
+      $('#exam_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -18,7 +18,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'ujian/list_json',
+      url: base_url + 'save_one/list_json',
       type: 'POST',
     },
     columns: [
@@ -30,7 +30,7 @@ $(document).ready(function () {
       { data: 'exam_name' },
       { data: 'course_name' },
       { data: 'lecturer_name' },
-      { data: 'number_of_questions' },
+      { data: 'total_questions' },
       { data: 'duration' },
       {
         searchable: false,
@@ -48,11 +48,11 @@ $(document).ready(function () {
           var btn;
           if (data.ada > 0) {
             btn = `
-								<a class="btn btn-xs btn-success" href="${base_url}hasilujian/cetak/${data.exam_id}" target="_blank">
+								<a class="btn btn-xs btn-success" href="${base_url}examResult/cetak/${data.exam_id}" target="_blank">
 									<i class="fa fa-print"></i> Print Results
 								</a>`;
           } else {
-            btn = `<a class="btn btn-xs btn-primary" href="${base_url}ujian/token/${data.exam_id}">
+            btn = `<a class="btn btn-xs btn-primary" href="${base_url}save_one/token/${data.exam_id}">
 								<i class="fa fa-pencil"></i> Take Exam
 							</a>`;
           }

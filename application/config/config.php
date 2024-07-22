@@ -529,4 +529,4 @@ $config['proxy_ips'] = '';
  * CONFIG TAMBAHAN
  */
 
-$config['jml_opsi']	= 5; // opsi jawaban 1 - 5
+$config['jml_option']	= 5; // option answer 1 - 5

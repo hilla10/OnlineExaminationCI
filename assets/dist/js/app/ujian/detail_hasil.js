@@ -18,7 +18,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'hasilujian/ScoreMhs/' + id,
+      url: base_url + 'examResult/ScoreMhs/' + id,
       type: 'POST',
     },
     columns: [

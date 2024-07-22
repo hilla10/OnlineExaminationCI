@@ -8,14 +8,14 @@
     </div>
     <div class="box-body">
         <div class="mt-2 mb-3">
-            <a href="<?=base_url('kelasdosen/add')?>" class="btn btn-sm btn-flat bg-blue"><i class="fa fa-plus"></i> Add Data</a>
+            <a href="<?=base_url('lecturerClass/add')?>" class="btn btn-sm btn-flat bg-blue"><i class="fa fa-plus"></i> Add Data</a>
             <button type="button" onclick="reload_ajax()" class="btn btn-sm bg-maroon btn-flat btn-default"><i class="fa fa-refresh"></i> Reload</button>
 			<div class="pull-right">
 				<button onclick="bulk_delete()" class="btn btn-sm btn-flat btn-danger" type="button"><i class="fa fa-trash"></i> Delete</button>
 			</div>
         </div>
 		<?=form_open('',array('id'=>'bulk'))?>
-        <table id="kelasdosen" class="w-100 table table-striped table-bordered table-hover">
+        <table id="lecturerClass" class="w-100 table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>#</th>
@@ -45,4 +45,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/kelasdosen/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/lecturerClass/data.js"></script>

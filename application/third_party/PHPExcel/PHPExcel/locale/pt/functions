@@ -7,7 +7,7 @@ GETPIVOTDATA		= OBTERDADOSDIN			##	Devolve dados armazenados num relatório de T
 ##
 ##	Cube functions					Funções de cubo
 ##
-CUBEKPIMEMBER		= MEMBROKPICUBO			##	Devolve o nome, propriedade e medição de um KPI (key performance indicator) e apresenta o nome e a propriedade na célula. Um KPI é uma medida quantificável, como, por exemplo, o lucro mensal bruto ou a rotatividade trimestral de pessoal, utilizada para monitorizar o desempenho de uma organização.
+CUBEKPIMEMBER		= MEMBROKPICUBO			##	Devolve o nome, propriedade e medição de um KPI (key performance indicator) e apresenta o nome e a propriedade na célula. Um KPI é uma medida quantificável, como, por exemplo, o lucro mensal bruto ou a rotatividade trimestral de pesquestion, utilizada para monitorizar o desempenho de uma organização.
 CUBEMEMBER		= MEMBROCUBO			##	Devolve um membro ou cadeia de identificação numa hierarquia de cubo. Utilizada para validar a existência do membro ou cadeia de identificação no cubo.
 CUBEMEMBERPROPERTY	= PROPRIEDADEMEMBROCUBO		##	Devolve o valor de uma propriedade de membro no cubo. Utilizada para validar a existência de um nome de membro no cubo e para devolver a propriedade especificada para esse membro.
 CUBERANKEDMEMBER	= MEMBROCLASSIFICADOCUBO	##	Devolve o enésimo ou a classificação mais alta num conjunto. Utilizada para devolver um ou mais elementos num conjunto, tal como o melhor vendedor ou os 10 melhores alunos.

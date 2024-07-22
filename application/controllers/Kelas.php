@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kelas extends CI_Controller
+class ClassRoom extends CI_Controller
 {
 
 	public function __construct()
@@ -37,7 +37,7 @@ class Kelas extends CI_Controller
 
 	public function data()
 	{
-		$this->output_json($this->master->getDataKelas(), false);
+		$this->output_json($this->master->getDataClass(), false);
 	}
 
 	public function add()
@@ -47,7 +47,7 @@ class Kelas extends CI_Controller
 			'judul'		=> 'Add Class',
 			'subjudul'	=> 'Add Data Class',
 			'banyak'	=> $this->input->post('banyak', true),
-			'department'	=> $this->master->getAllJurusan()
+			'department'	=> $this->master->getAllDepartment()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('master/class/add');
@@ -60,12 +60,12 @@ class Kelas extends CI_Controller
 		if (!$chk) {
 			redirect('admin/class');
 		} else {
-			$class = $this->master->getKelasById($chk);
+			$class = $this->master->getClassById($chk);
 			$data = [
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Class',
 				'subjudul'	=> 'Edit Data Class',
-				'department'	=> $this->master->getAllJurusan(),
+				'department'	=> $this->master->getAllDepartment(),
 				'class'		=> $class
 			];
 			$this->load->view('_templates/dashboard/_header.php', $data);
@@ -136,9 +136,9 @@ class Kelas extends CI_Controller
 		}
 	}
 
-	public function kelas_by_jurusan($id)
+	public function class_by_department($id)
 	{
-		$data = $this->master->getKelasByJurusan($id);
+		$data = $this->master->getClassByDepartment($id);
 		$this->output_json($data);
 	}
 
@@ -148,7 +148,7 @@ class Kelas extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Class',
 			'subjudul' => 'Import Class',
-			'department' => $this->master->getAllJurusan()
+			'department' => $this->master->getAllDepartment()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 

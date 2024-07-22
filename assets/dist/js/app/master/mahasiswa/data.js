@@ -6,7 +6,7 @@ $(document).ready(function () {
   table = $('#student').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#mahasiswa_filter input')
+      $('#student_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -104,7 +104,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#mahasiswa_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#student_wrapper .col-md-6:eq(0)');
 
   $('.select_all').on('click', function () {
     if (this.checked) {

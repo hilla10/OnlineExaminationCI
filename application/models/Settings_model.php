@@ -22,7 +22,7 @@ class Settings_model extends CI_Model {
         }
 
         $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
-        delete_files('./uploads/bank_soal/');
+        delete_files('./uploads/bank_question/');
         
         $users = $this->not_admin();
         foreach ($users as $user) {

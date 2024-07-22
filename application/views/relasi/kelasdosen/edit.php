@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url()?>kelasdosen" class="btn btn-warning btn-flat btn-sm">
+            <a href="<?=base_url()?>lecturerClass" class="btn btn-warning btn-flat btn-sm">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -10,7 +10,7 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                <?=form_open('kelasdosen/save', array('id'=>'kelasdosen'), array('method'=>'edit', 'lecturer_id'=>$lecturer_id))?>
+                <?=form_open('lecturerClass/save', array('id'=>'lecturerClass'), array('method'=>'edit', 'lecturer_id'=>$lecturer_id))?>
                 <div class="form-group">
                     <label>Lecturer</label>
                     <input type="text" readonly="readonly" value="<?=$lecturer->lecturer_name?>" class="form-control">
@@ -18,13 +18,13 @@
                 </div>
                 <div class="form-group">
                     <label>Class</label>
-                    <select id="class" multiple="multiple" name="kelas_id[]" class="form-control select2" style="width: 100%!important">
+                    <select id="class" multiple="multiple" name="class_id[]" class="form-control select2" style="width: 100%!important">
                         <?php 
                         $sk = [];
                         foreach ($class as $key => $val) {
                             $sk[] = $val->class_id;
                         }
-                        foreach ($all_kelas as $m) : ?>
+                        foreach ($all_class as $m) : ?>
                             <option <?=in_array($m->class_id, $sk) ? "selected" : "" ?> value="<?=$m->class_id?>"><?=$m->class_name?> - <?=$m->department_name?></option>
                         <?php endforeach; ?>
                     </select>
@@ -44,4 +44,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/kelasdosen/edit.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/lecturerClass/edit.js"></script>

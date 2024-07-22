@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class JurusanMatkul extends CI_Controller {
+class DepartmentCourse extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -29,18 +29,18 @@ class JurusanMatkul extends CI_Controller {
 			'subjudul'=> 'Data Course Department'
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/departmentmatkul/data');
+		$this->load->view('relasi/departmentcourse/data');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
 
     public function data()
     {
-        $this->output_json($this->master->getJurusanMatkul(), false);
+        $this->output_json($this->master->getDepartmentCourse(), false);
 	}
 
-	public function getJurusanId($id)
+	public function getDepartmentId($id)
 	{
-		$this->output_json($this->master->getAllJurusan($id));		
+		$this->output_json($this->master->getAllDepartment($id));		
 	}
 	
 	public function add()
@@ -49,10 +49,10 @@ class JurusanMatkul extends CI_Controller {
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Add Course Department',
 			'subjudul'	=> 'Add Course Dept. Data',
-			'course'	=> $this->master->getMatkul()
+			'course'	=> $this->master->getCourse()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/departmentmatkul/add');
+		$this->load->view('relasi/departmentcourse/add');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -62,13 +62,13 @@ class JurusanMatkul extends CI_Controller {
 			'user' 			=> $this->ion_auth->user()->row(),
 			'judul'			=> 'Edit Course Dept.',
 			'subjudul'		=> 'Edit Data Course Dept.',
-			'course'		=> $this->master->getMatkulById($id, true),
+			'course'		=> $this->master->getCourseById($id, true),
 			'course_id'		=> $id,
-			'all_department'	=> $this->master->getAllJurusan(),
-			'department'		=> $this->master->getJurusanByIdMatkul($id)
+			'all_department'	=> $this->master->getAllDepartment(),
+			'department'		=> $this->master->getDepartmentByIdCourse($id)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/departmentmatkul/edit');
+		$this->load->view('relasi/departmentcourse/edit');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -98,11 +98,11 @@ class JurusanMatkul extends CI_Controller {
 				];
 			}
 			if($method==='add'){
-				$action = $this->master->create('department_matkul', $input, true);
+				$action = $this->master->create('department_course', $input, true);
 			}else if($method==='edit'){
 				$id = $this->input->post('course_id', true);
-				$this->master->delete('department_matkul', $id, 'course_id');
-				$action = $this->master->create('department_matkul', $input, true);
+				$this->master->delete('department_course', $id, 'course_id');
+				$action = $this->master->create('department_course', $input, true);
 			}
 			$data['status'] = $action ? TRUE : FALSE ;
 		}
@@ -115,7 +115,7 @@ class JurusanMatkul extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('department_matkul', $chk, 'course_id')){
+            if($this->master->delete('department_course', $chk, 'course_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }

@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="table-responsive px-4 pb-3" style="border: 0">
-                <table id="ujian" class="w-100 table table-striped table-bordered table-hover">
+                <table id="save_one" class="w-100 table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -69,4 +69,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/list.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/list.js"></script>

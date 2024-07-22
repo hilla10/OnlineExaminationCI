@@ -4,10 +4,10 @@ var table;
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#jurusanmatkul').DataTable({
+  table = $('#departmentCourse').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#jurusanmatkul_filter input')
+      $('#departmentCourse_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -41,7 +41,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'jurusanmatkul/data',
+      url: base_url + 'departmentCourse/data',
       type: 'POST',
     },
     columns: [
@@ -57,14 +57,14 @@ $(document).ready(function () {
         targets: 2,
         searchable: false,
         orderable: false,
-        title: 'Jurusan',
+        title: 'Department',
         data: 'department_name',
         render: function (data, type, row, meta) {
           let course = data.split(',');
           let badge = [];
           $.each(course, function (i, val) {
-            var newmatkul = `<span class="badge bg-green">${val}</span>`;
-            badge.push(newmatkul);
+            var newcourse = `<span class="badge bg-green">${val}</span>`;
+            badge.push(newcourse);
           });
           return badge.join(' ');
         },
@@ -76,7 +76,7 @@ $(document).ready(function () {
         data: 'course_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-									<a href="${base_url}jurusanmatkul/edit/${data}" class="btn btn-warning btn-xs">
+									<a href="${base_url}departmentCourse/edit/${data}" class="btn btn-warning btn-xs">
 										<i class="fa fa-pencil"></i>
 									</a>
 								</div>`;
@@ -108,7 +108,7 @@ $(document).ready(function () {
   table
     .buttons()
     .container()
-    .appendTo('#jurusanmatkul_wrapper .col-md-6:eq(0)');
+    .appendTo('#departmentCourse_wrapper .col-md-6:eq(0)');
 
   $('#myModal').on('shown.modal.bs', function () {
     $(':input[name="banyak"]').select();
@@ -128,9 +128,9 @@ $(document).ready(function () {
     }
   });
 
-  $('#jurusanmatkul tbody').on('click', 'tr .check', function () {
-    var check = $('#jurusanmatkul tbody tr .check').length;
-    var checked = $('#jurusanmatkul tbody tr .check:checked').length;
+  $('#departmentCourse tbody').on('click', 'tr .check', function () {
+    var check = $('#departmentCourse tbody tr .check').length;
+    var checked = $('#departmentCourse tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
@@ -139,7 +139,7 @@ $(document).ready(function () {
   });
 
   $('#bulk').on('submit', function (e) {
-    if ($(this).attr('action') == base_url + 'jurusanmatkul/delete') {
+    if ($(this).attr('action') == base_url + 'departmentCourse/delete') {
       e.preventDefault();
       e.stopImmediatePropagation();
 
@@ -176,14 +176,14 @@ $(document).ready(function () {
 });
 
 function bulk_delete() {
-  if ($('#jurusanmatkul tbody tr .check:checked').length == 0) {
+  if ($('#departmentCourse tbody tr .check:checked').length == 0) {
     Swal({
       title: 'Failed',
       text: 'No data selected',
       type: 'error',
     });
   } else {
-    $('#bulk').attr('action', base_url + 'jurusanmatkul/delete');
+    $('#bulk').attr('action', base_url + 'departmentCourse/delete');
     Swal({
       title: 'You sure?',
       text: 'Data will be deleted!',

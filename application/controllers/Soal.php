@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Soal extends CI_Controller {
+class Question extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -13,7 +13,7 @@ class Soal extends CI_Controller {
 		$this->load->library(['datatables', 'form_validation']);// Load Library Ignited-Datatables
 		$this->load->helper('my');// Load Library Ignited-Datatables
 		$this->load->model('Master_model', 'master');
-		$this->load->model('Soal_model', 'soal');
+		$this->load->model('Question_model', 'question');
 		$this->form_validation->set_error_delimiters('','');
 	}
 
@@ -33,15 +33,15 @@ class Soal extends CI_Controller {
         ];
         
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua course
-            $data['course'] = $this->master->getAllMatkul();
+            //if admin, then display all courses.
+            $data['course'] = $this->master->getAllCourse();
         }else{
             //Jika bukan maka course dipilih otomatis sesuai course lecturer
-            $data['course'] = $this->soal->getMatkulDosen($user->username);
+            $data['course'] = $this->question->getCourseLecturer($user->username);
         }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('soal/data');
+		$this->load->view('question/data');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
     
@@ -52,11 +52,11 @@ class Soal extends CI_Controller {
 			'user'      => $user,
 			'judul'	    => 'Question',
             'subjudul'  => 'Edit Question',
-            'soal'      => $this->soal->getSoalById($id),
+            'question'      => $this->question->getQuestionById($id),
         ];
 
         $this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('soal/detail');
+		$this->load->view('question/detail');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
     
@@ -70,15 +70,15 @@ class Soal extends CI_Controller {
         ];
 
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua course
-            $data['lecturer'] = $this->soal->getAllDosen();
+            //if admin, then display all courses.
+            $data['lecturer'] = $this->question->getAllLecturer();
         }else{
             //Jika bukan maka course dipilih otomatis sesuai course lecturer
-            $data['lecturer'] = $this->soal->getMatkulDosen($user->username);
+            $data['lecturer'] = $this->question->getCourseLecturer($user->username);
         }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('soal/add');
+		$this->load->view('question/add');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
 
@@ -89,25 +89,25 @@ class Soal extends CI_Controller {
 			'user'      => $user,
 			'judul'	    => 'Question',
             'subjudul'  => 'Edit Question',
-            'soal'      => $this->soal->getSoalById($id),
+            'question'      => $this->question->getQuestionById($id),
         ];
         
         if($this->ion_auth->is_admin()){
-            //Jika admin maka tampilkan semua course
-            $data['lecturer'] = $this->soal->getAllDosen();
+            //if admin, then display all courses.
+            $data['lecturer'] = $this->question->getAllLecturer();
         }else{
             //Jika bukan maka course dipilih otomatis sesuai course lecturer
-            $data['lecturer'] = $this->soal->getMatkulDosen($user->username);
+            $data['lecturer'] = $this->question->getCourseLecturer($user->username);
         }
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('soal/edit');
+		$this->load->view('question/edit');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
 	public function data($id=null, $lecturer=null)
 	{
-		$this->output_json($this->soal->getDataSoal($id, $lecturer), false);
+		$this->output_json($this->question->getDataQuestion($id, $lecturer), false);
     }
 
     public function validasi()
@@ -115,14 +115,14 @@ class Soal extends CI_Controller {
         if($this->ion_auth->is_admin()){
             $this->form_validation->set_rules('lecturer_id', 'Lecturer', 'required');
         }
-        // $this->form_validation->set_rules('soal', 'Soal', 'required');
-        // $this->form_validation->set_rules('jawaban_a', 'Jawaban A', 'required');
-        // $this->form_validation->set_rules('jawaban_b', 'Jawaban B', 'required');
-        // $this->form_validation->set_rules('jawaban_c', 'Jawaban C', 'required');
-        // $this->form_validation->set_rules('jawaban_d', 'Jawaban D', 'required');
-        // $this->form_validation->set_rules('jawaban_e', 'Jawaban E', 'required');
-        $this->form_validation->set_rules('jawaban', 'Answer key', 'required');
-        $this->form_validation->set_rules('bobot', 'Question Weight', 'required|max_length[2]');
+        // $this->form_validation->set_rules('question', 'Question', 'required');
+        // $this->form_validation->set_rules('answer_a', 'Answer A', 'required');
+        // $this->form_validation->set_rules('answer_b', 'Answer B', 'required');
+        // $this->form_validation->set_rules('answer_c', 'Answer C', 'required');
+        // $this->form_validation->set_rules('answer_d', 'Answer D', 'required');
+        // $this->form_validation->set_rules('answer_e', 'Answer E', 'required');
+        $this->form_validation->set_rules('answer', 'Answer key', 'required');
+        $this->form_validation->set_rules('weight', 'Question Weight', 'required|max_length[2]');
     }
 
     public function file_config()
@@ -132,7 +132,7 @@ class Soal extends CI_Controller {
             "audio/mpeg", "audio/mpg", "audio/mpeg3", "audio/mp3", "audio/x-wav", "audio/wave", "audio/wav",
             "video/mp4", "application/octet-stream"
         ];
-        $config['upload_path']      = FCPATH.'uploads/bank_soal/';
+        $config['upload_path']      = FCPATH.'uploads/bank_question/';
         $config['allowed_types']    = 'jpeg|jpg|png|gif|mpeg|mpg|mpeg3|mp3|wav|wave|mp4';
         $config['encrypt_name']     = TRUE;
         
@@ -150,39 +150,39 @@ class Soal extends CI_Controller {
             $method==='add'? $this->add() : $this->edit();
         }else{
             $data = [
-                'soal'      => $this->input->post('soal', true),
-                'jawaban'   => $this->input->post('jawaban', true),
-                'bobot'     => $this->input->post('bobot', true),
+                'question'      => $this->input->post('question', true),
+                'answer'   => $this->input->post('answer', true),
+                'weight'     => $this->input->post('weight', true),
             ];
             
             $abjad = ['a', 'b', 'c', 'd', 'e'];
             
-            // Inputan Opsi
+            // Inputan option
             foreach ($abjad as $abj) {
-                $data['opsi_'.$abj]    = $this->input->post('jawaban_'.$abj, true);
+                $data['option_'.$abj]    = $this->input->post('answer_'.$abj, true);
             }
 
             $i = 0;
             foreach ($_FILES as $key => $val) {
-                $img_src = FCPATH.'uploads/bank_soal/';
-                $getsoal = $this->soal->getSoalById($this->input->post('id_soal', true));
+                $img_src = FCPATH.'uploads/bank_question/';
+                $getquestion = $this->question->getQuestionById($this->input->post('question_id', true));
                 
                 $error = '';
-                if($key === 'file_soal'){
-                    if(!empty($_FILES['file_soal']['name'])){
-                        if (!$this->upload->do_upload('file_soal')){
+                if($key === 'file_question'){
+                    if(!empty($_FILES['file_question']['name'])){
+                        if (!$this->upload->do_upload('file_question')){
                             $error = $this->upload->display_errors();
                             show_error($error, 500, 'File Ques. Error');
                             exit();
                         }else{
                             if($method === 'edit'){
-                                if(!unlink($img_src.$getsoal->file)){
-                                    show_error('Error when deleting image <br/>'.var_dump($getsoal), 500, 'Image Editing Error');
+                                if(!unlink($img_src.$getquestion->file)){
+                                    show_error('Error when deleting image <br/>'.var_dump($getquestion), 500, 'Image Editing Error');
                                     exit();
                                 }
                             }
                             $data['file'] = $this->upload->data('file_name');
-                            $data['tipe_file'] = $this->upload->data('file_type');
+                            $data['file_type'] = $this->upload->data('file_type');
                         }
                     }
                 }else{
@@ -194,7 +194,7 @@ class Soal extends CI_Controller {
                             exit();
                         }else{
                             if($method === 'edit'){
-                                if(!unlink($img_src.$getsoal->$file_abj)){
+                                if(!unlink($img_src.$getquestion->$file_abj)){
                                     show_error('Error when deleting image', 500, 'Image Editing Error');
                                     exit();
                                 }
@@ -221,17 +221,17 @@ class Soal extends CI_Controller {
                 $data['created_on'] = time();
                 $data['updated_on'] = time();
                 //insert data
-                $this->master->create('tb_soal', $data);
+                $this->master->create('tb_question', $data);
             }else if($method==='edit'){
                 //push array
                 $data['updated_on'] = time();
                 //update data
-                $id_soal = $this->input->post('id_soal', true);
-                $this->master->update('tb_soal', $data, 'id_soal', $id_soal);
+                $question_id = $this->input->post('question_id', true);
+                $this->master->update('tb_question', $data, 'question_id', $question_id);
             }else{
                 show_error('Method unknown', 404);
             }
-            redirect('soal');
+            redirect('question');
         }
     }
 
@@ -242,21 +242,21 @@ class Soal extends CI_Controller {
         // Delete File
         foreach($chk as $id){
             $abjad = ['a', 'b', 'c', 'd', 'e'];
-            $path = FCPATH.'uploads/bank_soal/';
-            $soal = $this->soal->getSoalById($id);
-            // Hapus File Soal
-            if(!empty($soal->file)){
-                if(file_exists($path.$soal->file)){
-                    unlink($path.$soal->file);
+            $path = FCPATH.'uploads/bank_question/';
+            $question = $this->question->getQuestionById($id);
+            // Hapus File Question
+            if(!empty($question->file)){
+                if(file_exists($path.$question->file)){
+                    unlink($path.$question->file);
                 }
             }
-            //Hapus File Opsi
+            //Hapus File option
             $i = 0; //index
             foreach ($abjad as $abj) {
-                $file_opsi = 'file_'.$abj;
-                if(!empty($soal->$file_opsi)){
-                    if(file_exists($path.$soal->$file_opsi)){
-                        unlink($path.$soal->$file_opsi);
+                $file_option = 'file_'.$abj;
+                if(!empty($question->$file_option)){
+                    if(file_exists($path.$question->$file_option)){
+                        unlink($path.$question->$file_option);
                     }
                 }
             }
@@ -265,7 +265,7 @@ class Soal extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('tb_soal', $chk, 'id_soal')){
+            if($this->master->delete('tb_question', $chk, 'question_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }

@@ -21,7 +21,7 @@
 			<?php 
 			$page = $this->uri->segment(1);
 			$master = ["department", "class", "course", "lecturer", "student"];
-			$relasi = ["kelasdosen", "jurusanmatkul"];
+			$relasi = ["lecturerClass", "departmentCourse"];
 			$users = ["users"];
 			?>
 			<li class="<?= $page === 'dashboard' ? "active" : "" ?>"><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
@@ -72,14 +72,14 @@
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="<?=$page==='kelasdosen'?"active":""?>">
-						<a href="<?=base_url('kelasdosen')?>">
+					<li class="<?=$page==='lecturerClass'?"active":""?>">
+						<a href="<?=base_url('lecturerClass')?>">
 							<i class="fa fa-bars"></i>
 							Class - Lecturer
 						</a>
 					</li>
-					<li class="<?=$page==='jurusanmatkul'?"active":""?>">
-						<a href="<?=base_url('jurusanmatkul')?>">
+					<li class="<?=$page==='departmentCourse'?"active":""?>">
+						<a href="<?=base_url('departmentCourse')?>">
 							<i class="fa fa-bars"></i>
 							Department - Course
 						</a>
@@ -88,30 +88,30 @@
 			</li>
 			<?php endif; ?>
 			<?php if( $this->ion_auth->is_admin() || $this->ion_auth->in_group('Lecturer') ) : ?>
-			<li class="<?=$page==='soal'?"active":""?>">
-				<a href="<?=base_url('soal')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='question'?"active":""?>">
+				<a href="<?=base_url('question')?>" rel="noopener noreferrer">
 					<i class="fa fa-file-text"></i> <span>Question Bank</span>
 				</a>
 			</li>
 			<?php endif; ?>
 			<?php if( $this->ion_auth->in_group('Lecturer') ) : ?>
-			<li class="<?=$page==='ujian'?"active":""?>">
-				<a href="<?=base_url('ujian/master')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='save_one'?"active":""?>">
+				<a href="<?=base_url('save_one/master')?>" rel="noopener noreferrer">
 					<i class="fa fa-pencil"></i> <span>Exam</span>
 				</a>
 			</li>
 			<?php endif; ?>
 			<?php if( $this->ion_auth->in_group('Student') ) : ?>
-			<li class="<?=$page==='ujian'?"active":""?>">
-				<a href="<?=base_url('ujian/list')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='save_one'?"active":""?>">
+				<a href="<?=base_url('save_one/list')?>" rel="noopener noreferrer">
 					<i class="fa fa-pencil"></i> <span>Exam</span>
 				</a>
 			</li>
 			<?php endif; ?>
 			<?php if( !$this->ion_auth->in_group('Student') ) : ?>
 			<li class="header">REPORTS</li>
-			<li class="<?=$page==='hasilujian'?"active":""?>">
-				<a href="<?=base_url('hasilujian')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='examResult'?"active":""?>">
+				<a href="<?=base_url('examResult')?>" rel="noopener noreferrer">
 					<i class="fa fa-file"></i> <span>Exam Results</span>
 				</a>
 			</li>

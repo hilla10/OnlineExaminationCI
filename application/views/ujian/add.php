@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title"><?=$subjudul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url()?>ujian/master" class="btn btn-sm btn-flat btn-warning">
+            <a href="<?=base_url()?>save_one/master" class="btn btn-sm btn-flat btn-warning">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -20,15 +20,15 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <?=form_open('ujian/save', array('id'=>'formujian'), array('method'=>'add','lecturer_id'=>$lecturer->lecturer_id, 'course_id'=>$course->course_id))?>
+                <?=form_open('save_one/save', array('id'=>'formexam'), array('method'=>'add','lecturer_id'=>$lecturer->lecturer_id, 'course_id'=>$course->course_id))?>
                 <div class="form-group">
                     <label for="exam_name">Exam Name</label>
                     <input autofocus="autofocus" onfocus="this.select()" placeholder="Exam Name" type="text" class="form-control" name="exam_name">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
-                    <label for="number_of_questions">Number of Questions</label>
-                    <input placeholder="Number of Questions" type="number" class="form-control" name="number_of_questions">
+                    <label for="total_questions">Number of Questions</label>
+                    <input placeholder="Number of Questions" type="number" class="form-control" name="total_questions">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
@@ -67,4 +67,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/add.js"></script>

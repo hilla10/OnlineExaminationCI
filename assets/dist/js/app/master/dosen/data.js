@@ -6,7 +6,7 @@ $(document).ready(function () {
   table = $('#lecturer').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#dosen_filter input')
+      $('#lecturer_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -102,7 +102,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#dosen_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#lecturer_wrapper .col-md-6:eq(0)');
 
   $('.select_all').on('click', function () {
     if (this.checked) {

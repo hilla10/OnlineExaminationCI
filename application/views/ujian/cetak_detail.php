@@ -60,8 +60,8 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 $pdf->AddPage();
 
-$mulai = strftime('%A, %d %B %Y', strtotime($ujian->start_time));
-$selesai = strftime('%A, %d %B %Y', strtotime($ujian->late_time));
+$mulai = strftime('%A, %d %B %Y', strtotime($save_one->start_time));
+$selesai = strftime('%A, %d %B %Y', strtotime($save_one->late_time));
 
 // create some HTML content
 $html = <<<EOD
@@ -72,19 +72,19 @@ All the detailed information are provided below with Highest, Lowest and Average
 <table>
     <tr>
         <th><b>Exam Name</b></th>
-        <td>{$ujian->exam_name}</td>
+        <td>{$save_one->exam_name}</td>
         <th><b>Course</b></th>
-        <td>{$ujian->course_name}</td> 
+        <td>{$save_one->course_name}</td> 
     </tr>
     <tr>
         <th><b>Total Ques.</b></th>
-        <td>{$ujian->number_of_questions}</td>
+        <td>{$save_one->total_questions}</td>
         <th><b>Lecturer</b></th>
-        <td>{$ujian->lecturer_name}</td>
+        <td>{$save_one->lecturer_name}</td>
     </tr>
     <tr>
         <th><b>Time</b></th>
-        <td>{$ujian->duration} Minute</td>
+        <td>{$save_one->duration} Minute</td>
         <th><b>Lowest Score</b></th>
         <td>{$score->min_score}</td>
     </tr>

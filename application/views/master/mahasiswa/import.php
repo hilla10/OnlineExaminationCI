@@ -10,7 +10,7 @@
         <ul class="alert alert-info" style="padding-left: 40px">
             <li>Please import data from excel, using the provided format</li>
             <li>Data must not be empty, all must be filled in.</li>
-            <li>For Class data, it can only be filled using Class ID. <a data-toggle="modal" href="#kelasId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
+            <li>For Class data, it can only be filled using Class ID. <a data-toggle="modal" href="#classId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
         </ul>
         <div class="text-center">
             <a href="<?= base_url('uploads/import/format/student.xlsx') ?>" class="btn-default btn">Download Format</a>
@@ -66,12 +66,12 @@
                                         <td class="<?= $data['gender'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['gender'] == null ? 'NOT FILLED' : $data['gender'];; ?>
                                         </td>
-                                        <td class="<?= $data['kelas_id'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['kelas_id'] == null ? 'NOT FILLED' : $data['kelas_id'];; ?>
+                                        <td class="<?= $data['class_id'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['class_id'] == null ? 'NOT FILLED' : $data['class_id'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['student_number'] == null || $data['name'] == null || $data['email'] == null || $data['gender'] == null || $data['kelas_id'] == null) {
+                                        if ($data['student_number'] == null || $data['name'] == null || $data['email'] == null || $data['gender'] == null || $data['class_id'] == null) {
                                             $status = false;
                                         }
                                     endforeach;
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="kelasId">
+<div class="modal fade" id="classId">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

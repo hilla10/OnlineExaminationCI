@@ -49,7 +49,7 @@ INSERT INTO `lecturer` (`lecturer_id`, `teacher_id`, `lecturer_name`, `email`, `
 -- Triggers `lecturer`
 --
 DELIMITER $$
-CREATE TRIGGER `edit_user_dosen` BEFORE UPDATE ON `lecturer` FOR EACH ROW UPDATE `users` SET `email` = NEW.email, `username` = NEW.teacher_id WHERE `users`.`username` = OLD.teacher_id
+CREATE TRIGGER `edit_user_lecturer` BEFORE UPDATE ON `lecturer` FOR EACH ROW UPDATE `users` SET `email` = NEW.email, `username` = NEW.teacher_id WHERE `users`.`username` = OLD.teacher_id
 $$
 DELIMITER ;
 DELIMITER $$
@@ -183,20 +183,20 @@ INSERT INTO `class` (`class_id`, `class_name`, `department_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas_dosen`
+-- Table structure for table `lecturer_class`
 --
 
-CREATE TABLE `kelas_dosen` (
+CREATE TABLE `lecturer_class` (
   `id` int(11) NOT NULL,
-  `kelas_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
   `lecturer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kelas_dosen`
+-- Dumping data for table `lecturer_class`
 --
 
-INSERT INTO `kelas_dosen` (`id`, `kelas_id`, `lecturer_id`) VALUES
+INSERT INTO `lecturer_class` (`id`, `class_id`, `lecturer_id`) VALUES
 (1, 3, 1),
 (2, 2, 1),
 (3, 1, 1),
@@ -240,14 +240,14 @@ CREATE TABLE `student` (
   `student_number` char(20) NOT NULL,
   `email` varchar(254) NOT NULL,
   `gender` enum('L','P') NOT NULL,
-  `kelas_id` int(11) NOT NULL COMMENT 'class&department'
+  `class_id` int(11) NOT NULL COMMENT 'class&department'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `name`, `student_number`, `email`, `gender`, `kelas_id`) VALUES
+INSERT INTO `student` (`student_id`, `name`, `student_number`, `email`, `gender`, `class_id`) VALUES
 (1, 'Liam Moore', '12183018', 'liamoore@mail.com', '', 1),
 (2, 'Demo Student', '01112004', 'demostd@mail.com', '', 9),
 (3, 'Test Student', '1111111111', 'teststudent@mail.com', '', 11);
@@ -286,7 +286,7 @@ CREATE TABLE `exam` (
   `lecturer_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
   `exam_name` varchar(200) NOT NULL,
-  `number_of_questions` int(11) NOT NULL,
+  `total_questions` int(11) NOT NULL,
   `duration` int(11) NOT NULL,
   `type` enum('Random','Sort') NOT NULL,
   `start_time` datetime NOT NULL,
@@ -298,7 +298,7 @@ CREATE TABLE `exam` (
 -- Dumping data for table `exam`
 --
 
-INSERT INTO `exam` (`exam_id`, `lecturer_id`, `course_id`, `exam_name`, `number_of_questions`, `duration`, `type`, `start_time`, `late_time`, `token`) VALUES
+INSERT INTO `exam` (`exam_id`, `lecturer_id`, `course_id`, `exam_name`, `total_questions`, `duration`, `type`, `start_time`, `late_time`, `token`) VALUES
 (1, 1, 1, 'First Test', 3, 1, 'Random', '2019-02-15 17:25:40', '2019-02-20 17:25:44', 'DPEHL'),
 (2, 1, 1, 'Second Test', 3, 1, 'Random', '2019-02-16 10:05:08', '2019-02-17 10:05:10', 'GOEMB'),
 (3, 3, 5, 'Try Out 01', 2, 1, 'Random', '2019-02-16 07:00:00', '2019-02-28 14:00:00', 'GETQB'),
@@ -310,37 +310,37 @@ INSERT INTO `exam` (`exam_id`, `lecturer_id`, `course_id`, `exam_name`, `number_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_soal`
+-- Table structure for table `tb_question`
 --
 
-CREATE TABLE `tb_soal` (
-  `id_soal` int(11) NOT NULL,
+CREATE TABLE `tb_question` (
+  `question_id` int(11) NOT NULL,
   `lecturer_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `bobot` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
   `file` varchar(255) NOT NULL,
-  `tipe_file` varchar(50) NOT NULL,
-  `soal` longtext NOT NULL,
-  `opsi_a` longtext NOT NULL,
-  `opsi_b` longtext NOT NULL,
-  `opsi_c` longtext NOT NULL,
-  `opsi_d` longtext NOT NULL,
-  `opsi_e` longtext NOT NULL,
+  `file_type` varchar(50) NOT NULL,
+  `question` longtext NOT NULL,
+  `option_a` longtext NOT NULL,
+  `option_b` longtext NOT NULL,
+  `option_c` longtext NOT NULL,
+  `option_d` longtext NOT NULL,
+  `option_e` longtext NOT NULL,
   `file_a` varchar(255) NOT NULL,
   `file_b` varchar(255) NOT NULL,
   `file_c` varchar(255) NOT NULL,
   `file_d` varchar(255) NOT NULL,
   `file_e` varchar(255) NOT NULL,
-  `jawaban` varchar(5) NOT NULL,
+  `answer` varchar(5) NOT NULL,
   `created_on` int(11) NOT NULL,
   `updated_on` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tb_soal`
+-- Dumping data for table `tb_question`
 --
 
-INSERT INTO `tb_soal` (`id_soal`, `lecturer_id`, `course_id`, `bobot`, `file`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `file_a`, `file_b`, `file_c`, `file_d`, `file_e`, `jawaban`, `created_on`, `updated_on`) VALUES
+INSERT INTO `tb_question` (`question_id`, `lecturer_id`, `course_id`, `weight`, `file`, `file_type`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `option_e`, `file_a`, `file_b`, `file_c`, `file_d`, `file_e`, `answer`, `created_on`, `updated_on`) VALUES
 (1, 1, 1, 1, '', '', '<p>Dian : The cake is scrumptious! I love i<br>Joni : … another piece?<br>Dian : Thank you. You should tell me the recipe.<br>Joni : I will.</p><p>Which of the following offering expressions best fill the blank?</p>', '<p>Do you mind if you have</p>', '<p>Would you like</p>', '<p>Shall you hav</p>', '<p>Can I have you</p>', '<p>I will bring you</p>', '', '', '', '', '', 'B', 1550225760, 1550225760),
 (2, 1, 1, 1, '', '', '<p>Fitri : The French homework is really hard. I don’t feel like to do it.<br>Rahmat : … to help you?<br>Fitri : It sounds great. Thanks, Rahmat!</p><p><br></p><p>Which of the following offering expressions best fill the blank?</p>', '<p>Would you like me</p>', '<p>Do you mind if I</p>', '<p>Shall I</p>', '<p>Can I</p>', '<p>I will</p>', '', '', '', '', '', 'A', 1550225952, 1550225952),
 (3, 1, 1, 1, 'd166959dabe9a81e4567dc44021ea503.jpg', 'image/jpeg', '<p>What is the picture describing?</p><p><small class=\"text-muted\">Sumber gambar: meros.jp</small></p>', '<p>The students are arguing with their lecturer.</p>', '<p>The students are watching their preacher.</p>', '<p>The teacher is angry with their students.</p>', '<p>The students are listening to their lecturer.</p>', '<p>The students detest the preacher.</p>', '', '', '', '', '', 'D', 1550226174, 1550226174),
@@ -480,11 +480,11 @@ ALTER TABLE `class`
   ADD KEY `department_id` (`department_id`);
 
 --
--- Indexes for table `kelas_dosen`
+-- Indexes for table `lecturer_class`
 --
-ALTER TABLE `kelas_dosen`
+ALTER TABLE `lecturer_class`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `kelas_id` (`kelas_id`),
+  ADD KEY `class_id` (`class_id`),
   ADD KEY `lecturer_id` (`lecturer_id`);
 
 --
@@ -500,7 +500,7 @@ ALTER TABLE `student`
   ADD PRIMARY KEY (`student_id`),
   ADD UNIQUE KEY `student_number` (`student_number`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `kelas_id` (`kelas_id`);
+  ADD KEY `class_id` (`class_id`);
 
 --
 -- Indexes for table `course`
@@ -517,10 +517,10 @@ ALTER TABLE `exam`
   ADD KEY `lecturer_id` (`lecturer_id`);
 
 --
--- Indexes for table `tb_soal`
+-- Indexes for table `tb_question`
 --
-ALTER TABLE `tb_soal`
-  ADD PRIMARY KEY (`id_soal`),
+ALTER TABLE `tb_question`
+  ADD PRIMARY KEY (`question_id`),
   ADD KEY `course_id` (`course_id`),
   ADD KEY `lecturer_id` (`lecturer_id`);
 
@@ -578,9 +578,9 @@ ALTER TABLE `department_course`
 ALTER TABLE `class`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `kelas_dosen`
+-- AUTO_INCREMENT for table `lecturer_class`
 --
-ALTER TABLE `kelas_dosen`
+ALTER TABLE `lecturer_class`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `login_attempts`
@@ -603,10 +603,10 @@ ALTER TABLE `course`
 ALTER TABLE `exam`
   MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `tb_soal`
+-- AUTO_INCREMENT for table `tb_question`
 --
-ALTER TABLE `tb_soal`
-  MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `tb_question`
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -625,7 +625,7 @@ ALTER TABLE `users_groups`
 -- Constraints for table `lecturer`
 --
 ALTER TABLE `lecturer`
-  ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
+  ADD CONSTRAINT `lecturer_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
 -- Constraints for table `exam_history`
@@ -642,17 +642,17 @@ ALTER TABLE `department_course`
   ADD CONSTRAINT `department_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
--- Constraints for table `kelas_dosen`
+-- Constraints for table `lecturer_class`
 --
-ALTER TABLE `kelas_dosen`
-  ADD CONSTRAINT `kelas_dosen_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
-  ADD CONSTRAINT `kelas_dosen_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `class` (`class_id`);
+ALTER TABLE `lecturer_class`
+  ADD CONSTRAINT `lecturer_class_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
+  ADD CONSTRAINT `lecturer_class_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`);
 
 --
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
-  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `class` (`class_id`);
+  ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`);
 
 --
 -- Constraints for table `exam`
@@ -662,11 +662,11 @@ ALTER TABLE `exam`
   ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`);
 
 --
--- Constraints for table `tb_soal`
+-- Constraints for table `tb_question`
 --
-ALTER TABLE `tb_soal`
-  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
-  ADD CONSTRAINT `tb_soal_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`);
+ALTER TABLE `tb_question`
+  ADD CONSTRAINT `tb_question_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
+  ADD CONSTRAINT `tb_question_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`);
 
 --
 -- Constraints for table `users_groups`

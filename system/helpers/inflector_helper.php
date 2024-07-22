@@ -243,7 +243,7 @@ if ( ! function_exists('is_countable'))
 				'bison',
 				'chassis',
 				'compensation',
-				'coreopsis',
+				'coreoptions',
 				'data',
 				'deer',
 				'education',

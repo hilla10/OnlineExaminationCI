@@ -40,7 +40,7 @@ $(document).ready(function () {
     processing: true,
     serverSide: true,
     ajax: {
-      url: base_url + 'hasilujian/data',
+      url: base_url + 'examResult/data',
       type: 'POST',
     },
     columns: [
@@ -52,7 +52,7 @@ $(document).ready(function () {
       { data: 'exam_name' },
       { data: 'course_name' },
       { data: 'lecturer_name' },
-      { data: 'number_of_questions' },
+      { data: 'total_questions' },
       { data: 'duration' },
       { data: 'start_time' },
       {
@@ -67,7 +67,7 @@ $(document).ready(function () {
         render: function (data, type, row, meta) {
           return `
                     <div class="text-center">
-                        <a class="btn btn-xs bg-green" href="${base_url}hasilujian/detail/${data}" >
+                        <a class="btn btn-xs bg-green" href="${base_url}examResult/detail/${data}" >
                             <i class="fa fa-search"></i> View Results
                         </a>
                     </div>

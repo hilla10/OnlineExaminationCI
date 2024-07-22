@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url()?>jurusanmatkul" class="btn btn-warning btn-flat btn-sm">
+            <a href="<?=base_url()?>departmentCourse" class="btn btn-warning btn-flat btn-sm">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -10,7 +10,7 @@
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                    <?=form_open('jurusanmatkul/save', array('id'=>'jurusanmatkul'), array('method'=>'edit', 'course_id'=>$course_id))?>
+                    <?=form_open('departmentCourse/save', array('id'=>'departmentCourse'), array('method'=>'edit', 'course_id'=>$course_id))?>
                 <div class="form-group">
                     <label>Course</label>
                     <input type="text" readonly="readonly" value="<?=$course->course_name?>" class="form-control">
@@ -24,7 +24,7 @@
                         foreach ($department as $key => $val) {
                             $sj[] = $val->department_id;
                         }
-                        foreach ($all_jurusan as $m) : ?>
+                        foreach ($all_department as $m) : ?>
                             <option <?=in_array($m->department_id, $sj) ? "selected" : "" ?> value="<?=$m->department_id?>"><?=$m->department_name?></option>
                         <?php endforeach; ?>
                     </select>
@@ -44,4 +44,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/jurusanmatkul/edit.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/departmentCourse/edit.js"></script>

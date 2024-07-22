@@ -1,7 +1,7 @@
-function load_jurusan() {
+function load_department() {
   $('#department').find('option').not(':first').remove();
 
-  $.getJSON(base_url + 'department/load_jurusan', function (data) {
+  $.getJSON(base_url + 'department/load_department', function (data) {
     var option = [];
     for (let i = 0; i < data.length; i++) {
       option.push({
@@ -15,10 +15,10 @@ function load_jurusan() {
   });
 }
 
-function load_kelas(id) {
+function load_class(id) {
   $('#class').find('option').not(':first').remove();
 
-  $.getJSON(base_url + 'class/kelas_by_jurusan/' + id, function (data) {
+  $.getJSON(base_url + 'class/class_by_department/' + id, function (data) {
     var option = [];
     for (let i = 0; i < data.length; i++) {
       option.push({
@@ -35,12 +35,12 @@ function load_kelas(id) {
 $(document).ready(function () {
   ajaxcsrf();
 
-  // Load Jurusan
-  load_jurusan();
+  // Load Department
+  load_department();
 
-  // Load Kelas By Jurusan
+  // Load ClassRoom By Department
   $('#department').on('change', function () {
-    load_kelas($(this).val());
+    load_class($(this).val());
   });
 
   $('form#student input, form#student select').on('change', function () {

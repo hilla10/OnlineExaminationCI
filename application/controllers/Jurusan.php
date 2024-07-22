@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 
-class Jurusan extends CI_Controller
+class Department extends CI_Controller
 {
 
 	public function __construct()
@@ -55,7 +55,7 @@ class Jurusan extends CI_Controller
 
 	public function data()
 	{
-		$this->output_json($this->master->getDataJurusan(), false);
+		$this->output_json($this->master->getDataDepartment(), false);
 	}
 
 	public function edit()
@@ -64,7 +64,7 @@ class Jurusan extends CI_Controller
 		if (!$chk) {
 			redirect('department');
 		} else {
-			$department = $this->master->getJurusanById($chk);
+			$department = $this->master->getDepartmentById($chk);
 			$data = [
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Department',
@@ -136,7 +136,7 @@ class Jurusan extends CI_Controller
 
 	public function load_department()
 	{
-		$data = $this->master->getJurusan();
+		$data = $this->master->getDepartment();
 		$this->output_json($data);
 	}
 

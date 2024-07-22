@@ -35,10 +35,10 @@ class Master_model extends CI_Model
     }
 
     /**
-     * Data Kelas
+     * Data ClassRoom
      */
 
-    public function getDataKelas()
+    public function getDataClass()
     {
         $this->datatables->select('class_id, class_name, department_id, department_name');
         $this->datatables->from('class');
@@ -47,7 +47,7 @@ class Master_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    public function getKelasById($id)
+    public function getClassById($id)
     {
         $this->db->where_in('class_id', $id);
         $this->db->order_by('class_name');
@@ -56,10 +56,10 @@ class Master_model extends CI_Model
     }
 
     /**
-     * Data Jurusan
+     * Data Department
      */
 
-    public function getDataJurusan()
+    public function getDataDepartment()
     {
         $this->datatables->select('department_id, department_name');
         $this->datatables->from('department');
@@ -67,7 +67,7 @@ class Master_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    public function getJurusanById($id)
+    public function getDepartmentById($id)
     {
         $this->db->where_in('department_id', $id);
         $this->db->order_by('department_name');
@@ -76,30 +76,30 @@ class Master_model extends CI_Model
     }
 
     /**
-     * Data Mahasiswa
+     * Data Student
      */
 
-    public function getDataMahasiswa()
+    public function getDataStudent()
     {
         $this->datatables->select('a.student_id, a.name, a.student_number, a.email, b.class_name, c.department_name');
         $this->datatables->select('(SELECT COUNT(id) FROM users WHERE username = a.student_number) AS ada');
         $this->datatables->from('student a');
-        $this->datatables->join('class b', 'a.kelas_id=b.class_id');
+        $this->datatables->join('class b', 'a.class_id=b.class_id');
         $this->datatables->join('department c', 'b.department_id=c.department_id');
         return $this->datatables->generate();
     }
 
-    public function getMahasiswaById($id)
+    public function getStudentById($id)
     {
         $this->db->select('*');
         $this->db->from('student');
-        $this->db->join('class', 'kelas_id=class_id');
+        $this->db->join('class', 'class_id=class_id');
         $this->db->join('department', 'department_id=department_id');
         $this->db->where(['student_id' => $id]);
         return $this->db->get()->row();
     }
 
-    public function getJurusan()
+    public function getDepartment()
     {
         $this->db->select('department_id, department_name');
         $this->db->from('class');
@@ -110,7 +110,7 @@ class Master_model extends CI_Model
         return $query->result();
     }
 
-    public function getAllJurusan($id = null)
+    public function getAllDepartment($id = null)
     {
         if ($id === null) {
             $this->db->order_by('department_name', 'ASC');
@@ -136,7 +136,7 @@ class Master_model extends CI_Model
         }
     }
 
-    public function getKelasByJurusan($id)
+    public function getClassByDepartment($id)
     {
         $query = $this->db->get_where('class', array('department_id'=>$id));
         return $query->result();
@@ -146,7 +146,7 @@ class Master_model extends CI_Model
      * Data Lecturer
      */
 
-    public function getDataDosen()
+    public function getDataLecturer()
     {
         $this->datatables->select('a.lecturer_id,a.teacher_id, a.lecturer_name, a.email, a.course_id, b.course_name, (SELECT COUNT(id) FROM users WHERE username = a.teacher_id OR email = a.email) AS ada');
         $this->datatables->from('lecturer a');
@@ -154,29 +154,29 @@ class Master_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    public function getDosenById($id)
+    public function getLecturerById($id)
     {
         $query = $this->db->get_where('lecturer', array('lecturer_id'=>$id));
         return $query->row();
     }
 
     /**
-     * Data Matkul
+     * Data Course
      */
 
-    public function getDataMatkul()
+    public function getDataCourse()
     {
         $this->datatables->select('course_id, course_name');
         $this->datatables->from('course');
         return $this->datatables->generate();
     }
 
-    public function getAllMatkul()
+    public function getAllCourse()
     {
         return $this->db->get('course')->result();
     }
 
-    public function getMatkulById($id, $single = false)
+    public function getCourseById($id, $single = false)
     {
         if ($single === false) {
             $this->db->where_in('course_id', $id);
@@ -189,23 +189,23 @@ class Master_model extends CI_Model
     }
 
     /**
-     * Data Kelas Lecturer
+     * Data ClassRoom Lecturer
      */
 
-    public function getKelasDosen()
+    public function getLecturerClass()
     {
-        $this->datatables->select('kelas_dosen.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(class.class_name) as class');
-        $this->datatables->from('kelas_dosen');
-        $this->datatables->join('class', 'kelas_id=class_id');
+        $this->datatables->select('lecturer_class.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(class.class_name) as class');
+        $this->datatables->from('lecturer_class');
+        $this->datatables->join('class', 'class_id=class_id');
         $this->datatables->join('lecturer', 'lecturer_id=lecturer_id');
         $this->datatables->group_by('lecturer.lecturer_name');
         return $this->datatables->generate();
     }
 
-    public function getAllDosen($id = null)
+    public function getAllLecturer($id = null)
     {
         $this->db->select('lecturer_id');
-        $this->db->from('kelas_dosen');
+        $this->db->from('lecturer_class');
         if ($id !== null) {
             $this->db->where_not_in('lecturer_id', [$id]);
         }
@@ -225,7 +225,7 @@ class Master_model extends CI_Model
     }
 
     
-    public function getAllKelas()
+    public function getAllClass()
     {
         $this->db->select('class_id, class_name, department_name');
         $this->db->from('class');
@@ -234,20 +234,20 @@ class Master_model extends CI_Model
         return $this->db->get()->result();
     }
     
-    public function getKelasByDosen($id)
+    public function getClassByLecturer($id)
     {
         $this->db->select('class.class_id');
-        $this->db->from('kelas_dosen');
-        $this->db->join('class', 'kelas_dosen.kelas_id=class.class_id');
+        $this->db->from('lecturer_class');
+        $this->db->join('class', 'lecturer_class.class_id=class.class_id');
         $this->db->where('lecturer_id', $id);
         $query = $this->db->get()->result();
         return $query;
     }
     /**
-     * Data Jurusan Matkul
+     * Data Department Course
      */
 
-    public function getJurusanMatkul()
+    public function getDepartmentCourse()
     {
         $this->datatables->select('department_course.id, course.course_id, course.course_name, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
         $this->datatables->from('department_course');
@@ -257,7 +257,7 @@ class Master_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    public function getMatkul($id = null)
+    public function getCourse($id = null)
     {
         $this->db->select('course_id');
         $this->db->from('department_course');
@@ -279,7 +279,7 @@ class Master_model extends CI_Model
         return $this->db->get()->result();
     }
 
-    public function getJurusanByIdMatkul($id)
+    public function getDepartmentByIdCourse($id)
     {
         $this->db->select('department.department_id');
         $this->db->from('department_course');

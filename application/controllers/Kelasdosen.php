@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class KelasDosen extends CI_Controller {
+class LecturerClass extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -29,13 +29,13 @@ class KelasDosen extends CI_Controller {
 			'subjudul'=> 'Data Lecturer Class'
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/kelasdosen/data');
+		$this->load->view('relasi/lecturerClass/data');
 		$this->load->view('_templates/dashboard/_footer.php');
     }
 
     public function data()
     {
-        $this->output_json($this->master->getKelasDosen(), false);
+        $this->output_json($this->master->getLecturerClass(), false);
 	}
 	
 	public function add()
@@ -44,11 +44,11 @@ class KelasDosen extends CI_Controller {
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Add Lecturer Class',
 			'subjudul'	=> 'Add Lecturer Class Data',
-			'lecturer'		=> $this->master->getAllDosen(),
-			'class'	    => $this->master->getAllKelas()
+			'lecturer'		=> $this->master->getAllLecturer(),
+			'class'	    => $this->master->getAllClass()
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/kelasdosen/add');
+		$this->load->view('relasi/lecturerClass/add');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -58,13 +58,13 @@ class KelasDosen extends CI_Controller {
 			'user' 			=> $this->ion_auth->user()->row(),
 			'judul'			=> 'Edit Class Lecturer',
 			'subjudul'		=> 'Edit Lecturer Class Data',
-			'lecturer'			=> $this->master->getDosenById($id),
+			'lecturer'			=> $this->master->getLecturerById($id),
 			'lecturer_id'		=> $id,
-			'all_kelas'	    => $this->master->getAllKelas(),
-			'class'		    => $this->master->getKelasByDosen($id)
+			'all_class'	    => $this->master->getAllClass(),
+			'class'		    => $this->master->getClassByLecturer($id)
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('relasi/kelasdosen/edit');
+		$this->load->view('relasi/lecturerClass/edit');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
@@ -72,33 +72,33 @@ class KelasDosen extends CI_Controller {
 	{
 		$method = $this->input->post('method', true);
 		$this->form_validation->set_rules('lecturer_id', 'Lecturer', 'required');
-		$this->form_validation->set_rules('kelas_id[]', 'Class', 'required');
+		$this->form_validation->set_rules('class_id[]', 'Class', 'required');
 	
 		if($this->form_validation->run() == FALSE){
 			$data = [
 				'status'	=> false,
 				'errors'	=> [
 					'lecturer_id' => form_error('lecturer_id'),
-					'kelas_id[]' => form_error('kelas_id[]'),
+					'class_id[]' => form_error('class_id[]'),
 				]
 			];
 			$this->output_json($data);
 		}else{
 			$lecturer_id = $this->input->post('lecturer_id', true);
-			$kelas_id = $this->input->post('kelas_id', true);
+			$class_id = $this->input->post('class_id', true);
 			$input = [];
-			foreach ($kelas_id as $key => $val) {
+			foreach ($class_id as $key => $val) {
 				$input[] = [
 					'lecturer_id'  => $lecturer_id,
-					'kelas_id' => $val
+					'class_id' => $val
 				];
 			}
 			if($method==='add'){
-				$action = $this->master->create('kelas_dosen', $input, true);
+				$action = $this->master->create('lecturer_class', $input, true);
 			}else if($method==='edit'){
 				$id = $this->input->post('lecturer_id', true);
-				$this->master->delete('kelas_dosen', $id, 'lecturer_id');
-				$action = $this->master->create('kelas_dosen', $input, true);
+				$this->master->delete('lecturer_class', $id, 'lecturer_id');
+				$action = $this->master->create('lecturer_class', $input, true);
 			}
 			$data['status'] = $action ? TRUE : FALSE ;
 		}
@@ -111,7 +111,7 @@ class KelasDosen extends CI_Controller {
         if(!$chk){
             $this->output_json(['status'=>false]);
         }else{
-            if($this->master->delete('kelas_dosen', $chk, 'lecturer_id')){
+            if($this->master->delete('lecturer_class', $chk, 'lecturer_id')){
                 $this->output_json(['status'=>true, 'total'=>count($chk)]);
             }
         }

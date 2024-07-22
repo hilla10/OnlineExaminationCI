@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mahasiswa extends CI_Controller
+class Student extends CI_Controller
 {
 
 	public function __construct()
@@ -37,7 +37,7 @@ class Mahasiswa extends CI_Controller
 
 	public function data()
 	{
-		$this->output_json($this->master->getDataMahasiswa(), false);
+		$this->output_json($this->master->getDataStudent(), false);
 	}
 
 	public function add()
@@ -54,13 +54,13 @@ class Mahasiswa extends CI_Controller
 
 	public function edit($id)
 	{
-		$mhs = $this->master->getMahasiswaById($id);
+		$mhs = $this->master->getStudentById($id);
 		$data = [
 			'user' 		=> $this->ion_auth->user()->row(),
 			'judul'		=> 'Student',
 			'subjudul'	=> 'Edit Student Data',
-			'department'	=> $this->master->getJurusan(),
-			'class'		=> $this->master->getKelasByJurusan($mhs->department_id),
+			'department'	=> $this->master->getDepartment(),
+			'class'		=> $this->master->getClassByDepartment($mhs->department_id),
 			'student' => $mhs
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -68,7 +68,7 @@ class Mahasiswa extends CI_Controller
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
-	public function validasi_mahasiswa($method)
+	public function validasi_student_validation($method)
 	{
 		$student_id 	= $this->input->post('student_id', true);
 		$student_number 			= $this->input->post('student_number', true);
@@ -77,7 +77,7 @@ class Mahasiswa extends CI_Controller
 			$u_nim = '|is_unique[student.student_number]';
 			$u_email = '|is_unique[student.email]';
 		} else {
-			$dbdata 	= $this->master->getMahasiswaById($student_id);
+			$dbdata 	= $this->master->getStudentById($student_id);
 			$u_nim		= $dbdata->student_number === $student_number ? "" : "|is_unique[student.student_number]";
 			$u_email	= $dbdata->email === $email ? "" : "|is_unique[student.email]";
 		}
@@ -94,7 +94,7 @@ class Mahasiswa extends CI_Controller
 	public function save()
 	{
 		$method = $this->input->post('method', true);
-		$this->validasi_mahasiswa($method);
+		$this->validasi_student_validation($method);
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = [
@@ -115,7 +115,7 @@ class Mahasiswa extends CI_Controller
 				'email' 		=> $this->input->post('email', true),
 				'name' 			=> $this->input->post('name', true),
 				'gender' => $this->input->post('gender', true),
-				'kelas_id' 		=> $this->input->post('class', true),
+				'class_id' 		=> $this->input->post('class', true),
 			];
 			if ($method === 'add') {
 				$action = $this->master->create('student', $input);
@@ -147,7 +147,7 @@ class Mahasiswa extends CI_Controller
 	public function create_user()
 	{
 		$id = $this->input->get('id', true);
-		$data = $this->master->getMahasiswaById($id);
+		$data = $this->master->getStudentById($id);
 		$name = explode(' ', $data->name);
 		$first_name = $name[0];
 		$last_name = end($name);
@@ -187,7 +187,7 @@ class Mahasiswa extends CI_Controller
 			'user' => $this->ion_auth->user()->row(),
 			'judul'	=> 'Student',
 			'subjudul' => 'Import Student Data',
-			'class' => $this->master->getAllKelas()
+			'class' => $this->master->getAllClass()
 		];
 		if ($import_data != null) $data['import'] = $import_data;
 
@@ -236,7 +236,7 @@ class Mahasiswa extends CI_Controller
 					'name' => $sheetData[$i][1],
 					'email' => $sheetData[$i][2],
 					'gender' => $sheetData[$i][3],
-					'kelas_id' => $sheetData[$i][4]
+					'class_id' => $sheetData[$i][4]
 				];
 			}
 
@@ -256,7 +256,7 @@ class Mahasiswa extends CI_Controller
 				'name' => $d->name,
 				'email' => $d->email,
 				'gender' => $d->gender,
-				'kelas_id' => $d->kelas_id
+				'class_id' => $d->class_id
 			];
 		}
 

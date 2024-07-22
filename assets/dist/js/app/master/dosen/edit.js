@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('#formdosen').on('submit', function (e) {
+  $('#formlecturer').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     var btn = $('#submit');
@@ -45,7 +45,7 @@ $(document).ready(function () {
     });
   });
 
-  $('#formdosen input, #formdosen select').on('change', function () {
+  $('#formlecturer input, #formlecturer select').on('change', function () {
     $(this).closest('.form-group').removeClass('has-error has-success');
     $(this).nextAll('.help-block').eq(0).text('');
   });

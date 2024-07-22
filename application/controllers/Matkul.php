@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 
-class Matkul extends CI_Controller
+class Course extends CI_Controller
 {
 
 	public function __construct()
@@ -42,7 +42,7 @@ class Matkul extends CI_Controller
 
 	public function data()
 	{
-		$this->output_json($this->master->getDataMatkul(), false);
+		$this->output_json($this->master->getDataCourse(), false);
 	}
 
 	public function add()
@@ -64,7 +64,7 @@ class Matkul extends CI_Controller
 		if (!$chk) {
 			redirect('course');
 		} else {
-			$course = $this->master->getMatkulById($chk);
+			$course = $this->master->getCourseById($chk);
 			$data = [
 				'user' 		=> $this->ion_auth->user()->row(),
 				'judul'		=> 'Edit Course',

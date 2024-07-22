@@ -10,7 +10,7 @@
         <ul class="alert alert-info" style="padding-left: 40px">
             <li>Please import data from excel, using the provided format</li>
             <li>Data must not be empty, all must be filled in.</li>
-            <li>For departmental data, it can only be filled in using the Department ID. <a data-toggle="modal" href="#jurusanId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
+            <li>For departmental data, it can only be filled in using the Department ID. <a data-toggle="modal" href="#departmentId" style="text-decoration:none" class="btn btn-xs btn-primary">View ID</a>.</li>
         </ul>
         <div class="text-center">
             <a href="<?= base_url('uploads/import/format/class.xlsx') ?>" class="btn-default btn">Download Format</a>
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="jurusanId">
+<div class="modal fade" id="departmentId">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

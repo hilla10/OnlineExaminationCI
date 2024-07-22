@@ -235,14 +235,14 @@ class PclZip
     //     create($p_filelist, $p_add_dir="", $p_remove_dir="")
     //     create($p_filelist, $p_option, $p_option_value, ...)
     // Description :
-    //     This method supports two different synopsis. The first one is historical.
+    //     This method supports two different synoptions. The first one is historical.
     //     This method creates a Zip Archive. The Zip file is created in the
     //     filesystem. The files and directories indicated in $p_filelist
     //     are added in the archive. See the parameters description for the
     //     supported format of $p_filelist.
     //     When a directory is in the list, the directory and its content is added
     //     in the archive.
-    //     In this synopsis, the function takes an optional variable list of
+    //     In this synoptions, the function takes an optional variable list of
     //     options. See bellow the supported options.
     // Parameters :
     //     $p_filelist : An array containing file or directory names, or
@@ -311,7 +311,7 @@ class PclZip
                 }
             } else {
                 // ----- Look for 2 args
-                // Here we need to support the first historic synopsis of the
+                // Here we need to support the first historic synoptions of the
                 // method.
                 // ----- Get the first argument
                 $v_options[PCLZIP_OPT_ADD_PATH] = $v_arg_list[0];
@@ -403,7 +403,7 @@ class PclZip
     //     add($p_filelist, $p_add_dir="", $p_remove_dir="")
     //     add($p_filelist, $p_option, $p_option_value, ...)
     // Description :
-    //     This method supports two synopsis. The first one is historical.
+    //     This method supports two synoptions. The first one is historical.
     //     This methods add the list of files in an existing archive.
     //     If a file with the same name already exists, it is added at the end of the
     //     archive, the first one is still present.
@@ -479,7 +479,7 @@ class PclZip
                 }
             } else {
                 // ----- Look for 2 args
-                // Here we need to support the first historic synopsis of the
+                // Here we need to support the first historic synoptions of the
                 // method.
                 // ----- Get the first argument
                 $v_options[PCLZIP_OPT_ADD_PATH] = $v_add_path = $v_arg_list[0];
@@ -636,7 +636,7 @@ class PclZip
     //     extract($p_path="./", $p_remove_path="")
     //     extract([$p_option, $p_option_value, ...])
     // Description :
-    //     This method supports two synopsis. The first one is historical.
+    //     This method supports two synoptions. The first one is historical.
     //     This method extract all the files / directories from the archive to the
     //     folder indicated in $p_path.
     //     If you want to ignore the 'root' part of path of the memorized files
@@ -740,7 +740,7 @@ class PclZip
                 }
             } else {
                 // ----- Look for 2 args
-                // Here we need to support the first historic synopsis of the
+                // Here we need to support the first historic synoptions of the
                 // method.
                 // ----- Get the first argument
                 $v_path = $v_arg_list[0];
@@ -782,7 +782,7 @@ class PclZip
     //     extractByIndex($p_index, $p_path="./", $p_remove_path="")
     //     extractByIndex($p_index, [$p_option, $p_option_value, ...])
     // Description :
-    //     This method supports two synopsis. The first one is historical.
+    //     This method supports two synoptions. The first one is historical.
     //     This method is doing a partial extract of the archive.
     //     The extracted files or folders are identified by their index in the
     //     archive (from 0 to n).
@@ -894,7 +894,7 @@ class PclZip
                 }
             } else {
                 // ----- Look for 2 args
-                // Here we need to support the first historic synopsis of the
+                // Here we need to support the first historic synoptions of the
                 // method.
 
                 // ----- Get the first argument

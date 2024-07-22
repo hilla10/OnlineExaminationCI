@@ -47,4 +47,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/ujian/hasil.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/save_one/hasil.js"></script>

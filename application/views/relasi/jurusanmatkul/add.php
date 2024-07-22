@@ -2,7 +2,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Form <?=$judul?></h3>
         <div class="box-tools pull-right">
-            <a href="<?=base_url()?>jurusanmatkul" class="btn btn-warning btn-flat btn-sm">
+            <a href="<?=base_url()?>departmentCourse" class="btn btn-warning btn-flat btn-sm">
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <?=form_open('jurusanmatkul/save', array('id'=>'jurusanmatkul'), array('method'=>'add'))?>
+                <?=form_open('departmentCourse/save', array('id'=>'departmentCourse'), array('method'=>'add'))?>
                 <div class="form-group">
                     <label>Course</label>
                     <select name="course_id" class="form-control select2" style="width: 100%!important">
@@ -52,4 +52,4 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/relasi/jurusanmatkul/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/relasi/departmentCourse/add.js"></script>

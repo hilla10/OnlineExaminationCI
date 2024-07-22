@@ -7,7 +7,7 @@ $(document).ready(function () {
   table = $('#class').DataTable({
     initComplete: function () {
       var api = this.api();
-      $('#kelas_filter input')
+      $('#class_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
           api.search(this.value).draw();
@@ -72,7 +72,7 @@ $(document).ready(function () {
     },
   });
 
-  table.buttons().container().appendTo('#kelas_wrapper .col-md-6:eq(0)');
+  table.buttons().container().appendTo('#class_wrapper .col-md-6:eq(0)');
 
   $('#myModal').on('shown.modal.bs', function () {
     $(':input[name="banyak"]').select();
@@ -137,21 +137,21 @@ $(document).ready(function () {
   });
 });
 
-function load_jurusan() {
+function load_department() {
   var department = $('select[name="department_name"]');
   department.children('option:not(:first)').remove();
 
   ajaxcsrf(); // get csrf token
   $.ajax({
-    url: base_url + 'department/load_jurusan',
+    url: base_url + 'department/load_department',
     type: 'GET',
     success: function (data) {
       //console.log(data);
       if (data.length) {
-        var dataJurusan;
+        var dataDepartment;
         $.each(data, function (key, val) {
-          dataJurusan = `<option value="${val.department_id}">${val.department_name}</option>`;
-          department.append(dataJurusan);
+          dataDepartment = `<option value="${val.department_id}">${val.department_name}</option>`;
+          department.append(dataDepartment);
         });
       }
     },

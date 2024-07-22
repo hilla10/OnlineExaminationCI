@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ujian extends CI_Controller {
+class Exam extends CI_Controller {
 
 	public $mhs, $user;
 
@@ -13,22 +13,22 @@ class Ujian extends CI_Controller {
 		$this->load->library(['datatables', 'form_validation']);// Load Library Ignited-Datatables
 		$this->load->helper('my');
 		$this->load->model('Master_model', 'master');
-		$this->load->model('Soal_model', 'soal');
-		$this->load->model('Ujian_model', 'ujian');
+		$this->load->model('Question_model', 'question');
+		$this->load->model('Exam_model', 'save_one');
 		$this->form_validation->set_error_delimiters('','');
 
 		$this->user = $this->ion_auth->user()->row();
-		$this->mhs 	= $this->ujian->getIdMahasiswa($this->user->username);
+		$this->mhs 	= $this->save_one->getIdStudent($this->user->username);
     }
 
-    public function akses_dosen()
+    public function access_lecturer()
     {
         if ( !$this->ion_auth->in_group('Lecturer') ){
 			show_error('This page is specifically for lecturers to make an Online Test, <a href="'.base_url('dashboard').'">Back to main menu</a>', 403, 'Forbidden Access');
 		}
     }
 
-    public function akses_mahasiswa()
+    public function akses_student_access()
     {
         if ( !$this->ion_auth->in_group('Student') ){
 			show_error('This page is specifically for students taking the exam_history, <a href="'.base_url('dashboard').'">Back to main menu</a>', 403, 'Forbidden Access');
@@ -43,29 +43,29 @@ class Ujian extends CI_Controller {
 	
 	public function json($id=null)
 	{
-        $this->akses_dosen();
+        $this->access_lecturer();
 
-		$this->output_json($this->ujian->getDataUjian($id), false);
+		$this->output_json($this->save_one->getDataExam($id), false);
 	}
 
     public function master()
 	{
-        $this->akses_dosen();
+        $this->access_lecturer();
         $user = $this->ion_auth->user()->row();
         $data = [
 			'user' => $user,
 			'judul'	=> 'Exam',
 			'subjudul'=> 'Exam Data',
-			'lecturer' => $this->ujian->getIdDosen($user->username),
+			'lecturer' => $this->save_one->getIdLecturer($user->username),
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/data');
+		$this->load->view('save_one/data');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
 	public function add()
 	{
-		$this->akses_dosen();
+		$this->access_lecturer();
 		
 		$user = $this->ion_auth->user()->row();
 
@@ -73,18 +73,18 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Add Exam',
-			'course'	=> $this->soal->getMatkulDosen($user->username),
-			'lecturer'		=> $this->ujian->getIdDosen($user->username),
+			'course'	=> $this->question->getCourseLecturer($user->username),
+			'lecturer'		=> $this->save_one->getIdLecturer($user->username),
 		];
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/add');
+		$this->load->view('save_one/add');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 	
 	public function edit($id)
 	{
-		$this->akses_dosen();
+		$this->access_lecturer();
 		
 		$user = $this->ion_auth->user()->row();
 
@@ -92,33 +92,33 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Edit Exam',
-			'course'	=> $this->soal->getMatkulDosen($user->username),
-			'lecturer'		=> $this->ujian->getIdDosen($user->username),
-			'ujian'		=> $this->ujian->getUjianById($id),
+			'course'	=> $this->question->getCourseLecturer($user->username),
+			'lecturer'		=> $this->save_one->getIdLecturer($user->username),
+			'save_one'		=> $this->save_one->getExamById($id),
 		];
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/edit');
+		$this->load->view('save_one/edit');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 
 	public function convert_tgl($tgl)
 	{
-		$this->akses_dosen();
+		$this->access_lecturer();
 		return date('Y-m-d H:i:s', strtotime($tgl));
 	}
 
 	public function validasi()
 	{
-		$this->akses_dosen();
+		$this->access_lecturer();
 		
 		$user 	= $this->ion_auth->user()->row();
-		$lecturer 	= $this->ujian->getIdDosen($user->username);
-		$jml 	= $this->ujian->getJumlahSoal($lecturer->lecturer_id)->jml_soal;
+		$lecturer 	= $this->save_one->getIdLecturer($user->username);
+		$jml 	= $this->save_one->getTotalQuestions($lecturer->lecturer_id)->total_questions;
 		$jml_a 	= $jml + 1; // If you don't understand, please read the user_guide codeigniter about form_validation in the less_than section
 
 		$this->form_validation->set_rules('exam_name', 'Exam Name', 'required|alpha_numeric_spaces|max_length[50]');
-		$this->form_validation->set_rules('number_of_questions', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Soal tidak cukup, anda hanya punya {$jml} soal"]);
+		$this->form_validation->set_rules('total_questions', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Question tidak cukup, anda hanya punya {$jml} question"]);
 		$this->form_validation->set_rules('start_time', 'Start Date', 'required');
 		$this->form_validation->set_rules('end_time', 'Completion Date', 'required');
 		$this->form_validation->set_rules('duration', 'Time', 'required|integer|max_length[4]|greater_than[0]');
@@ -134,7 +134,7 @@ class Ujian extends CI_Controller {
 		$lecturer_id 		= $this->input->post('lecturer_id', true);
 		$course_id 		= $this->input->post('course_id', true);
 		$exam_name 	= $this->input->post('exam_name', true);
-		$number_of_questions 	= $this->input->post('number_of_questions', true);
+		$total_questions 	= $this->input->post('total_questions', true);
 		$start_time 		= $this->convert_tgl($this->input->post('start_time', 	true));
 		$end_time	= $this->convert_tgl($this->input->post('end_time', true));
 		$duration			= $this->input->post('duration', true);
@@ -145,7 +145,7 @@ class Ujian extends CI_Controller {
 			$data['status'] = false;
 			$data['errors'] = [
 				'exam_name' 	=> form_error('exam_name'),
-				'number_of_questions' 	=> form_error('number_of_questions'),
+				'total_questions' 	=> form_error('total_questions'),
 				'start_time' 	=> form_error('start_time'),
 				'end_time' 	=> form_error('end_time'),
 				'duration' 		=> form_error('duration'),
@@ -154,7 +154,7 @@ class Ujian extends CI_Controller {
 		}else{
 			$input = [
 				'exam_name' 	=> $exam_name,
-				'number_of_questions' 	=> $number_of_questions,
+				'total_questions' 	=> $total_questions,
 				'start_time' 	=> $start_time,
 				'late_time' 	=> $end_time,
 				'duration' 		=> $duration,
@@ -176,7 +176,7 @@ class Ujian extends CI_Controller {
 
 	public function delete()
 	{
-		$this->akses_dosen();
+		$this->access_lecturer();
 		$chk = $this->input->post('checked', true);
         if(!$chk){
             $this->output_json(['status'=>false]);
@@ -197,20 +197,20 @@ class Ujian extends CI_Controller {
 	}
 
 	/**
-	 * BAGIAN MAHASISWA
+	 * BAGIAN Student
 	 */
 
 	public function list_json()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_student_access();
 		
-		$list = $this->ujian->getListUjian($this->mhs->student_id, $this->mhs->kelas_id);
+		$list = $this->save_one->getListExam($this->mhs->student_id, $this->mhs->class_id);
 		$this->output_json($list, false);
 	}
 	
 	public function list()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_student_access();
 
 		$user = $this->ion_auth->user()->row();
 		
@@ -218,28 +218,28 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'List Exam',
-			'mhs' 		=> $this->ujian->getIdMahasiswa($user->username),
+			'mhs' 		=> $this->save_one->getIdStudent($user->username),
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
-		$this->load->view('ujian/list');
+		$this->load->view('save_one/list');
 		$this->load->view('_templates/dashboard/_footer.php');
 	}
 	
 	public function token($id)
 	{
-		$this->akses_mahasiswa();
+		$this->akses_student_access();
 		$user = $this->ion_auth->user()->row();
 		
 		$data = [
 			'user' 		=> $user,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Token Exam',
-			'mhs' 		=> $this->ujian->getIdMahasiswa($user->username),
-			'ujian'		=> $this->ujian->getUjianById($id),
+			'mhs' 		=> $this->save_one->getIdStudent($user->username),
+			'save_one'		=> $this->save_one->getExamById($id),
 			'encrypted_id' => urlencode($this->encryption->encrypt($id))
 		];
 		$this->load->view('_templates/topnav/_header.php', $data);
-		$this->load->view('ujian/token');
+		$this->load->view('save_one/token');
 		$this->load->view('_templates/topnav/_footer.php');
 	}
 
@@ -247,7 +247,7 @@ class Ujian extends CI_Controller {
 	{
 		$id = $this->input->post('exam_id', true);
 		$token = $this->input->post('token', true);
-		$cek = $this->ujian->getUjianById($id);
+		$cek = $this->save_one->getExamById($id);
 		
 		$data['status'] = $token === $cek->token ? TRUE : FALSE;
 		$this->output_json($data);
@@ -263,55 +263,55 @@ class Ujian extends CI_Controller {
 
 	public function index()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_student_access();
 		$key = $this->input->get('key', true);
 		$id  = $this->encryption->decrypt(rawurldecode($key));
 		
-		$ujian 		= $this->ujian->getUjianById($id);
-		$soal 		= $this->ujian->getSoal($id);
+		$save_one 		= $this->save_one->getExamById($id);
+		$question 		= $this->save_one->getQuestion($id);
 		
 		$mhs		= $this->mhs;
-		$exam_history 	= $this->ujian->HslUjian($id, $mhs->student_id);
+		$exam_history 	= $this->save_one->examResults($id, $mhs->student_id);
 	
 		$cek_sudah_ikut = $exam_history->num_rows();
 
 		if ($cek_sudah_ikut < 1) {
-			$soal_urut_ok 	= array();
+			$questions_ordered_correctly 	= array();
 			$i = 0;
-			foreach ($soal as $s) {
-				$soal_per = new stdClass();
-				$soal_per->id_soal 		= $s->id_soal;
-				$soal_per->soal 		= $s->soal;
-				$soal_per->file 		= $s->file;
-				$soal_per->tipe_file 	= $s->tipe_file;
-				$soal_per->opsi_a 		= $s->opsi_a;
-				$soal_per->opsi_b 		= $s->opsi_b;
-				$soal_per->opsi_c 		= $s->opsi_c;
-				$soal_per->opsi_d 		= $s->opsi_d;
-				$soal_per->opsi_e 		= $s->opsi_e;
-				$soal_per->jawaban 		= $s->jawaban;
-				$soal_urut_ok[$i] 		= $soal_per;
+			foreach ($question as $s) {
+				$question_per = new stdClass();
+				$question_per->question_id 		= $s->question_id;
+				$question_per->question 		= $s->question;
+				$question_per->file 		= $s->file;
+				$question_per->file_type 	= $s->file_type;
+				$question_per->option_a 		= $s->option_a;
+				$question_per->option_b 		= $s->option_b;
+				$question_per->option_c 		= $s->option_c;
+				$question_per->option_d 		= $s->option_d;
+				$question_per->option_e 		= $s->option_e;
+				$question_per->answer 		= $s->answer;
+				$questions_ordered_correctly[$i] 		= $question_per;
 				$i++;
 			}
-			$soal_urut_ok 	= $soal_urut_ok;
-			$list_id_soal	= "";
-			$list_jw_soal 	= "";
-			if (!empty($soal)) {
-				foreach ($soal as $d) {
-					$list_id_soal .= $d->id_soal.",";
-					$list_jw_soal .= $d->id_soal."::N,";
+			$questions_ordered_correctly 	= $questions_ordered_correctly;
+			$list_question_id	= "";
+			$question_answer_list 	= "";
+			if (!empty($question)) {
+				foreach ($question as $d) {
+					$list_question_id .= $d->question_id.",";
+					$question_answer_list .= $d->question_id."::N,";
 				}
 			}
-			$list_id_soal 	= substr($list_id_soal, 0, -1);
-			$list_jw_soal 	= substr($list_jw_soal, 0, -1);
-			$end_time 	= date('Y-m-d H:i:s', strtotime("+{$ujian->duration} minute"));
+			$list_question_id 	= substr($list_question_id, 0, -1);
+			$question_answer_list 	= substr($question_answer_list, 0, -1);
+			$end_time 	= date('Y-m-d H:i:s', strtotime("+{$save_one->duration} minute"));
 			$time_mulai		= date('Y-m-d H:i:s');
 
 			$input = [
 				'exam_id' 		=> $id,
 				'student_id'	=> $mhs->student_id,
-				'question_list'		=> $list_id_soal,
-				'answer_list' 	=> $list_jw_soal,
+				'question_list'		=> $list_question_id,
+				'answer_list' 	=> $question_answer_list,
 				'correct_count'		=> 0,
 				'score'			=> 0,
 				'weighted_score'	=> 0,
@@ -322,22 +322,22 @@ class Ujian extends CI_Controller {
 			$this->master->create('exam_history', $input);
 
 			// Setelah insert wajib refresh dulu
-			redirect('ujian/?key='.urlencode($key), 'location', 301);
+			redirect('save_one/?key='.urlencode($key), 'location', 301);
 		}
 		
-		$q_soal = $exam_history->row();
+		$q_question = $exam_history->row();
 		
-		$urut_soal 		= explode(",", $q_soal->answer_list);
-		$soal_urut_ok	= array();
-		for ($i = 0; $i < sizeof($urut_soal); $i++) {
-			$pc_urut_soal	= explode(":",$urut_soal[$i]);
-			$pc_urut_soal1 	= empty($pc_urut_soal[1]) ? "''" : "'{$pc_urut_soal[1]}'";
-			$ambil_soal 	= $this->ujian->ambilSoal($pc_urut_soal1, $pc_urut_soal[0]);
-			$soal_urut_ok[] = $ambil_soal; 
+		$question_order 		= explode(",", $q_question->answer_list);
+		$questions_ordered_correctly	= array();
+		for ($i = 0; $i < sizeof($question_order); $i++) {
+			$pc_question_order	= explode(":",$question_order[$i]);
+			$pc_question_order1 	= empty($pc_question_order[1]) ? "''" : "'{$pc_question_order[1]}'";
+			$fetch_questions 	= $this->save_one->ambilQuestion($pc_question_order1, $pc_question_order[0]);
+			$questions_ordered_correctly[] = $fetch_questions; 
 		}
 
-		$detail_tes = $q_soal;
-		$soal_urut_ok = $soal_urut_ok;
+		$detail_tes = $q_question;
+		$questions_ordered_correctly = $questions_ordered_correctly;
 
 		$pc_answer_list = explode(",", $detail_tes->answer_list);
 		$arr_jawab = array();
@@ -350,26 +350,26 @@ class Ujian extends CI_Controller {
 			$arr_jawab[$idx] = array("j"=>$val,"r"=>$rg);
 		}
 
-		$arr_opsi = array("a","b","c","d","e");
+		$arr_option = array("a","b","c","d","e");
 		$html = '';
 		$no = 1;
-		if (!empty($soal_urut_ok)) {
-			foreach ($soal_urut_ok as $s) {
-				$path = 'uploads/bank_soal/';
-				$vrg = $arr_jawab[$s->id_soal]["r"] == "" ? "N" : $arr_jawab[$s->id_soal]["r"];
-				$html .= '<input type="hidden" name="id_soal_'.$no.'" value="'.$s->id_soal.'">';
+		if (!empty($questions_ordered_correctly)) {
+			foreach ($questions_ordered_correctly as $s) {
+				$path = 'uploads/bank_question/';
+				$vrg = $arr_jawab[$s->question_id]["r"] == "" ? "N" : $arr_jawab[$s->question_id]["r"];
+				$html .= '<input type="hidden" name="question_id_'.$no.'" value="'.$s->question_id.'">';
 				$html .= '<input type="hidden" name="rg_'.$no.'" id="rg_'.$no.'" value="'.$vrg.'">';
 				$html .= '<div class="step" id="widget_'.$no.'">';
 
-				$html .= '<div class="text-center"><div class="w-25">'.tampil_media($path.$s->file).'</div></div>'.$s->soal.'<div class="funkyradio">';
-				for ($j = 0; $j < $this->config->item('jml_opsi'); $j++) {
-					$opsi 			= "opsi_".$arr_opsi[$j];
-					$file 			= "file_".$arr_opsi[$j];
-					$checked 		= $arr_jawab[$s->id_soal]["j"] == strtoupper($arr_opsi[$j]) ? "checked" : "";
-					$pilihan_opsi 	= !empty($s->$opsi) ? $s->$opsi : "";
-					$tampil_media_opsi = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? tampil_media($path.$s->$file) : "";
+				$html .= '<div class="text-center"><div class="w-25">'.display_media($path.$s->file).'</div></div>'.$s->question.'<div class="funkyradio">';
+				for ($j = 0; $j < $this->config->item('jml_option'); $j++) {
+					$option 			= "option_".$arr_option[$j];
+					$file 			= "file_".$arr_option[$j];
+					$checked 		= $arr_jawab[$s->question_id]["j"] == strtoupper($arr_option[$j]) ? "checked" : "";
+					$option_label 	= !empty($s->$option) ? $s->$option : "";
+					$display_media_option = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? display_media($path.$s->$file) : "";
 					$html .= '<div class="funkyradio-success" onclick="return simpan_sementara();">
-						<input type="radio" id="opsi_'.strtolower($arr_opsi[$j]).'_'.$s->id_soal.'" name="opsi_'.$no.'" value="'.strtoupper($arr_opsi[$j]).'" '.$checked.'> <label for="opsi_'.strtolower($arr_opsi[$j]).'_'.$s->id_soal.'"><div class="huruf_opsi">'.$arr_opsi[$j].'</div> <p>'.$pilihan_opsi.'</p><div class="w-25">'.$tampil_media_opsi.'</div></label></div>';
+						<input type="radio" id="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'" name="option_'.$no.'" value="'.strtoupper($arr_option[$j]).'" '.$checked.'> <label for="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'"><div class="option_label">'.$arr_option[$j].'</div> <p>'.$option_label.'</p><div class="w-25">'.$display_media_option.'</div></label></div>';
 				}
 				$html .= '</div></div>';
 				$no++;
@@ -384,17 +384,17 @@ class Ujian extends CI_Controller {
 			'mhs'		=> $this->mhs,
 			'judul'		=> 'Exam',
 			'subjudul'	=> 'Exam Sheet',
-			'soal'		=> $detail_tes,
+			'question'		=> $detail_tes,
 			'no' 		=> $no,
 			'html' 		=> $html,
 			'id_tes'	=> $id_tes
 		];
 		$this->load->view('_templates/topnav/_header.php', $data);
-		$this->load->view('ujian/sheet');
+		$this->load->view('save_one/sheet');
 		$this->load->view('_templates/topnav/_footer.php');
 	}
 
-	public function simpan_satu()
+	public function save_one()
 	{
 		// Decrypt Id
 		$id_tes = $this->input->post('id', true);
@@ -402,56 +402,56 @@ class Ujian extends CI_Controller {
 		
 		$input 	= $this->input->post(null, true);
 		$answer_list 	= "";
-		for ($i = 1; $i < $input['jml_soal']; $i++) {
-			$_tjawab 	= "opsi_".$i;
-			$_tidsoal 	= "id_soal_".$i;
+		for ($i = 1; $i < $input['total_questions']; $i++) {
+			$_tjawab 	= "option_".$i;
+			$_question_id 	= "question_id_".$i;
 			$_ragu 		= "rg_".$i;
-			$jawaban_ 	= empty($input[$_tjawab]) ? "" : $input[$_tjawab];
-			$answer_list	.= "".$input[$_tidsoal].":".$jawaban_.":".$input[$_ragu].",";
+			$answer_ 	= empty($input[$_tjawab]) ? "" : $input[$_tjawab];
+			$answer_list	.= "".$input[$_question_id].":".$answer_.":".$input[$_ragu].",";
 		}
 		$answer_list	= substr($answer_list, 0, -1);
 		$d_simpan = [
 			'answer_list' => $answer_list
 		];
 		
-		// Simpan jawaban
+		// Simpan answer
 		$this->master->update('exam_history', $d_simpan, 'id', $id_tes);
 		$this->output_json(['status'=>true]);
 	}
 
-	public function simpan_akhir()
+	public function save_final()
 	{
 		// Decrypt Id
 		$id_tes = $this->input->post('id', true);
 		$id_tes = $this->encryption->decrypt($id_tes);
 		
-		// Get Jawaban
-		$answer_list = $this->ujian->getJawaban($id_tes);
+		// Get Answer
+		$answer_list = $this->save_one->getAnswer($id_tes);
 
-		// Pecah Jawaban
-		$pc_jawaban = explode(",", $answer_list);
+		// Pecah Answer
+		$pc_answer = explode(",", $answer_list);
 		
 		$jumlah_benar 	= 0;
 		$jumlah_salah 	= 0;
 		$jumlah_ragu  	= 0;
 		$weighted_score 	= 0;
-		$total_bobot	= 0;
-		$number_of_questions	= sizeof($pc_jawaban);
+		$total_weight	= 0;
+		$total_questions	= sizeof($pc_answer);
 
-		foreach ($pc_jawaban as $jwb) {
+		foreach ($pc_answer as $jwb) {
 			$pc_dt 		= explode(":", $jwb);
-			$id_soal 	= $pc_dt[0];
-			$jawaban 	= $pc_dt[1];
+			$question_id 	= $pc_dt[0];
+			$answer 	= $pc_dt[1];
 			$ragu 		= $pc_dt[2];
 
-			$cek_jwb 	= $this->soal->getSoalById($id_soal);
-			$total_bobot = $total_bobot + $cek_jwb->bobot;
+			$cek_jwb 	= $this->question->getQuestionById($question_id);
+			$total_weight = $total_weight + $cek_jwb->weight;
 
-			$jawaban == $cek_jwb->jawaban ? $jumlah_benar++ : $jumlah_salah++;
+			$answer == $cek_jwb->answer ? $jumlah_benar++ : $jumlah_salah++;
 		}
 
-		$score = ($jumlah_benar / $number_of_questions)  * 100;
-		$weighted_score = ($total_bobot / $number_of_questions)  * 100;
+		$score = ($jumlah_benar / $total_questions)  * 100;
+		$weighted_score = ($total_weight / $total_questions)  * 100;
 
 		$d_update = [
 			'correct_count'		=> $jumlah_benar,

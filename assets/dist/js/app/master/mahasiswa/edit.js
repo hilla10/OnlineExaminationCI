@@ -1,8 +1,8 @@
-function load_kelas(id) {
+function load_class(id) {
   $('#class').find('option').not(':first').remove();
 
   $.ajax({
-    url: base_url + 'class/kelas_by_jurusan/' + id,
+    url: base_url + 'class/class_by_department/' + id,
     type: 'GET',
     success: function (data) {
       var option = [];
@@ -22,9 +22,9 @@ function load_kelas(id) {
 $(document).ready(function () {
   ajaxcsrf();
 
-  // Load Kelas By Jurusan
+  // Load ClassRoom By Department
   $('#department').on('change', function () {
-    load_kelas($(this).val());
+    load_class($(this).val());
   });
 
   $('form#student input, form#student select').on('change', function () {
