@@ -299,7 +299,7 @@ class ClassLoader
      */
     public function register($prepend = false)
     {
-        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        spl_autoload_register(array($this, 'load_class'), true, $prepend);
     }
 
     /**
@@ -307,7 +307,7 @@ class ClassLoader
      */
     public function unregister()
     {
-        spl_autoload_unregister(array($this, 'loadClass'));
+        spl_autoload_unregister(array($this, 'load_class'));
     }
 
     /**
@@ -316,7 +316,7 @@ class ClassLoader
      * @param  string    $class The name of the class
      * @return bool|null True if loaded, null otherwise
      */
-    public function loadClass($class)
+    public function load_class($class)
     {
         if ($file = $this->findFile($class)) {
             includeFile($file);

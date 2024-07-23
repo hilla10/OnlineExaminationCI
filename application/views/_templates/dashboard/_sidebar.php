@@ -21,7 +21,7 @@
 			<?php 
 			$page = $this->uri->segment(1);
 			$master = ["department", "class", "course", "lecturer", "student"];
-			$relasi = ["lecturerClass", "departmentCourse"];
+			$relation = ["classLecturer", "departmentCourse"];
 			$users = ["users"];
 			?>
 			<li class="<?= $page === 'dashboard' ? "active" : "" ?>"><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
@@ -65,15 +65,15 @@
 					</li>
 				</ul>
 			</li>
-			<li class="treeview <?= in_array($page, $relasi)  ? "active menu-open" : ""  ?>">
+			<li class="treeview <?= in_array($page, $relation)  ? "active menu-open" : ""  ?>">
 				<a href="#"><i class="fa fa-link"></i> <span>Relation</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="<?=$page==='lecturerClass'?"active":""?>">
-						<a href="<?=base_url('lecturerClass')?>">
+					<li class="<?=$page==='classLecturer'?"active":""?>">
+						<a href="<?=base_url('classLecturer')?>">
 							<i class="fa fa-bars"></i>
 							Class - Lecturer
 						</a>
@@ -95,15 +95,15 @@
 			</li>
 			<?php endif; ?>
 			<?php if( $this->ion_auth->in_group('Lecturer') ) : ?>
-			<li class="<?=$page==='save_one'?"active":""?>">
-				<a href="<?=base_url('save_one/master')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='exam'?"active":""?>">
+				<a href="<?=base_url('exam/master')?>" rel="noopener noreferrer">
 					<i class="fa fa-pencil"></i> <span>Exam</span>
 				</a>
 			</li>
 			<?php endif; ?>
 			<?php if( $this->ion_auth->in_group('Student') ) : ?>
-			<li class="<?=$page==='save_one'?"active":""?>">
-				<a href="<?=base_url('save_one/list')?>" rel="noopener noreferrer">
+			<li class="<?=$page==='exam'?"active":""?>">
+				<a href="<?=base_url('exam/list')?>" rel="noopener noreferrer">
 					<i class="fa fa-pencil"></i> <span>Exam</span>
 				</a>
 			</li>

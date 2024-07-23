@@ -32,7 +32,7 @@
                     <td><?=$lecturer->lecturer_name?></td>
                 </tr>
                 <tr>
-                    <th>NIP</th>
+                    <th>TeacherID</th>
                     <td><?=$lecturer->teacher_id?></td>
                 </tr>
                 <tr>
@@ -86,7 +86,7 @@
             </div>
             <table class="table table-hover">
                 <tr>
-                    <th>NIM</th>
+                    <th>studentNumber</th>
                     <td><?=$student->student_number?></td>
                 </tr>
                 <tr>

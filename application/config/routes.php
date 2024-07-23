@@ -8,13 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | This file lets you re-map URI requests to specific controller functions.
 |
 | Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
+| and its corresponding controller ClassRoom/method. The segments in a
 | URL normally follow this pattern:
 |
-|	example.com/class/method/id/
+|	example.com/ClassRoom/method/id/
 |
 | In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
+| so that a different ClassRoom/function is called than the one
 | corresponding to the URL.
 |
 | Please see the user guide for complete details:
@@ -54,3 +54,14 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'Auth/index';
 $route['logout'] = 'Auth/logout';
+$route['class'] = 'ClassRoom/index';
+$route['ClassRoom/add'] = 'ClassRoom/add';
+$route['ClassRoom/edit'] = 'ClassRoom/edit';
+$route['ClassRoom/data'] = 'ClassRoom/data';
+$route['ClassRoom/delete'] = 'ClassRoom/delete';
+$route['class/classByDepartment/(:num)'] = 'ClassRoom/classByDepartment/$1'; // For direct URL access
+$route['student/getClassByDepartment'] = 'ClassRoom/getClassByDepartment'; // For AJAX calls
+$route['ClassRoom/import'] = 'ClassRoom/import';
+$route['ClassRoom/preview'] = 'ClassRoom/preview';
+$route['ClassRoom/do_import'] = 'ClassRoom/do_import';
+

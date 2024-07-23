@@ -38,14 +38,30 @@ class Master_model extends CI_Model
      * Data ClassRoom
      */
 
-    public function getDataClass()
-    {
-        $this->datatables->select('class_id, class_name, department_id, department_name');
-        $this->datatables->from('class');
-        $this->datatables->join('department', 'department_id=department_id');
-        $this->datatables->add_column('bulk_select', '<div class="text-center"><input type="checkbox" class="check" name="checked[]" value="$1"/></div>', 'class_id, class_name, department_id, department_name');
-        return $this->datatables->generate();
-    }
+   
+
+//     public function getDataClass()
+// {
+//     // Specify columns explicitly for clarity
+//     $this->datatables->select('class.class_id, class.class_name, department.department_id, department.department_name');
+//     $this->datatables->from('class');
+//     // Correct the join condition
+//     $this->datatables->join('department', 'class.department_id = department.department_id');
+//     // Correct the `add_column` parameter list
+//     $this->datatables->add_column('bulk_select', '<div class="text-center"><input type="checkbox" class="check" name="checked[]" value="$1"/></div>', 'class_id');
+//     return $this->datatables->generate();
+// }
+
+public function getDataClass()
+{
+    $this->datatables->select('class.class_id, class.class_name, department.department_id, department.department_name');
+    $this->datatables->from('class');
+    $this->datatables->join('department', 'class.department_id = department.department_id');
+    $this->datatables->add_column('bulk_select', '<div class="text-center"><input type="checkbox" class="check" name="checked[]" value="$1"/></div>', 'class_id');
+    return $this->datatables->generate();
+}
+
+
 
     public function getClassById($id)
     {
@@ -89,26 +105,49 @@ class Master_model extends CI_Model
         return $this->datatables->generate();
     }
 
+    // public function getStudentById($id)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('student');
+    //     $this->db->join('class', 'class_id=class_id');
+    //     $this->db->join('department', 'department_id=department_id');
+    //     $this->db->where(['student_id' => $id]);
+    //     return $this->db->get()->row();
+    // }
+
     public function getStudentById($id)
-    {
-        $this->db->select('*');
-        $this->db->from('student');
-        $this->db->join('class', 'class_id=class_id');
-        $this->db->join('department', 'department_id=department_id');
-        $this->db->where(['student_id' => $id]);
-        return $this->db->get()->row();
-    }
+{
+    $this->db->select('*');
+    $this->db->from('student s');
+    $this->db->join('class c', 's.class_id = c.class_id');
+    $this->db->join('department d', 'c.department_id = d.department_id');
+    $this->db->where('s.student_id', $id);
+    return $this->db->get()->row();
+}
+
+
+    // public function getDepartment()
+    // {
+    //     $this->db->select('department_id, department_name');
+    //     $this->db->from('class');
+    //     $this->db->join('department', 'department_id=department_id');
+    //     $this->db->order_by('department_name', 'ASC');
+    //     $this->db->group_by('department_id');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
 
     public function getDepartment()
-    {
-        $this->db->select('department_id, department_name');
-        $this->db->from('class');
-        $this->db->join('department', 'department_id=department_id');
-        $this->db->order_by('department_name', 'ASC');
-        $this->db->group_by('department_id');
-        $query = $this->db->get();
-        return $query->result();
-    }
+{
+    $this->db->select('department.department_id, department.department_name');
+    $this->db->from('class');
+    $this->db->join('department', 'class.department_id = department.department_id');
+    $this->db->order_by('department.department_name', 'ASC');
+    $this->db->group_by('department.department_id');
+    $query = $this->db->get();
+    return $query->result();
+}
+
 
     public function getAllDepartment($id = null)
     {
@@ -136,11 +175,21 @@ class Master_model extends CI_Model
         }
     }
 
-    public function getClassByDepartment($id)
-    {
-        $query = $this->db->get_where('class', array('department_id'=>$id));
-        return $query->result();
-    }
+    // public function getClassByDepartment($id)
+    // {
+    //     $query = $this->db->get_where('class', array('department_id'=>$id));
+    //     return $query->result();
+    // }
+
+ public function getClassByDepartment($department_id)
+{
+    $this->db->select('class_id, class_name');
+    $this->db->from('class');
+    $this->db->where('department_id', $department_id);
+    $query = $this->db->get();
+    return $query->result(); // Return as an array of objects
+}
+
 
     /**
      * Data Lecturer
@@ -192,15 +241,34 @@ class Master_model extends CI_Model
      * Data ClassRoom Lecturer
      */
 
-    public function getLecturerClass()
-    {
-        $this->datatables->select('lecturer_class.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(class.class_name) as class');
-        $this->datatables->from('lecturer_class');
-        $this->datatables->join('class', 'class_id=class_id');
-        $this->datatables->join('lecturer', 'lecturer_id=lecturer_id');
-        $this->datatables->group_by('lecturer.lecturer_name');
-        return $this->datatables->generate();
-    }
+
+//     public function getClassLecturer()
+// {
+//     // Select columns and use GROUP_CONCAT to aggregate class names
+//     $this->datatables->select('lecturer_class.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(class.class_name) as class');
+//     $this->datatables->from('lecturer_class');
+    
+//     // Correct the join conditions
+//     $this->datatables->join('class', 'lecturer_class.class_id = class.class_id');
+//     $this->datatables->join('lecturer', 'lecturer_class.lecturer_id = lecturer.lecturer_id');
+    
+//     // Group by lecturer name
+//     $this->datatables->group_by('lecturer.lecturer_id, lecturer.lecturer_name'); // Use lecturer_id to ensure uniqueness
+    
+//     return $this->datatables->generate();
+// }
+
+public function getClassLecturer()
+{
+    $this->datatables->select('lecturer_class.id, lecturer.lecturer_id, lecturer.teacher_id, lecturer.lecturer_name, GROUP_CONCAT(class.class_name) as class');
+    $this->datatables->from('lecturer_class');
+    $this->datatables->join('class', 'lecturer_class.class_id = class.class_id');
+    $this->datatables->join('lecturer', 'lecturer_class.lecturer_id = lecturer.lecturer_id');
+    $this->datatables->group_by('lecturer.lecturer_id, lecturer.lecturer_name');
+    return $this->datatables->generate();
+}
+
+
 
     public function getAllLecturer($id = null)
     {
@@ -225,15 +293,15 @@ class Master_model extends CI_Model
     }
 
     
-    public function getAllClass()
-    {
-        $this->db->select('class_id, class_name, department_name');
-        $this->db->from('class');
-        $this->db->join('department', 'department_id=department_id');
-        $this->db->order_by('class_name');
-        return $this->db->get()->result();
-    }
-    
+public function getAllClass()
+{
+    $this->db->select('class.class_id, class.class_name, department.department_name');
+    $this->db->from('class');
+    $this->db->join('department', 'class.department_id = department.department_id');
+    $this->db->order_by('class.class_name');
+    return $this->db->get()->result();
+}
+
     public function getClassByLecturer($id)
     {
         $this->db->select('class.class_id');
@@ -247,15 +315,26 @@ class Master_model extends CI_Model
      * Data Department Course
      */
 
+    // public function getDepartmentCourse()
+    // {
+    //     $this->datatables->select('department_course.id, course.course_id, course.course_name, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
+    //     $this->datatables->from('department_course');
+    //     $this->datatables->join('course', 'course_id=course_id');
+    //     $this->datatables->join('department', 'department_id=department_id');
+    //     $this->datatables->group_by('course.course_name');
+    //     return $this->datatables->generate();
+    // }
+
     public function getDepartmentCourse()
-    {
-        $this->datatables->select('department_course.id, course.course_id, course.course_name, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
-        $this->datatables->from('department_course');
-        $this->datatables->join('course', 'course_id=course_id');
-        $this->datatables->join('department', 'department_id=department_id');
-        $this->datatables->group_by('course.course_name');
-        return $this->datatables->generate();
-    }
+{
+    $this->datatables->select('department_course.id, course.course_id, course.course_name, department.department_id, GROUP_CONCAT(department.department_name) as department_name');
+    $this->datatables->from('department_course');
+    $this->datatables->join('course', 'department_course.course_id = course.course_id');
+    $this->datatables->join('department', 'department_course.department_id = department.department_id');
+    $this->datatables->group_by('course.course_id, course.course_name');
+    return $this->datatables->generate();
+}
+
 
     public function getCourse($id = null)
     {

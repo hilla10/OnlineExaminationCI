@@ -23,8 +23,8 @@ class Settings extends CI_Controller {
     {
 		$data = [
 			'user' => $this->ion_auth->user()->row(),
-			'judul'	=> 'Settings',
-			'subjudul'=> 'Clear data',
+			'title'	=> 'Settings',
+			'subtitle'=> 'Clear data',
 		];
 
         $this->load->view('_templates/dashboard/_header.php', $data);

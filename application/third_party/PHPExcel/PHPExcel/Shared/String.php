@@ -518,33 +518,62 @@ class PHPExcel_Shared_String
      * @author  Rasmus Andersson {@link http://rasmusandersson.se/}
      * @author vadik56
      */
+    // public static function utf16_decode($str, $bom_be = true)
+    // {
+    //     if (strlen($str) < 2) {
+    //         return $str;
+    //     }
+    //     $c0 = ord($str{0});
+    //     $c1 = ord($str{1});
+    //     if ($c0 == 0xfe && $c1 == 0xff) {
+    //         $str = substr($str, 2);
+    //     } elseif ($c0 == 0xff && $c1 == 0xfe) {
+    //         $str = substr($str, 2);
+    //         $bom_be = false;
+    //     }
+    //     $len = strlen($str);
+    //     $newstr = '';
+    //     for ($i=0; $i<$len; $i+=2) {
+    //         if ($bom_be) {
+    //             $val = ord($str{$i})   << 4;
+    //             $val += ord($str{$i+1});
+    //         } else {
+    //             $val = ord($str{$i+1}) << 4;
+    //             $val += ord($str{$i});
+    //         }
+    //         $newstr .= ($val == 0x228) ? "\n" : chr($val);
+    //     }
+    //     return $newstr;
+    // }
+
     public static function utf16_decode($str, $bom_be = true)
-    {
-        if (strlen($str) < 2) {
-            return $str;
-        }
-        $c0 = ord($str{0});
-        $c1 = ord($str{1});
-        if ($c0 == 0xfe && $c1 == 0xff) {
-            $str = substr($str, 2);
-        } elseif ($c0 == 0xff && $c1 == 0xfe) {
-            $str = substr($str, 2);
-            $bom_be = false;
-        }
-        $len = strlen($str);
-        $newstr = '';
-        for ($i=0; $i<$len; $i+=2) {
-            if ($bom_be) {
-                $val = ord($str{$i})   << 4;
-                $val += ord($str{$i+1});
-            } else {
-                $val = ord($str{$i+1}) << 4;
-                $val += ord($str{$i});
-            }
-            $newstr .= ($val == 0x228) ? "\n" : chr($val);
-        }
-        return $newstr;
+{
+    if (strlen($str) < 2) {
+        return $str;
     }
+    $c0 = ord($str[0]);  // Changed from {$0} to [0]
+    $c1 = ord($str[1]);  // Changed from {$1} to [1]
+    if ($c0 == 0xfe && $c1 == 0xff) {
+        $str = substr($str, 2);
+    } elseif ($c0 == 0xff && $c1 == 0xfe) {
+        $str = substr($str, 2);
+        $bom_be = false;
+    }
+    $len = strlen($str);
+    $newstr = '';
+    for ($i = 0; $i < $len; $i += 2) {
+        if ($bom_be) {
+            $val = ord($str[$i]) << 4;  // Changed from {$i} to [$i]
+            $val += ord($str[$i + 1]);  // Changed from {$i+1} to [$i + 1]
+        } else {
+            $val = ord($str[$i + 1]) << 4;  // Changed from {$i + 1} to [$i + 1]
+            $val += ord($str[$i]);  // Changed from {$i} to [$i]
+        }
+        $newstr .= ($val == 0x228) ? "\n" : chr($val);
+    }
+    return $newstr;
+}
+
 
     /**
      * Get character count. First try mbstring, then iconv, finally strlen

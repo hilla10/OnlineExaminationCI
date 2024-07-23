@@ -1,5 +1,11 @@
 <?php
 
+// Include PHPExcel library
+require_once APPPATH . 'third_party/PHPExcel/PHPExcel.php';
+
+// Include TCPDF library
+// require_once APPPATH . 'third_party/tcpdf/tcpdf.php';
+
 /**  Require tcPDF library */
 $pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/tcpdf.php';
 if (file_exists($pdfRendererClassFile)) {

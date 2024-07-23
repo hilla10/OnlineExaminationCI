@@ -6,7 +6,7 @@
 	<!-- Meta Tag -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?=$judul?></title>
+	<title><?=$title?></title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	
 	<!-- Required CSS -->
@@ -70,13 +70,13 @@
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
-					<?=$judul?>
-					<small><?=$subjudul?></small>
+					<?=$title?>
+					<small><?=$subtitle?></small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-					<li class="active"><?=$judul;?></li>
-					<li class="active"><?=$subjudul?></li>
+					<li class="active"><?=$title;?></li>
+					<li class="active"><?=$subtitle?></li>
 				</ol>
 			</section>
 			<!-- Main content -->

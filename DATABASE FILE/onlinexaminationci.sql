@@ -631,8 +631,8 @@ ALTER TABLE `lecturer`
 -- Constraints for table `exam_history`
 --
 ALTER TABLE `exam_history`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`exam_id`),
-  ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
+  ADD CONSTRAINT `exam_history_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`exam_id`),
+  ADD CONSTRAINT `exam_history_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`);
 
 --
 -- Constraints for table `department_course`

@@ -81,8 +81,8 @@ class Dashboard extends CI_Controller {
 		$user = $this->user;
 		$data = [
 			'user' 		=> $user,
-			'judul'		=> 'Dashboard',
-			'subjudul'	=> 'Application Data',
+			'title'		=> 'Dashboard',
+			'subtitle'	=> 'Application Data',
 		];
 
 		if ( $this->ion_auth->is_admin() ) {
@@ -96,7 +96,7 @@ class Dashboard extends CI_Controller {
 		}else{
 			$join = [
 				'class b' 	=> 'a.class_id = b.class_id',
-				'department c'	=> 'b.department_id = c.id_department'
+				'department c'	=> 'b.department_id = c.department_id'
 			];
 			$data['student'] = $this->dashboard->get_where('student a', 'student_number', $user->username, $join)->row();
 		}

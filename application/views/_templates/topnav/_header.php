@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?=$judul?></title>
+	<title><?=$title?></title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/font-awesome/css/font-awesome.min.css">
@@ -38,13 +38,13 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h1>
-						<?=$judul?>
-						<small><?=$subjudul?></small>
+						<?=$title?>
+						<small><?=$subtitle?></small>
 					</h1>
 					<ol class="breadcrumb">
 						<li><a href="<?=base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
-						<li><a href="<?=base_url()?>save_one/list"><?=$judul?></a></li>
-						<li class="active"><?=$subjudul?></li>
+						<li><a href="<?=base_url()?>exam/list"><?=$title?></a></li>
+						<li class="active"><?=$subtitle?></li>
 					</ol>
 				</section>
 
