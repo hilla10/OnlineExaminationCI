@@ -8,7 +8,7 @@ $(document).ready(function () {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    var btn = $('#submit');
+    let btn = $('#submit');
     btn.attr('disabled', 'disabled').text('Wait...');
 
     $.ajax({

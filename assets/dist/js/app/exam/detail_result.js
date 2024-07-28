@@ -3,7 +3,7 @@ $(document).ready(function () {
 
   $('#detail_result').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#detail_result_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -36,10 +36,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });

@@ -1,12 +1,12 @@
-var save_label;
-var table;
+let save_label;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#classLecturer').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#ClassLecturer_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -64,7 +64,7 @@ $(document).ready(function () {
           let classList = data.split(',');
           let badge = [];
           $.each(classList, function (i, val) {
-            var newclass = `<span class="badge bg-green">${val}</span>`;
+            let newclass = `<span class="badge bg-green">${val}</span>`;
             badge.push(newclass);
           });
           return badge.join(' ');
@@ -100,10 +100,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });
@@ -128,8 +128,8 @@ $(document).ready(function () {
   });
 
   $('#classLecturer tbody').on('click', 'tr .check', function () {
-    var check = $('#classLecturer tbody tr .check').length;
-    var checked = $('#classLecturer tbody tr .check:checked').length;
+    let check = $('#classLecturer tbody tr .check').length;
+    let checked = $('#classLecturer tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {

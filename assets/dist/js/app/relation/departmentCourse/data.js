@@ -1,12 +1,12 @@
-var save_label;
-var table;
+let save_label;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#departmentCourse').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#departmentCourse_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -63,7 +63,7 @@ $(document).ready(function () {
           let course = data.split(',');
           let badge = [];
           $.each(course, function (i, val) {
-            var newcourse = `<span class="badge bg-green">${val}</span>`;
+            let newcourse = `<span class="badge bg-green">${val}</span>`;
             badge.push(newcourse);
           });
           return badge.join(' ');
@@ -97,10 +97,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });
@@ -129,8 +129,8 @@ $(document).ready(function () {
   });
 
   $('#departmentCourse tbody').on('click', 'tr .check', function () {
-    var check = $('#departmentCourse tbody tr .check').length;
-    var checked = $('#departmentCourse tbody tr .check:checked').length;
+    let check = $('#departmentCourse tbody tr .check').length;
+    let checked = $('#departmentCourse tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {

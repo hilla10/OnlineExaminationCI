@@ -52,7 +52,7 @@
 </div>
 
 <script type="text/javascript">
-	var lecturer_id = '<?=$lecturer->lecturer_id?>';
+	let lecturer_id = '<?=$lecturer->lecturer_id?>';
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/data.js"></script>

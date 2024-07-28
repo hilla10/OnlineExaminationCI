@@ -1,10 +1,10 @@
 $(document).ready(function () {
-  var t = $('.remainingTime');
+  let t = $('.remainingTime');
   if (t.length) {
     remainingTime(t.data('time'));
   }
 
-  open(1);
+  open(1); // Start with the first widget
   saveTemporarily();
 
   widget = $('.step');
@@ -14,11 +14,14 @@ $(document).ready(function () {
 
   $('.step, .back, .completed').hide();
   $('#widget_1').show();
+  $('#question_number').html(1);
+  $('.next').attr('rel', 2);
+  $('.back').attr('rel', 0); // Start with 0 to hide the back button
 });
 
 function getFormData($form) {
-  var unindexed_array = $form.serializeArray();
-  var indexed_array = {};
+  let unindexed_array = $form.serializeArray();
+  let indexed_array = {};
   $.map(unindexed_array, function (n, i) {
     indexed_array[n['name']] = n['value'];
   });
@@ -34,76 +37,87 @@ function open(id_widget) {
 
   $('#question_number').html(id_widget);
 
-  $('.step').hide();
-  $('#widget_' + id_widget).show();
+  // Check if the widget exists before showing
+  if ($('#widget_' + id_widget).length) {
+    $('.step').hide();
+    $('#widget_' + id_widget).show();
+
+    // Show or hide back button
+    if (id_widget > 1) {
+      $('.back').show();
+    } else {
+      $('.back').hide();
+    }
+  }
 
   Save();
 }
 
 function next() {
-  var Next = $('.next').attr('rel');
-  Next = parseInt(Next);
+  let Next = parseInt($('.next').attr('rel'));
+
+  // Ensure Next does not exceed the total number of widgets
   Next = Next > total_widget ? total_widget : Next;
 
   $('#question_number').html(Next);
 
-  $('.next').attr('rel', Next + 1);
-  $('.back').attr('rel', Next - 1);
+  // Update the next and back button attributes
+  $('.next').attr('rel', Next + 1 <= total_widget ? Next + 1 : total_widget);
+  $('.back').attr('rel', Next - 1 >= 1 ? Next - 1 : 1);
   $('.ragu_ragu').attr('rel', Next);
   cek_status_ragu(Next);
   last_check(Next);
 
-  var finished = Next == total_widget ? 1 : 0;
+  // Check if the widget exists before showing
+  if ($('#widget_' + Next).length) {
+    $('.step').hide();
+    $('#widget_' + Next).show();
 
-  $('.step').hide();
-  $('#widget_' + Next).show();
-
-  if (finished == 1) {
-    $('.back').show();
-    $('.next').hide();
-  } else if (finished == 0) {
-    $('.next').show();
-    $('.back').show();
+    // Show or hide back button
+    if (Next > 1) {
+      $('.back').show();
+    } else {
+      $('.back').hide();
+    }
   }
 
   Save();
 }
 
 function back() {
-  var back = $('.back').attr('rel');
-  back = parseInt(back);
-  back = back < 1 ? 1 : back;
+  let Back = parseInt($('.back').attr('rel'));
 
-  $('#question_number').html(back);
+  // Ensure Back does not go below 1
+  Back = Back < 1 ? 1 : Back;
 
-  $('.back').attr('rel', back - 1);
-  $('.next').attr('rel', back + 1);
-  $('.ragu_ragu').attr('rel', back);
-  cek_status_ragu(back);
-  last_check(back);
+  $('#question_number').html(Back);
 
-  $('.step').hide();
-  $('#widget_' + back).show();
+  // Update the next and back button attributes
+  $('.back').attr('rel', Back - 1 >= 1 ? Back - 1 : 1);
+  $('.next').attr('rel', Back + 1);
+  $('.ragu_ragu').attr('rel', Back);
+  cek_status_ragu(Back);
+  last_check(Back);
 
-  var already_start = back == 1 ? 1 : 0;
+  // Check if the widget exists before showing
+  if ($('#widget_' + Back).length) {
+    $('.step').hide();
+    $('#widget_' + Back).show();
 
-  $('.step').hide();
-  $('#widget_' + back).show();
-
-  if (already_start == 1) {
-    $('.back').hide();
-    $('.next').show();
-  } else if (already_start == 0) {
-    $('.next').show();
-    $('.back').show();
+    // Show or hide back button
+    if (Back > 1) {
+      $('.back').show();
+    } else {
+      $('.back').hide();
+    }
   }
 
   Save();
 }
 
 function no_answer() {
-  var id_step = $('.ragu_ragu').attr('rel');
-  var status_ragu = $('#rg_' + id_step).val();
+  let id_step = $('.ragu_ragu').attr('rel');
+  let status_ragu = $('#rg_' + id_step).val();
 
   if (status_ragu == 'N') {
     $('#rg_' + id_step).val('Y');
@@ -121,7 +135,7 @@ function no_answer() {
 }
 
 function cek_status_ragu(question_id) {
-  var status_ragu = $('#rg_' + question_id).val();
+  let status_ragu = $('#rg_' + question_id).val();
 
   if (status_ragu == 'N') {
     $('.ragu_ragu').html('Doubt');
@@ -131,7 +145,7 @@ function cek_status_ragu(question_id) {
 }
 
 function last_check(question_id) {
-  var total_questions = $('#total_questions').val();
+  let total_questions = $('#total_questions').val();
   total_questions = parseInt(total_questions) - 1;
 
   if (total_questions === question_id) {
@@ -144,19 +158,19 @@ function last_check(question_id) {
 }
 
 function saveTemporarily() {
-  var f_asal = $('#exam');
-  var form = getFormData(f_asal);
-  //form = JSON.stringify(form);
-  var total_questions = form.total_questions;
+  let f_asal = $('#exam');
+  let form = getFormData(f_asal);
+  let total_questions = form.total_questions;
   total_questions = parseInt(total_questions);
 
-  var answer_result = '';
+  let answer_result = '';
 
-  for (var i = 1; i < total_questions; i++) {
-    var idx = 'option_' + i;
-    var idx2 = 'rg_' + i;
-    var answer = form[idx];
-    var ragu = form[idx2];
+  for (let i = 1; i < total_questions; i++) {
+    // Changed loop to include last question
+    let idx = 'option_' + i;
+    let idx2 = 'rg_' + i;
+    let answer = form[idx];
+    let ragu = form[idx2];
 
     if (answer != undefined) {
       if (ragu == 'Y') {
@@ -164,9 +178,9 @@ function saveTemporarily() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
+            '" class="btn btn-default btn_question btn-sm" data-id="' +
             i +
-            ');">' +
+            '">' +
             i +
             '. ' +
             answer +
@@ -175,9 +189,9 @@ function saveTemporarily() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-warning btn_question btn-sm" onclick="return open(' +
+            '" class="btn btn-warning btn_question btn-sm" data-id="' +
             i +
-            ');">' +
+            '">' +
             i +
             '. ' +
             answer +
@@ -188,9 +202,9 @@ function saveTemporarily() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
+            '" class="btn btn-default btn_question btn-sm" data-id="' +
             i +
-            ');">' +
+            '">' +
             i +
             '. ' +
             answer +
@@ -199,9 +213,9 @@ function saveTemporarily() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-success btn_question btn-sm" onclick="return open(' +
+            '" class="btn btn-success btn_question btn-sm" data-id="' +
             i +
-            ');">' +
+            '">' +
             i +
             '. ' +
             answer +
@@ -212,19 +226,25 @@ function saveTemporarily() {
       answer_result +=
         '<a id="btn_question_' +
         i +
-        '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
+        '" class="btn btn-default btn_question btn-sm" data-id="' +
         i +
-        ');">' +
+        '">' +
         i +
         '. -</a>';
     }
   }
   $('#display_answer').html('<div id="yes"></div>' + answer_result);
+
+  // Bind click event to dynamically created buttons using event delegation
+  $('#display_answer').on('click', '.btn_question', function () {
+    let id = $(this).data('id');
+    open(id);
+  });
 }
 
 function Save() {
   saveTemporarily();
-  var form = $('#exam');
+  let form = $('#exam');
 
   $.ajax({
     type: 'POST',
@@ -232,8 +252,7 @@ function Save() {
     data: form.serialize(),
     dataType: 'json',
     success: function (data) {
-      // $('.ajax-loading').show();
-      console.log(data);
+      console.log(data); // Debugging
     },
   });
 }
@@ -247,10 +266,8 @@ function completed() {
     data: { id: id_tes },
     beforeSend: function () {
       Save();
-      // $('.ajax-loading').show();
     },
     success: function (r) {
-      console.log(r);
       if (r.status) {
         window.location.href = base_url + 'exam/list';
       }

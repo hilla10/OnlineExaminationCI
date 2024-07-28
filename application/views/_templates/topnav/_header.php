@@ -22,7 +22,7 @@
 	<script src="<?=base_url()?>assets/bower_components/jquery/jquery-3.3.1.min.js"></script>
 	<script src="<?=base_url()?>assets/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
-		var base_url = '<?=base_url()?>';
+		let base_url = '<?=base_url()?>';
 	</script>
 </head>
 

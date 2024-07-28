@@ -3,7 +3,7 @@ function loadDepartment() {
   $('#department').find('option').not(':first').remove();
 
   $.getJSON(base_url + 'department/loadDepartment', function (data) {
-    var options = [];
+    let options = [];
     for (let i = 0; i < data.length; i++) {
       options.push({
         id: data[i].department_id,
@@ -23,7 +23,7 @@ function load_class(id) {
   $('#class').find('option').not(':first').remove();
 
   $.getJSON(base_url + 'class/classByDepartment/' + id, function (data) {
-    var options = [];
+    let options = [];
     for (let i = 0; i < data.length; i++) {
       options.push({
         id: data[i].class_id,
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
   // Event listener for department change
   $('#department').on('change', function () {
-    var departmentId = $(this).val();
+    let departmentId = $(this).val();
 
     if (departmentId) {
       $.ajax({
@@ -55,7 +55,7 @@ $(document).ready(function () {
         data: { department_id: departmentId },
         dataType: 'json',
         success: function (response) {
-          var classDropdown = $('#class');
+          let classDropdown = $('#class');
           classDropdown.empty(); // Clear existing options
 
           if (response.length > 0) {
@@ -103,7 +103,7 @@ $(document).ready(function () {
     e.preventDefault(); // Prevent default form submission
     e.stopImmediatePropagation();
 
-    var btn = $('#submit');
+    let btn = $('#submit');
     btn.attr('disabled', 'disabled').text('Wait...');
 
     $.ajax({
@@ -125,7 +125,7 @@ $(document).ready(function () {
         } else {
           // console.log(data.errors);
           $.each(data.errors, function (key, value) {
-            var input = $('[name="' + key + '"]');
+            let input = $('[name="' + key + '"]');
             input.nextAll('.help-block').eq(0).text(value);
             input.closest('.form-group').addClass('has-error');
             if (value == '') {

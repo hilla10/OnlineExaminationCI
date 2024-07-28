@@ -45,10 +45,10 @@ if(time() >= $question->times_up)
 </div>
 
 <script type="text/javascript">
-    var base_url        = "<?=base_url(); ?>";
-    var id_tes          = "<?=$id_tes; ?>";
-    var widget          = $(".step");
-    var total_widget    = widget.length;
+    base_url        = "<?=base_url(); ?>";
+    let id_tes          = "<?=$id_tes; ?>";
+    let widget          = $(".step");
+    let total_widget    = widget.length;
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/sheet.js"></script>

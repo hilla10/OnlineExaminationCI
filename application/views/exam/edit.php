@@ -68,8 +68,8 @@
 </div>
 
 <script type="text/javascript">
-    var start_time = '<?=$exam->start_time?>';
-    var late_time = '<?=$exam->late_time?>';
+    let start_time = '<?=$exam->start_time?>';
+    let late_time = '<?=$exam->late_time?>';
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/edit.js"></script>

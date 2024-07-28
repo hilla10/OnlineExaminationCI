@@ -14,7 +14,7 @@ $(document).ready(function () {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    var btn = $('#submit');
+    let btn = $('#submit');
     btn.attr('disabled', 'disabled').text('Wait...');
 
     $.ajax({
@@ -38,7 +38,7 @@ $(document).ready(function () {
           if (data.errors) {
             for (let i = 0; i <= data.errors.length; i++) {
               $.each(data.errors[i], function (key, val) {
-                var j = $('[name="' + key + '"]');
+                let j = $('[name="' + key + '"]');
                 j.closest('.form-group').addClass('has-error');
                 j.next().text(val);
                 if (val == '') {

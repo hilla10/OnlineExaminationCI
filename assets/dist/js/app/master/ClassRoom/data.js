@@ -1,12 +1,12 @@
-var save_label;
-var table;
+let save_label;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#class').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#class_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -64,10 +64,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });
@@ -91,8 +91,8 @@ $(document).ready(function () {
   });
 
   $('#class tbody').on('click', 'tr .check', function () {
-    var check = $('#class tbody tr .check').length;
-    var checked = $('#class tbody tr .check:checked').length;
+    let check = $('#class tbody tr .check').length;
+    let checked = $('#class tbody tr .check:checked').length;
     if (check === checked) {
       $('#select_all').prop('checked', true);
     } else {
@@ -138,7 +138,7 @@ $(document).ready(function () {
 });
 
 function loadDepartment() {
-  var department = $('select[name="department_name"]');
+  let department = $('select[name="department_name"]');
   department.children('option:not(:first)').remove();
 
   ajaxcsrf(); // get csrf token
@@ -148,7 +148,7 @@ function loadDepartment() {
     success: function (data) {
       //console.log(data);
       if (data.length) {
-        var dataDepartment;
+        let dataDepartment;
         $.each(data, function (key, val) {
           dataDepartment = `<option value="${val.department_id}">${val.department_name}</option>`;
           department.append(dataDepartment);

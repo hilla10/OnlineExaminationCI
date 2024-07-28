@@ -1,10 +1,8 @@
-
-
 function loadDepartment() {
   $('#department').find('option').not(':first').remove();
 
   $.getJSON(base_url + 'department/loadDepartment', function (data) {
-    var option = [];
+    let option = [];
     for (let i = 0; i < data.length; i++) {
       option.push({
         id: data[i].department_id,
@@ -22,11 +20,8 @@ function loadDepartment() {
 function load_class(id) {
   $('#class').find('option').not(':first').remove();
 
- 
-
   $.getJSON(base_url + 'class/classByDepartment/' + id, function (data) {
-    
-    var option = [];
+    let option = [];
     for (let i = 0; i < data.length; i++) {
       option.push({
         id: data[i].class_id,
@@ -41,18 +36,15 @@ function load_class(id) {
   });
 }
 
-
 $(document).ready(function () {
   ajaxcsrf();
 
   // Load Department
   loadDepartment();
 
-
-
   $('#department').on('change', function () {
-    var departmentId = $(this).val();
-    
+    let departmentId = $(this).val();
+
     if (departmentId) {
       $.ajax({
         url: base_url + 'student/getClassByDepartment',
@@ -60,7 +52,7 @@ $(document).ready(function () {
         data: { department_id: departmentId },
         dataType: 'json',
         success: function (response) {
-          var classDropdown = $('#class');
+          let classDropdown = $('#class');
           classDropdown.empty(); // Clear existing options
 
           if (response.length > 0) {
@@ -93,7 +85,6 @@ $(document).ready(function () {
     }
   });
 
-
   $('form#student input, form#student select').on('change', function () {
     $(this).closest('.form-group').removeClass('has-error has-success');
     $(this).nextAll('.help-block').eq(0).text('');
@@ -107,7 +98,7 @@ $(document).ready(function () {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    var btn = $('#submit');
+    let btn = $('#submit');
     btn.attr('disabled', 'disabled').text('Wait...');
 
     $.ajax({

@@ -33,7 +33,7 @@
             }).then((result) => {
                 if(result.value){
                     $(this).attr('disabled', 'disabled').text('Proses...');
-                    var jqxhr = $.getJSON('<?=base_url()?>settings/truncate', function(response){
+                    let jqxhr = $.getJSON('<?=base_url()?>settings/truncate', function(response){
                         if(response.status){
                             Swal({
                                 title: "Successful",

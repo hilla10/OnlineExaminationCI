@@ -40,7 +40,7 @@
 </div>
 
 <script type="text/javascript">
-    var inputs = '';
-    var rate = '<?=$rate;?>';
+    let inputs = '';
+    let rate = '<?=$rate;?>';
 </script>
 <script src="<?=base_url()?>assets/dist/js/app/master/department/add.js"></script>

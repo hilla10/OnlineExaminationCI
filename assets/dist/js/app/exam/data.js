@@ -1,11 +1,11 @@
-var table;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#exam').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#exam_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -81,10 +81,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(1)', row).html(index);
     },
   });
@@ -104,8 +104,8 @@ $(document).ready(function () {
   });
 
   $('#exam tbody').on('click', 'tr .check', function () {
-    var check = $('#exam tbody tr .check').length;
-    var checked = $('#exam tbody tr .check:checked').length;
+    let check = $('#exam tbody tr .check').length;
+    let checked = $('#exam tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {

@@ -12,12 +12,12 @@ $(document).ready(function () {
   ajaxcsrf();
 
   $('#btncek').on('click', function () {
-    var token = $('#token').val();
-    var idExam = $(this).data('id');
+    let token = $('#token').val();
+    let idExam = $(this).data('id');
     if (token === '') {
       Swal('Failed', 'Token must be filled', 'error');
     } else {
-      var key = $('#exam_id').data('key');
+      let key = $('#exam_id').data('key');
       $.ajax({
         url: base_url + 'exam/cektoken/',
         type: 'POST',
@@ -41,7 +41,7 @@ $(document).ready(function () {
     }
   });
 
-  var time = $('.countdown');
+  let time = $('.countdown');
   if (time.length) {
     countdown(time.data('time'));
   }

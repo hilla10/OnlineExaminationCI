@@ -1,11 +1,11 @@
-var table;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#exam').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#exam_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -45,7 +45,7 @@ $(document).ready(function () {
           ada: 'ada',
         },
         render: function (data, type, row, meta) {
-          var btn;
+          let btn;
           if (data.ada > 0) {
             btn = `
 								<a class="btn btn-xs btn-success" href="${base_url}examResult/print/${data.exam_id}" target="_blank">
@@ -67,10 +67,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });

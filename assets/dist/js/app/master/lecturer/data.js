@@ -1,11 +1,11 @@
-var table;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#lecturer').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#lecturer_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -94,10 +94,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });
@@ -119,8 +119,8 @@ $(document).ready(function () {
   });
 
   $('#lecturer tbody').on('click', 'tr .check', function () {
-    var check = $('#lecturer tbody tr .check').length;
-    var checked = $('#lecturer tbody tr .check:checked').length;
+    let check = $('#lecturer tbody tr .check').length;
+    let checked = $('#lecturer tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
@@ -171,8 +171,8 @@ $(document).ready(function () {
       type: 'GET',
       success: function (response) {
         if (response.msg) {
-          var title = response.status ? 'Successful' : 'Failed';
-          var type = response.status ? 'success' : 'error';
+          let title = response.status ? 'Successful' : 'Failed';
+          let type = response.status ? 'success' : 'error';
           Swal({
             title: title,
             text: response.msg,

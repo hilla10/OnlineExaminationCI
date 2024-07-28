@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('#formlecturer').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    var btn = $('#submit');
+    let btn = $('#submit');
 
     btn.attr('disabled', 'disabled').text('Wait...');
 

@@ -95,7 +95,7 @@
 </div>
 
 <script type="text/javascript">
-    var id = '<?=$this->uri->segment(3)?>';
+    let id = '<?=$this->uri->segment(3)?>';
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/detail_result.js"></script>

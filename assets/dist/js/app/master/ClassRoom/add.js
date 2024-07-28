@@ -14,7 +14,7 @@ $(document).ready(function () {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    var btn = $('#submit');
+    let btn = $('#submit');
     btn.attr('disabled', 'disabled').text('Wait...');
 
     $.ajax({
@@ -35,7 +35,7 @@ $(document).ready(function () {
             }
           });
         } else {
-          var j;
+          let j;
           for (let i = 0; i <= data.errors.length; i++) {
             $.each(data.errors[i], function (key, val) {
               j = $('[name="' + key + '"]');

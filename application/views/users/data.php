@@ -50,7 +50,7 @@
 </div>
 
 <script type="text/javascript">
-    var user_id = '<?=$user->id?>';
+    let user_id = '<?=$user->id?>';
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/users/data.js"></script>

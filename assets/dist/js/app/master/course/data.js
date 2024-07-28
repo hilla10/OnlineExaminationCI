@@ -1,12 +1,12 @@
-var save_label;
-var table;
+let save_label;
+let table;
 
 $(document).ready(function () {
   ajaxcsrf();
 
   table = $('#course').DataTable({
     initComplete: function () {
-      var api = this.api();
+      let api = this.api();
       $('#course_filter input')
         .off('.DT')
         .on('keyup.DT', function (e) {
@@ -69,10 +69,10 @@ $(document).ready(function () {
       return a;
     },
     rowCallback: function (row, data, iDisplayIndex) {
-      var info = this.fnPagingInfo();
-      var page = info.iPage;
-      var length = info.iLength;
-      var index = page * length + (iDisplayIndex + 1);
+      let info = this.fnPagingInfo();
+      let page = info.iPage;
+      let length = info.iLength;
+      let index = page * length + (iDisplayIndex + 1);
       $('td:eq(0)', row).html(index);
     },
   });
@@ -98,8 +98,8 @@ $(document).ready(function () {
   });
 
   $('#course tbody').on('click', 'tr .check', function () {
-    var check = $('#course tbody tr .check').length;
-    var checked = $('#course tbody tr .check:checked').length;
+    let check = $('#course tbody tr .check').length;
+    let checked = $('#course tbody tr .check:checked').length;
     if (check === checked) {
       $('.select_all').prop('checked', true);
     } else {
