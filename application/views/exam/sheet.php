@@ -34,7 +34,7 @@ if(time() >= $question->times_up)
             </div>
             <div class="box-footer text-center">
                 <a class="action back btn btn-info" rel="0" onclick="return back();"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
-                <a class="ragu_ragu btn btn-warning" rel="1" onclick="return tidak_jawab();">Doubtful</a>
+                <a class="ragu_ragu btn btn-warning" rel="1" onclick="return no_answer();">Doubtful</a>
                 <a class="action next btn btn-info" rel="2" onclick="return next();"><i class="glyphicon glyphicon-chevron-right"></i> Next</a>
                 <a class="completed action submit btn btn-danger" onclick="return save_final();"><i class="glyphicon glyphicon-stop"></i> Finished</a>
                 <input type="hidden" name="total_questions" id="total_questions" value="<?=$no; ?>">

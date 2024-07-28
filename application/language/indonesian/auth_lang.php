@@ -19,7 +19,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Form yang dikirim tidak lulus pemeriksaan keamanan kami.';
+$lang['error_csrf'] = 'Form yang dikirim no lulus pemeriksaan keamanan kami.';
 
 // Login
 $lang['login_heading']         = 'Login';
@@ -40,7 +40,7 @@ $lang['index_groups_th']         = 'Grup';
 $lang['index_status_th']         = 'Status';
 $lang['index_action_th']         = 'Aksi';
 $lang['index_active_link']       = 'Aktif';
-$lang['index_inactive_link']     = 'Tidak Aktif';
+$lang['index_inactive_link']     = 'no Aktif';
 $lang['index_create_user_link']  = 'Buat Pengguna baru';
 $lang['index_create_group_link'] = 'Buat grup baru';
 
@@ -48,7 +48,7 @@ $lang['index_create_group_link'] = 'Buat grup baru';
 $lang['deactivate_heading']                  = 'Deaktivasi Pengguna';
 $lang['deactivate_subheading']               = 'Anda yakin akan melakukan deaktivasi akun Pengguna \'%s\'';
 $lang['deactivate_confirm_y_label']          = 'Ya:';
-$lang['deactivate_confirm_n_label']          = 'Tidak:';
+$lang['deactivate_confirm_n_label']          = 'no:';
 $lang['deactivate_submit_btn']               = 'Kirim';
 $lang['deactivate_validation_confirm_label'] = 'konfirmasi';
 $lang['deactivate_validation_user_id_label'] = 'ID Pengguna';
@@ -85,7 +85,7 @@ $lang['edit_user_phone_label']                       = 'Telepon:';
 $lang['edit_user_password_label']                    = 'Kata Sandi: (jika mengubah sandi)';
 $lang['edit_user_password_confirm_label']            = 'Konfirmasi Kata Sandi: (jika mengubah sandi)';
 $lang['edit_user_groups_heading']                    = 'Anggota dari Grup';
-$lang['edit_user_submit_btn']                        = 'Simpan Pengguna';
+$lang['edit_user_submit_btn']                        = 'Save Pengguna';
 $lang['edit_user_validation_fname_label']            = 'Nama Awal';
 $lang['edit_user_validation_lname_label']            = 'Nama Akhir';
 $lang['edit_user_validation_email_label']            = 'Alamat Surel';
@@ -107,12 +107,12 @@ $lang['create_group_validation_desc_label']  = 'Deskripsi';
 
 // Edit Group
 $lang['edit_group_title']                    = 'Ubah Grup';
-$lang['edit_group_saved']                    = 'Grup Tersimpan';
+$lang['edit_group_saved']                    = 'Grup TerSave';
 $lang['edit_group_heading']                  = 'Ubah Grup';
 $lang['edit_group_subheading']               = 'Silakan masukan detail Grup di bawah ini.';
 $lang['edit_group_name_label']               = 'Nama Grup:';
 $lang['edit_group_desc_label']               = 'Deskripsi:';
-$lang['edit_group_submit_btn']               = 'Simpan Grup';
+$lang['edit_group_submit_btn']               = 'Save Grup';
 $lang['edit_group_validation_name_label']    = 'Nama Grup';
 $lang['edit_group_validation_desc_label']    = 'Deskripsi';
 
@@ -134,8 +134,8 @@ $lang['forgot_password_submit_btn']              = 'Kirim';
 $lang['forgot_password_validation_email_label']  = 'Alamat Surel';
 $lang['forgot_password_username_identity_label'] = 'Nama Pengguna';
 $lang['forgot_password_email_identity_label']    = 'Surel';
-$lang['forgot_password_email_not_found']         = 'Tidak ada data dari surel tersebut.';
-$lang['forgot_password_identity_not_found']      = 'Tidak ada data dari name pengguna tersebut.';
+$lang['forgot_password_email_not_found']         = 'no ada data dari surel tersebut.';
+$lang['forgot_password_identity_not_found']      = 'no ada data dari name pengguna tersebut.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Ganti Kata Sandi';

@@ -118,7 +118,7 @@ class Exam extends CI_Controller {
 		$jml_a 	= $jml + 1; // If you don't understand, please read the user_guide codeigniter about form_validation in the less_than section
 
 		$this->form_validation->set_rules('exam_name', 'Exam Name', 'required|alpha_numeric_spaces|max_length[50]');
-		$this->form_validation->set_rules('total_questions', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Question tidak cukup, anda hanya punya {$jml} question"]);
+		$this->form_validation->set_rules('total_questions', 'Number of Questions', "required|integer|less_than[{$jml_a}]|greater_than[0]", ['less_than' => "Question no cukup, anda hanya punya {$jml} question"]);
 		$this->form_validation->set_rules('start_time', 'Start Date', 'required');
 		$this->form_validation->set_rules('end_time', 'Completion Date', 'required');
 		$this->form_validation->set_rules('duration', 'Time', 'required|integer|max_length[4]|greater_than[0]');
@@ -360,14 +360,14 @@ class Exam extends CI_Controller {
 		$questions_ordered_correctly = $questions_ordered_correctly;
 
 		$pc_answer_list = explode(",", $detail_tes->answer_list);
-		$arr_jawab = array();
+		$arr_answer = array();
 		foreach ($pc_answer_list as $v) {
 			$pc_v 	= explode(":", $v);
 			$idx 	= $pc_v[0];
 			$val 	= $pc_v[1];
 			$rg 	= $pc_v[2];
 
-			$arr_jawab[$idx] = array("j"=>$val,"r"=>$rg);
+			$arr_answer[$idx] = array("j"=>$val,"r"=>$rg);
 		}
 
 		$arr_option = array("a","b","c","d","e");
@@ -376,7 +376,7 @@ class Exam extends CI_Controller {
 		if (!empty($questions_ordered_correctly)) {
 			foreach ($questions_ordered_correctly as $s) {
 				$path = 'uploads/bank_question/';
-				$vrg = $arr_jawab[$s->question_id]["r"] == "" ? "N" : $arr_jawab[$s->question_id]["r"];
+				$vrg = $arr_answer[$s->question_id]["r"] == "" ? "N" : $arr_answer[$s->question_id]["r"];
 				$html .= '<input type="hidden" name="question_id_'.$no.'" value="'.$s->question_id.'">';
 				$html .= '<input type="hidden" name="rg_'.$no.'" id="rg_'.$no.'" value="'.$vrg.'">';
 				$html .= '<div class="step" id="widget_'.$no.'">';
@@ -385,7 +385,7 @@ class Exam extends CI_Controller {
 				for ($j = 0; $j < $this->config->item('jml_option'); $j++) {
 					$option 			= "option_".$arr_option[$j];
 					$file 			= "file_".$arr_option[$j];
-					$checked 		= $arr_jawab[$s->question_id]["j"] == strtoupper($arr_option[$j]) ? "checked" : "";
+					$checked 		= $arr_answer[$s->question_id]["j"] == strtoupper($arr_option[$j]) ? "checked" : "";
 					$option_label 	= !empty($s->$option) ? $s->$option : "";
 					$display_media_option = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? display_media($path.$s->$file) : "";
 					$html .= '<div class="funkyradio-success" onclick="return saveTemporarily();">
@@ -423,19 +423,19 @@ class Exam extends CI_Controller {
 		$input 	= $this->input->post(null, true);
 		$answer_list 	= "";
 		for ($i = 1; $i < $input['total_questions']; $i++) {
-			$_tjawab 	= "option_".$i;
+			$_tanswer 	= "option_".$i;
 			$_question_id 	= "question_id_".$i;
 			$_ragu 		= "rg_".$i;
-			$answer_ 	= empty($input[$_tjawab]) ? "" : $input[$_tjawab];
+			$answer_ 	= empty($input[$_tanswer]) ? "" : $input[$_tanswer];
 			$answer_list	.= "".$input[$_question_id].":".$answer_.":".$input[$_ragu].",";
 		}
 		$answer_list	= substr($answer_list, 0, -1);
-		$d_simpan = [
+		$d_Save = [
 			'answer_list' => $answer_list
 		];
 		
-		// Simpan answer
-		$this->master->update('exam_history', $d_simpan, 'id', $id_tes);
+		// Save answer
+		$this->master->update('exam_history', $d_Save, 'id', $id_tes);
 		$this->output_json(['status'=>true]);
 	}
 

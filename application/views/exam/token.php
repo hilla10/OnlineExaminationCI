@@ -38,7 +38,7 @@
                     <tr>
                         <th>Late</th>
                         <td>
-                            <?=strftime('%d %B %Y', strtotime($exam->late_time))?> 
+                            <?=date('d F Y', strtotime($exam->late_time))?> 
                             <?=date('H:i:s', strtotime($exam->late_time))?>
                         </td>
                     </tr>
@@ -55,7 +55,7 @@
                     <div class="box-body pb-0">
                         <div class="callout callout-info">
                             <p>
-                            The time to take the exam_history is when the "START" button is green.
+                            The time to take the Exam is when the "START" button is green.
                             </p>
                         </div>
                         <?php
@@ -65,7 +65,7 @@
                         if($start > $now) : 
                         ?>
                         <div class="callout callout-success">
-                            <strong><i class="fa fa-clock-o"></i> The exam_history will start on</strong>
+                            <strong><i class="fa fa-clock-o"></i> The Exam will start on</strong>
                             <br>
                             <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($exam->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                         </div>
@@ -80,7 +80,7 @@
                         <?php else : ?>
                         <div class="callout callout-danger">
                         The time to press the <strong>"START"</strong> button is up.<br/>
-                        Please contact your lecturer to be able to take the SUBSTITUTE exam_history.
+                        Please contact your lecturer to be able to take the SUBSTITUTE Exam.
                         </div>
                         <?php endif;?>
                     </div>

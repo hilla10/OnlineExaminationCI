@@ -46,10 +46,10 @@
                 <?php endforeach;?>
                 
                 <hr class="my-4">
-                <strong>Created on:</strong> <?=strftime("%A, %d %B %Y", date($question->created_on))?>
+                <strong>Created on:</strong> <?=date("l, d F Y", date($question->created_on))?>
                 <br>
-                <strong>Last updated :</strong> <?=strftime("%A, %d %B %Y", date($question->updated_on))?>
+                <strong>Last updated :</strong> <?=date("l, d F Y", date($question->updated_on))?>
             </div>
         </div>
     </div>
-</div>
+</div> 

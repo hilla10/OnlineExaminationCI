@@ -51,7 +51,7 @@ $late_time_formatted = date('Y-m-d\TH:i:s', $late_time);
                     <tr>
                         <th>Late</th>
                         <td>
-                            <?=strftime('%d %B %Y', strtotime($exam->late_time))?>
+                            <?=date('d F Y, strtotime($exam->late_time))?>
                             <?=date('H:i:s', strtotime($exam->late_time))?>
                         </td>
                     </tr>

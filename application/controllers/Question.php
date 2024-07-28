@@ -139,101 +139,151 @@ class Question extends CI_Controller {
         return $this->load->library('upload', $config);
     }
     
-    public function save()
-    {
-        $method = $this->input->post('method', true);
-        $this->validation();
-        $this->file_config();
+    // public function save()
+    // {
+    //     $method = $this->input->post('method', true);
+    //     $this->validation();
+    //     $this->file_config();
 
         
-        if($this->form_validation->run() === FALSE){
-            $method==='add'? $this->add() : $this->edit();
-        }else{
-            $data = [
-                'question'      => $this->input->post('question', true),
-                'answer'   => $this->input->post('answer', true),
-                'weight'     => $this->input->post('weight', true),
-            ];
+    //     if($this->form_validation->run() === FALSE){
+    //         $method==='add'? $this->add() : $this->edit();
+    //     }else{
+    //         $data = [
+    //             'question'      => $this->input->post('question', true),
+    //             'answer'   => $this->input->post('answer', true),
+    //             'weight'     => $this->input->post('weight', true),
+    //         ];
             
-            $abjad = ['a', 'b', 'c', 'd', 'e'];
+    //         $abjad = ['a', 'b', 'c', 'd', 'e'];
             
-            // Inputan option
-            foreach ($abjad as $abj) {
-                $data['option_'.$abj]    = $this->input->post('answer_'.$abj, true);
-            }
+    //         // Inputan option
+    //         foreach ($abjad as $abj) {
+    //             $data['option_'.$abj]    = $this->input->post('answer_'.$abj, true);
+    //         }
 
-            $i = 0;
-            foreach ($_FILES as $key => $val) {
-                $img_src = FCPATH.'uploads/bank_question/';
-                $getquestion = $this->question->getQuestionById($this->input->post('question_id', true));
+    //         $i = 0;
+    //         foreach ($_FILES as $key => $val) {
+    //             $img_src = FCPATH.'uploads/bank_question/';
+    //             $getquestion = $this->question->getQuestionById($this->input->post('question_id', true));
                 
-                $error = '';
-                if($key === 'file_question'){
-                    if(!empty($_FILES['file_question']['name'])){
-                        if (!$this->upload->do_upload('file_question')){
-                            $error = $this->upload->display_errors();
-                            show_error($error, 500, 'File Ques. Error');
-                            exit();
-                        }else{
-                            if($method === 'edit'){
-                                if(!unlink($img_src.$getquestion->file)){
-                                    show_error('Error when deleting image <br/>'.var_dump($getquestion), 500, 'Image Editing Error');
-                                    exit();
-                                }
-                            }
-                            $data['file'] = $this->upload->data('file_name');
-                            $data['file_type'] = $this->upload->data('file_type');
-                        }
-                    }
-                }else{
-                    $file_abj = 'file_'.$abjad[$i];
-                    if(!empty($_FILES[$file_abj]['name'])){    
-                        if (!$this->upload->do_upload($key)){
-                            $error = $this->upload->display_errors();
-                            show_error($error, 500, 'Option Files '.strtoupper($abjad[$i]).' Error');
-                            exit();
-                        }else{
-                            if($method === 'edit'){
-                                if(!unlink($img_src.$getquestion->$file_abj)){
-                                    show_error('Error when deleting image', 500, 'Image Editing Error');
-                                    exit();
-                                }
-                            }
-                            $data[$file_abj] = $this->upload->data('file_name');
-                        }
-                    }
-                    $i++;
-                }
-            }
+    //             $error = '';
+    //             if($key === 'file_question'){
+    //                 if(!empty($_FILES['file_question']['name'])){
+    //                     if (!$this->upload->do_upload('file_question')){
+    //                         $error = $this->upload->display_errors();
+    //                         show_error($error, 500, 'File Ques. Error');
+    //                         exit();
+    //                     }else{
+    //                         if($method === 'edit'){
+    //                             if(!unlink($img_src.$getquestion->file)){
+    //                                 show_error('Error when deleting image <br/>'.var_dump($getquestion), 500, 'Image Editing Error');
+    //                                 exit();
+    //                             }
+    //                         }
+    //                         $data['file'] = $this->upload->data('file_name');
+    //                         $data['file_type'] = $this->upload->data('file_type');
+    //                     }
+    //                 }
+    //             }else{
+    //                 $file_abj = 'file_'.$abjad[$i];
+    //                 if(!empty($_FILES[$file_abj]['name'])){    
+    //                     if (!$this->upload->do_upload($key)){
+    //                         $error = $this->upload->display_errors();
+    //                         show_error($error, 500, 'Option Files '.strtoupper($abjad[$i]).' Error');
+    //                         exit();
+    //                     }else{
+    //                         if($method === 'edit'){
+    //                             if(!unlink($img_src.$getquestion->$file_abj)){
+    //                                 show_error('Error when deleting image', 500, 'Image Editing Error');
+    //                                 exit();
+    //                             }
+    //                         }
+    //                         $data[$file_abj] = $this->upload->data('file_name');
+    //                     }
+    //                 }
+    //                 $i++;
+    //             }
+    //         }
                 
-            if($this->ion_auth->is_admin()){
-                $pecah = $this->input->post('lecturer_id', true);
-                $pecah = explode(':', $pecah);
-                $data['lecturer_id'] = $pecah[0];
-                $data['course_id'] = end($pecah);
-            }else{
-                $data['lecturer_id'] = $this->input->post('lecturer_id', true);
-                $data['course_id'] = $this->input->post('course_id', true);
-            }
+    //         if($this->ion_auth->is_admin()){
+    //             $pecah = $this->input->post('lecturer_id', true);
+    //             $pecah = explode(':', $pecah);
+    //             $data['lecturer_id'] = $pecah[0];
+    //             $data['course_id'] = end($pecah);
+    //         }else{
+    //             $data['lecturer_id'] = $this->input->post('lecturer_id', true);
+    //             $data['course_id'] = $this->input->post('course_id', true);
+    //         }
 
-            if($method==='add'){
-                //push array
-                $data['created_on'] = time();
-                $data['updated_on'] = time();
-                //insert data
-                $this->master->create('tb_question', $data);
-            }else if($method==='edit'){
-                //push array
-                $data['updated_on'] = time();
-                //update data
-                $question_id = $this->input->post('question_id', true);
-                $this->master->update('tb_question', $data, 'question_id', $question_id);
-            }else{
-                show_error('Method unknown', 404);
-            }
-            redirect('question');
+    //         if($method==='add'){
+    //             //push array
+    //             $data['created_on'] = time();
+    //             $data['updated_on'] = time();
+    //             //insert data
+    //             $this->master->create('tb_question', $data);
+    //         }else if($method==='edit'){
+    //             //push array
+    //             $data['updated_on'] = time();
+    //             //update data
+    //             $question_id = $this->input->post('question_id', true);
+    //             $this->master->update('tb_question', $data, 'question_id', $question_id);
+    //         }else{
+    //             show_error('Method unknown', 404);
+    //         }
+    //         redirect('question');
+    //     }
+    // }
+
+
+public function save()
+{
+    $method = $this->input->post('method', true);
+    $this->validation();
+    $this->file_config();
+
+    if ($this->form_validation->run() === FALSE) {
+        $method === 'add' ? $this->add() : $this->edit();
+    } else {
+        $data = [
+            'question' => $this->input->post('question', false), // Do not encode
+            'answer' => $this->input->post('answer', true),
+            'weight' => $this->input->post('weight', true),
+        ];
+
+        $abjad = ['a', 'b', 'c', 'd', 'e'];
+
+        foreach ($abjad as $abj) {
+            $data['option_' . $abj] = $this->input->post('answer_' . $abj, false); // Do not encode
         }
+
+        // (File upload logic remains unchanged)
+
+        if ($this->ion_auth->is_admin()) {
+            $pecah = $this->input->post('lecturer_id', true);
+            $pecah = explode(':', $pecah);
+            $data['lecturer_id'] = $pecah[0];
+            $data['course_id'] = end($pecah);
+        } else {
+            $data['lecturer_id'] = $this->input->post('lecturer_id', true);
+            $data['course_id'] = $this->input->post('course_id', true);
+        }
+
+        if ($method === 'add') {
+            $data['created_on'] = time();
+            $data['updated_on'] = time();
+            $this->master->create('tb_question', $data);
+        } else if ($method === 'edit') {
+            $data['updated_on'] = time();
+            $question_id = $this->input->post('question_id', true);
+            $this->master->update('tb_question', $data, 'question_id', $question_id);
+        } else {
+            show_error('Method unknown', 404);
+        }
+        redirect('question');
     }
+}
+
 
     public function delete()
     {

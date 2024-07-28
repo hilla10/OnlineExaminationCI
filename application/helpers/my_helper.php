@@ -19,7 +19,7 @@ function display_media($file,$width="",$height="") {
 			if (is_file("./".$file)) {
 				$ret .= '<p><video width="'.$width.'" height="'.$height.'" controls>
                 <source src="'.base_url().$file.'" type="video/mp4">
-                <source src="'.base_url().$file.'" type="application/octet-stream">Browser tidak support</video></p>';
+                <source src="'.base_url().$file.'" type="application/octet-stream">Browser no support</video></p>';
 			} else {
 				$ret .= '';
 			}
@@ -29,7 +29,7 @@ function display_media($file,$width="",$height="") {
 			if (is_file("./".$file)) {
 				$ret .= '<p><audio width="'.$width.'" height="'.$height.'" controls>
 				<source src="'.base_url().$file.'" type="audio/mpeg">
-				<source src="'.base_url().$file.'" type="audio/wav">Browser tidak support</audio></p>';
+				<source src="'.base_url().$file.'" type="audio/wav">Browser no support</audio></p>';
 			} else {
 				$ret .= '';
 			}

@@ -71,19 +71,39 @@
 					table.ajax.reload(null, false);
 				}
 
+				// $(document).ready(function() {
+				// 	$('.summernote').summernote({
+				// 		toolbar: [
+				// 			// [groupName, [list of button]]
+				// 			['style', ['bold', 'italic', 'underline', 'clear']],
+				// 			['font', ['strikethrough', 'superscript', 'subscript']],
+				// 			['fontsize', ['fontsize']],
+				// 			['color', ['color']],
+				// 			['para', ['ul', 'ol', 'paragraph']],
+				// 			['height', ['height']]
+				// 		]
+				// 	});
+				// });
+
 				$(document).ready(function() {
 					$('.summernote').summernote({
 						toolbar: [
-							// [groupName, [list of button]]
 							['style', ['bold', 'italic', 'underline', 'clear']],
 							['font', ['strikethrough', 'superscript', 'subscript']],
 							['fontsize', ['fontsize']],
 							['color', ['color']],
 							['para', ['ul', 'ol', 'paragraph']],
 							['height', ['height']]
-						]
+						],
+						callbacks: {
+							onChange: function(contents, $editable) {
+								$(this).val(contents);
+							}
+						}
 					});
 				});
+
+
 			</script>
 
 			</body>

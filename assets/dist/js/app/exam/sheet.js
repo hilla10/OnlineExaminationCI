@@ -30,43 +30,43 @@ function open(id_widget) {
   $('.back').attr('rel', id_widget - 1);
   $('.ragu_ragu').attr('rel', id_widget);
   cek_status_ragu(id_widget);
-  cek_terakhir(id_widget);
+  last_check(id_widget);
 
   $('#question_number').html(id_widget);
 
   $('.step').hide();
   $('#widget_' + id_widget).show();
 
-  simpan();
+  Save();
 }
 
 function next() {
-  var berikutnya = $('.next').attr('rel');
-  berikutnya = parseInt(berikutnya);
-  berikutnya = berikutnya > total_widget ? total_widget : berikutnya;
+  var Next = $('.next').attr('rel');
+  Next = parseInt(Next);
+  Next = Next > total_widget ? total_widget : Next;
 
-  $('#question_number').html(berikutnya);
+  $('#question_number').html(Next);
 
-  $('.next').attr('rel', berikutnya + 1);
-  $('.back').attr('rel', berikutnya - 1);
-  $('.ragu_ragu').attr('rel', berikutnya);
-  cek_status_ragu(berikutnya);
-  cek_terakhir(berikutnya);
+  $('.next').attr('rel', Next + 1);
+  $('.back').attr('rel', Next - 1);
+  $('.ragu_ragu').attr('rel', Next);
+  cek_status_ragu(Next);
+  last_check(Next);
 
-  var sudah_akhir = berikutnya == total_widget ? 1 : 0;
+  var finished = Next == total_widget ? 1 : 0;
 
   $('.step').hide();
-  $('#widget_' + berikutnya).show();
+  $('#widget_' + Next).show();
 
-  if (sudah_akhir == 1) {
+  if (finished == 1) {
     $('.back').show();
     $('.next').hide();
-  } else if (sudah_akhir == 0) {
+  } else if (finished == 0) {
     $('.next').show();
     $('.back').show();
   }
 
-  simpan();
+  Save();
 }
 
 function back() {
@@ -80,28 +80,28 @@ function back() {
   $('.next').attr('rel', back + 1);
   $('.ragu_ragu').attr('rel', back);
   cek_status_ragu(back);
-  cek_terakhir(back);
+  last_check(back);
 
   $('.step').hide();
   $('#widget_' + back).show();
 
-  var sudah_awal = back == 1 ? 1 : 0;
+  var already_start = back == 1 ? 1 : 0;
 
   $('.step').hide();
   $('#widget_' + back).show();
 
-  if (sudah_awal == 1) {
+  if (already_start == 1) {
     $('.back').hide();
     $('.next').show();
-  } else if (sudah_awal == 0) {
+  } else if (already_start == 0) {
     $('.next').show();
     $('.back').show();
   }
 
-  simpan();
+  Save();
 }
 
-function tidak_jawab() {
+function no_answer() {
   var id_step = $('.ragu_ragu').attr('rel');
   var status_ragu = $('#rg_' + id_step).val();
 
@@ -117,7 +117,7 @@ function tidak_jawab() {
 
   cek_status_ragu(id_step);
 
-  simpan();
+  Save();
 }
 
 function cek_status_ragu(question_id) {
@@ -130,7 +130,7 @@ function cek_status_ragu(question_id) {
   }
 }
 
-function cek_terakhir(question_id) {
+function last_check(question_id) {
   var total_questions = $('#total_questions').val();
   total_questions = parseInt(total_questions) - 1;
 
@@ -155,12 +155,12 @@ function saveTemporarily() {
   for (var i = 1; i < total_questions; i++) {
     var idx = 'option_' + i;
     var idx2 = 'rg_' + i;
-    var jawab = form[idx];
+    var answer = form[idx];
     var ragu = form[idx2];
 
-    if (jawab != undefined) {
+    if (answer != undefined) {
       if (ragu == 'Y') {
-        if (jawab == '-') {
+        if (answer == '-') {
           answer_result +=
             '<a id="btn_question_' +
             i +
@@ -169,7 +169,7 @@ function saveTemporarily() {
             ');">' +
             i +
             '. ' +
-            jawab +
+            answer +
             '</a>';
         } else {
           answer_result +=
@@ -180,11 +180,11 @@ function saveTemporarily() {
             ');">' +
             i +
             '. ' +
-            jawab +
+            answer +
             '</a>';
         }
       } else {
-        if (jawab == '-') {
+        if (answer == '-') {
           answer_result +=
             '<a id="btn_question_' +
             i +
@@ -193,7 +193,7 @@ function saveTemporarily() {
             ');">' +
             i +
             '. ' +
-            jawab +
+            answer +
             '</a>';
         } else {
           answer_result +=
@@ -204,7 +204,7 @@ function saveTemporarily() {
             ');">' +
             i +
             '. ' +
-            jawab +
+            answer +
             '</a>';
         }
       }
@@ -222,7 +222,7 @@ function saveTemporarily() {
   $('#display_answer').html('<div id="yes"></div>' + answer_result);
 }
 
-function simpan() {
+function Save() {
   saveTemporarily();
   var form = $('#exam');
 
@@ -239,14 +239,14 @@ function simpan() {
 }
 
 function completed() {
-  simpan();
+  Save();
   ajaxcsrf();
   $.ajax({
     type: 'POST',
     url: base_url + 'exam/save_final',
     data: { id: id_tes },
     beforeSend: function () {
-      simpan();
+      Save();
       // $('.ajax-loading').show();
     },
     success: function (r) {
@@ -264,7 +264,7 @@ function timesUP() {
 }
 
 function save_final() {
-  simpan();
+  Save();
   if (confirm('Are you sure you want to end the test?')) {
     completed();
   }

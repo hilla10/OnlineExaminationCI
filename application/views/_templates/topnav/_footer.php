@@ -6,7 +6,7 @@
 <!-- /.content-wrapper -->
 <footer class="main-footer">
 	<div class="container">
-		<?= strftime('%A, %d %B %Y') ?>, <span class="live-clock"><?= date('H:i:s') ?></span>
+		<?= date("l, d F Y") ?>, <span class="live-clock"><?= date('H:i:s') ?></span>
 		<div class="pull-right hidden-xs">
 			<b>Online Exams</b> v2
 		</div>

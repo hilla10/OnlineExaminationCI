@@ -44,19 +44,19 @@
                                         <?php endif;?>
                                     </div>
                                     <div class="form-group col-sm-9">
-                                        <textarea name="question" id="question" class="form-control summernote"><?=$question->question?></textarea>
+                                          <textarea name="question" id="question" class="form-control summernote"><?=set_value('question', isset($question->question) ? $question->question : '')?></textarea>
                                         <small class="help-block" style="color: #dc3545"><?=form_error('question')?></small>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- 
-                                Membuat perulangan A-E 
+                                Making a loop A-E 
                             -->
                             <?php
                             $abjad = ['a', 'b', 'c', 'd', 'e'];
                             foreach ($abjad as $abj) :
-                                $ABJ = strtoupper($abj); // Abjad Kapital
+                                $ABJ = strtoupper($abj); // capital letters
                                 $file = 'file_'.$abj;
                                 $option = 'option_'.$abj;
                             ?>
