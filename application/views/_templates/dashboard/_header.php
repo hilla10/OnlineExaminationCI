@@ -11,6 +11,7 @@
 	
 	<!-- Required CSS -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/select2/css/select2.min.css">
@@ -18,8 +19,10 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/dist/css/skins/skin-blue.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/dist/css/skins/skin-yellow.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+	  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"> -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/pace/pace-theme-flash.css">
-	
+
 	<!-- Datatables Buttons -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/bower_components/datatables.net-bs/plugins/Buttons-1.5.6/css/buttons.bootstrap.min.css">
 
@@ -45,11 +48,17 @@
 </head>
 
 <!-- Must Load First -->
-<script src="<?=base_url()?>assets/bower_components/jquery/jquery-3.3.1.min.js"></script>
-<script src="<?=base_url()?>assets/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
-<script src="<?=base_url()?>assets/bower_components/select2/js/select2.full.min.js"></script>
-<script src="<?=base_url()?>assets/bower_components/moment/min/moment.min.js"></script>
-<script src="<?=base_url()?>assets/bower_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>		
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+	<script src="<?=base_url()?>assets/bower_components/jquery/jquery-3.3.1.min.js"></script>
+	<script src="<?=base_url()?>assets/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="<?=base_url()?>assets/bower_components/select2/js/select2.full.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+	
+	<script src="<?=base_url()?>assets/bower_components/moment/min/moment.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/boot strap/3.4.1/js/bootstrap.min.js"></script> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+	
+<script src="<?=base_url()?>assets/bower_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>		 
 
 <script type="text/javascript">
 	let base_url = '<?=base_url()?>';

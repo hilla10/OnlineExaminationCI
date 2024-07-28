@@ -1,3 +1,13 @@
+function ajaxcsrf() {
+  let csrfname = '<?= $this->security->get_csrf_token_name() ?>';
+  let csrfhash = '<?= $this->security->get_csrf_hash() ?>';
+  let csrf = {};
+  csrf[csrfname] = csrfhash;
+  $.ajaxSetup({
+    data: csrf,
+  });
+}
+
 $(document).ready(function () {
   ajaxcsrf();
 

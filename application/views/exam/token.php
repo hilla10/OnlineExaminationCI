@@ -59,10 +59,10 @@
                             </p>
                         </div>
                         <?php
-                        $mulai = strtotime($exam->start_time);
+                        $start = strtotime($exam->start_time);
                         $late_time = strtotime($exam->late_time);
                         $now = time();
-                        if($mulai > $now) : 
+                        if($start > $now) : 
                         ?>
                         <div class="callout callout-success">
                             <strong><i class="fa fa-clock-o"></i> The exam_history will start on</strong>

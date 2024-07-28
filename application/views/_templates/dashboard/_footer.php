@@ -10,7 +10,7 @@
 					Online Examination System
 				</div>
 				<!-- Default to the left -->
-				<strong>&copy; <?php echo date('Y')?> - Developed by Muhammad Ghifari Arfananda. </strong> All rights reserved
+				<strong>&copy; <?php echo date('Y')?> - Developed by Entoto Polytechnic College. </strong> All rights reserved
 			</footer>
 
 			</div>
@@ -58,9 +58,9 @@
 				};
 
 				function ajaxcsrf() {
-					var csrfname = '<?= $this->security->get_csrf_token_name() ?>';
-					var csrfhash = '<?= $this->security->get_csrf_hash() ?>';
-					var csrf = {};
+					let csrfname = '<?= $this->security->get_csrf_token_name() ?>';
+					let csrfhash = '<?= $this->security->get_csrf_hash() ?>';
+					let csrf = {};
 					csrf[csrfname] = csrfhash;
 					$.ajaxSetup({
 						"data": csrf
