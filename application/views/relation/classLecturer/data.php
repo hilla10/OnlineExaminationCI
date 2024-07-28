@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>TeacherID</th>
+                    <th>Teacher ID</th>
                     <th>Lecturer</th>
                     <th>Class</th>
 					<th class="text-center">Edit</th>
@@ -31,7 +31,7 @@
             <!-- <tfoot>
                 <tr>
                     <th>#</th>
-                    <th>TeacherID</th>
+                    <th>Teacher ID</th>
                     <th>Lecturer</th>
                     <th>Class</th>
 					<th class="text-center">Edit</th>

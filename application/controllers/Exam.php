@@ -28,7 +28,7 @@ class Exam extends CI_Controller {
 		}
     }
 
-    public function akses_student_access()
+    public function access_student()
     {
         if ( !$this->ion_auth->in_group('Student') ){
 			show_error('This page is specifically for students taking the exam_history, <a href="'.base_url('dashboard').'">Back to main menu</a>', 403, 'Forbidden Access');
@@ -108,7 +108,7 @@ class Exam extends CI_Controller {
 		return date('Y-m-d H:i:s', strtotime($tgl));
 	}
 
-	public function validasi()
+	public function validation()
 	{
 		$this->access_lecturer();
 		
@@ -127,7 +127,7 @@ class Exam extends CI_Controller {
 
 	public function save()
 	{
-		$this->validasi();
+		$this->validation();
 		$this->load->helper('string');
 
 		$method 		= $this->input->post('method', true);
@@ -174,6 +174,18 @@ class Exam extends CI_Controller {
 		$this->output_json($data);
 	}
 
+// private function convert_to_12_hour($time_str)
+// {
+//     try {
+//         $datetime = new DateTime($time_str);
+//         return $datetime->format('m/d/Y h:i:s A'); // Format as 12-hour time
+//     } catch (Exception $e) {
+//         // Handle the exception if the input time string is invalid
+//         return null;
+//     }
+// }
+
+
 	public function delete()
 	{
 		$this->access_lecturer();
@@ -202,7 +214,7 @@ class Exam extends CI_Controller {
 
 	public function list_json()
 	{
-		$this->akses_student_access();
+		$this->access_student();
 		
 		$list = $this->exam->getListExam($this->mhs->student_id, $this->mhs->class_id);
 		$this->output_json($list, false);
@@ -210,7 +222,7 @@ class Exam extends CI_Controller {
 	
 	public function list()
 	{
-		$this->akses_student_access();
+		$this->access_student();
 
 		$user = $this->ion_auth->user()->row();
 		
@@ -227,7 +239,7 @@ class Exam extends CI_Controller {
 	
 	public function token($id)
 	{
-		$this->akses_student_access();
+		$this->access_student();
 		$user = $this->ion_auth->user()->row();
 		
 		$data = [
@@ -244,14 +256,22 @@ class Exam extends CI_Controller {
 	}
 
 	public function cektoken()
-	{
-		$id = $this->input->post('exam_id', true);
-		$token = $this->input->post('token', true);
-		$cek = $this->exam->getExamById($id);
-		
-		$data['status'] = $token === $cek->token ? TRUE : FALSE;
-		$this->output_json($data);
-	}
+{
+    if (!$this->input->is_ajax_request()) {
+        show_404();
+    }
+
+    $id = $this->input->post('exam_id', true);
+    $token = $this->input->post('token', true);
+
+    $cek = $this->exam->getExamById($id);
+    $data['status'] = $token === $cek->token ? true : false;
+
+    $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($data));
+}
+
 
 	public function encrypt()
 	{
@@ -263,7 +283,7 @@ class Exam extends CI_Controller {
 
 	public function index()
 	{
-		$this->akses_student_access();
+		$this->access_student();
 		$key = $this->input->get('key', true);
 		$id  = $this->encryption->decrypt(rawurldecode($key));
 		
@@ -368,7 +388,7 @@ class Exam extends CI_Controller {
 					$checked 		= $arr_jawab[$s->question_id]["j"] == strtoupper($arr_option[$j]) ? "checked" : "";
 					$option_label 	= !empty($s->$option) ? $s->$option : "";
 					$display_media_option = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? display_media($path.$s->$file) : "";
-					$html .= '<div class="funkyradio-success" onclick="return simpan_sementara();">
+					$html .= '<div class="funkyradio-success" onclick="return save temporarily();">
 						<input type="radio" id="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'" name="option_'.$no.'" value="'.strtoupper($arr_option[$j]).'" '.$checked.'> <label for="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'"><div class="option_label">'.$arr_option[$j].'</div> <p>'.$option_label.'</p><div class="w-25">'.$display_media_option.'</div></label></div>';
 				}
 				$html .= '</div></div>';

@@ -40,7 +40,7 @@
                     <label for="end_time">Completion Date</label>
                     <input id="end_time" name="end_time" type="text" class="datetimepicker form-control" placeholder="Completion Date">
                     <small class="help-block"></small>
-                </div>
+                </div> 
                 <div class="form-group">
                     <label for="duration">Time</label>
                     <input value="<?=$exam->duration?>" placeholder="In Minute" type="number" class="form-control" name="duration">
@@ -73,3 +73,4 @@
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/edit.js"></script>
+

@@ -4,15 +4,15 @@ $(document).ready(function () {
     remainingTime(t.data('time'));
   }
 
-  buka(1);
-  simpan_sementara();
+  open(1);
+  save temporarily();
 
   widget = $('.step');
   btnnext = $('.next');
   btnback = $('.back');
   btnsubmit = $('.submit');
 
-  $('.step, .back, .selesai').hide();
+  $('.step, .back, .completed').hide();
   $('#widget_1').show();
 });
 
@@ -25,7 +25,7 @@ function getFormData($form) {
   return indexed_array;
 }
 
-function buka(id_widget) {
+function open(id_widget) {
   $('.next').attr('rel', id_widget + 1);
   $('.back').attr('rel', id_widget - 1);
   $('.ragu_ragu').attr('rel', id_widget);
@@ -136,14 +136,14 @@ function cek_terakhir(question_id) {
 
   if (total_questions === question_id) {
     $('.next').hide();
-    $('.selesai, .back').show();
+    $('.completed, .back').show();
   } else {
     $('.next').show();
-    $('.selesai, .back').hide();
+    $('.completed, .back').hide();
   }
 }
 
-function simpan_sementara() {
+function save temporarily() {
   var f_asal = $('#exam');
   var form = getFormData(f_asal);
   //form = JSON.stringify(form);
@@ -164,7 +164,7 @@ function simpan_sementara() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-default btn_question btn-sm" onclick="return buka(' +
+            '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
             i +
             ');">' +
             i +
@@ -175,7 +175,7 @@ function simpan_sementara() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-warning btn_question btn-sm" onclick="return buka(' +
+            '" class="btn btn-warning btn_question btn-sm" onclick="return open(' +
             i +
             ');">' +
             i +
@@ -188,7 +188,7 @@ function simpan_sementara() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-default btn_question btn-sm" onclick="return buka(' +
+            '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
             i +
             ');">' +
             i +
@@ -199,7 +199,7 @@ function simpan_sementara() {
           answer_result +=
             '<a id="btn_question_' +
             i +
-            '" class="btn btn-success btn_question btn-sm" onclick="return buka(' +
+            '" class="btn btn-success btn_question btn-sm" onclick="return open(' +
             i +
             ');">' +
             i +
@@ -212,7 +212,7 @@ function simpan_sementara() {
       answer_result +=
         '<a id="btn_question_' +
         i +
-        '" class="btn btn-default btn_question btn-sm" onclick="return buka(' +
+        '" class="btn btn-default btn_question btn-sm" onclick="return open(' +
         i +
         ');">' +
         i +
@@ -223,7 +223,7 @@ function simpan_sementara() {
 }
 
 function simpan() {
-  simpan_sementara();
+  save temporarily();
   var form = $('#exam');
 
   $.ajax({
@@ -238,7 +238,7 @@ function simpan() {
   });
 }
 
-function selesai() {
+function completed() {
   simpan();
   ajaxcsrf();
   $.ajax({
@@ -259,13 +259,13 @@ function selesai() {
 }
 
 function timesUP() {
-  selesai();
+  completed();
   alert('Exam time is up!');
 }
 
 function save_final() {
   simpan();
   if (confirm('Are you sure you want to end the test?')) {
-    selesai();
+    completed();
   }
 }

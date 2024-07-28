@@ -110,7 +110,7 @@ class Question extends CI_Controller {
 		$this->output_json($this->question->getDataQuestion($id, $lecturer), false);
     }
 
-    public function validasi()
+    public function validation()
     {
         if($this->ion_auth->is_admin()){
             $this->form_validation->set_rules('lecturer_id', 'Lecturer', 'required');
@@ -142,7 +142,7 @@ class Question extends CI_Controller {
     public function save()
     {
         $method = $this->input->post('method', true);
-        $this->validasi();
+        $this->validation();
         $this->file_config();
 
         

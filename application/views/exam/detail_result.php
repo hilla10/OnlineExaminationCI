@@ -33,11 +33,12 @@
                     </tr>
                     <tr>
                         <th>Start Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($exam->start_time))?></td>
+                         
+                        <td><?=date('d F Y H:i:s', strtotime($exam->start_time))?></td>
                     </tr>
                     <tr>
                         <th>Completion Date</th>
-                        <td><?=strftime('%A, %d %B %Y', strtotime($exam->late_time))?></td>
+                        <td><?=date('d F Y H:i:s', strtotime($exam->late_time))?></td>
                     </tr>
                 </table>
             </div>

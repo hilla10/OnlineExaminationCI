@@ -1,9 +1,7 @@
-tail_hasilvar table;
-
 $(document).ready(function () {
   ajaxcsrf();
 
-  table = $('#detail_result').DataTable({
+  $('#detail_result').DataTable({
     initComplete: function () {
       var api = this.api();
       $('#detail_result_filter input')

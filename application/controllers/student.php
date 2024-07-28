@@ -184,7 +184,7 @@ class Student extends CI_Controller
 			$this->ion_auth->register($username, $password, $email, $additional_data, $group);
 			$data = [
 				'status'	=> true,
-				'msg'	 => 'User created successfully. TeacherID is used as a password at login.'
+				'msg'	 => 'User created successfully. Teacher ID is used as a password at login.'
 			];
 		}
 		$this->output_json($data);

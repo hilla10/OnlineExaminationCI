@@ -22,13 +22,14 @@ class Question_model extends CI_Model {
         return $this->db->get_where('tb_question', ['question_id' => $id])->row();
     }
 
-    public function getCourseLecturer($teacher_id)
-    {
-        $this->db->select('course_id, course_name, lecturer_id, lecturer_name');
-        $this->db->join('course', 'course_id=course_id');
-        $this->db->from('lecturer')->where('teacher_id', $teacher_id);
-        return $this->db->get()->row();
-    }
+public function getCourseLecturer($teacher_id)
+{
+    $this->db->select('lecturer.course_id, course.course_name, lecturer.lecturer_id, lecturer.lecturer_name');
+    $this->db->from('lecturer');
+    $this->db->join('course', 'course.course_id = lecturer.course_id'); // Use table name to qualify course_id
+    $this->db->where('lecturer.teacher_id', $teacher_id); // Use table name to qualify teacher_id
+    return $this->db->get()->row();
+}
 
     public function getAllLecturer()
     {

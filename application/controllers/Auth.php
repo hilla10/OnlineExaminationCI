@@ -58,7 +58,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() === TRUE)	{
 			$remember = (bool)$this->input->post('remember');
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)){
-				$this->cek_akses();
+				$this->cek_access();
 			}else {
 				$data = [
 					'status' => false,
@@ -79,7 +79,7 @@ class Auth extends CI_Controller
 		}
 	}
 
-	public function cek_akses()
+	public function cek_access()
 	{
 		if (!$this->ion_auth->logged_in()){
 			$status = false; // jika false, berarti login gagal

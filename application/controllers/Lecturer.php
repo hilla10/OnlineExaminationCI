@@ -83,7 +83,7 @@ class Lecturer extends CI_Controller
 			$u_nip		= $dbdata->teacher_id === $teacher_id ? "" : "|is_unique[lecturer.teacher_id]";
 			$u_email	= $dbdata->email === $email ? "" : "|is_unique[lecturer.email]";
 		}
-		$this->form_validation->set_rules('teacher_id', 'TeacherID', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nip);
+		$this->form_validation->set_rules('teacher_id', 'Teacher ID', 'required|numeric|trim|min_length[8]|max_length[12]' . $u_nip);
 		$this->form_validation->set_rules('lecturer_name', 'Nama Lecturer', 'required|trim|min_length[3]|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $u_email);
 		$this->form_validation->set_rules('course', 'course', 'required');
@@ -163,7 +163,7 @@ class Lecturer extends CI_Controller
 			$this->ion_auth->register($username, $password, $email, $additional_data, $group);
 			$data = [
 				'status'	=> true,
-				'msg'	 => 'User created successfully. TeacherID is used as a password at login.'
+				'msg'	 => 'User created successfully. Teacher ID is used as a password at login.'
 			];
 		}
 		$this->output_json($data);

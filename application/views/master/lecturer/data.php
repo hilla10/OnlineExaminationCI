@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>TeacherID</th>
+                    <th>Teacher ID</th>
                     <th>Lecturer Name</th>
                     <th>Email</th>
                     <th>Course</th>
@@ -34,7 +34,7 @@
             <!-- <tfoot>
                 <tr>
                     <th>#</th>
-                    <th>TeacherID</th>
+                    <th>Teacher ID</th>
                     <th>Lecturer Name</th>
                     <th>Email</th>
                     <th>Course</th>

@@ -60,8 +60,8 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 $pdf->AddPage();
 
-$mulai = strftime('%A, %d %B %Y', strtotime($exam->start_time));
-$selesai = strftime('%A, %d %B %Y', strtotime($exam->late_time));
+$start_time= date('d F Y H:i:s', strtotime($exam->start_time));
+$completed = date('d F Y H:i:s', strtotime($exam->late_time));
 
 // create some HTML content
 $html = <<<EOD
@@ -90,13 +90,13 @@ All the detailed information are provided below with Highest, Lowest and Average
     </tr>
     <tr>
         <th><b>Start Date</b></th>
-        <td>{$mulai}</td>
+        <td>{$start_time}</td>
         <th><b>Highest Score</b></th>
         <td>{$score->max_score}</td>
     </tr>
     <tr>
         <th><b>Completion Date</b></th>
-        <td>{$selesai}</td>
+        <td>{$completed}</td>
         <th><b>Average Score</b></th>
         <td>{$score->avg_score}</td>
     </tr>

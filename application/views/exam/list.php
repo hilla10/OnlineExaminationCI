@@ -14,7 +14,7 @@
     <div class="col-sm-3">
         <div class="alert bg-yellow">
             <h4>Date<i class="pull-right fa fa-calendar"></i></h4>
-            <span class="d-block"> <?=strftime('%A, %d %B %Y')?></span>                
+            <span class="d-block"> <?=date('d F Y')?></span>                
         </div>
     </div>
     <div class="col-sm-3">

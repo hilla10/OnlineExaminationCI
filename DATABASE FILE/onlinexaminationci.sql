@@ -516,6 +516,9 @@ ALTER TABLE `exam`
   ADD KEY `course_id` (`course_id`),
   ADD KEY `lecturer_id` (`lecturer_id`);
 
+ALTER TABLE `exam` MODIFY `start_time` VARCHAR(20);
+ALTER TABLE `exam` MODIFY `end_time` VARCHAR(20);
+
 --
 -- Indexes for table `tb_question`
 --

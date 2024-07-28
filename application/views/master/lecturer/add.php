@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="form-group">
-                    <label for="teacher_id">TeacherID</label>
-                    <input autofocus="autofocus" onfocus="this.select()" type="number" id="teacher_id" class="form-control" name="teacher_id" placeholder="TeacherID">
+                    <label for="teacher_id">Teacher ID</label>
+                    <input autofocus="autofocus" onfocus="this.select()" type="number" id="teacher_id" class="form-control" name="teacher_id" placeholder="Teacher ID">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">

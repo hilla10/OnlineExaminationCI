@@ -36,7 +36,7 @@
                         <thead>
                             <tr>
                                 <td>No</td>
-                                <td>TeacherID</td>
+                                <td>Teacher ID</td>
                                 <td>Name</td>
                                 <td>Email</td>
                                 <td>Course ID</td>

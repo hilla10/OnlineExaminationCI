@@ -32,7 +32,7 @@
                     <td><?=$lecturer->lecturer_name?></td>
                 </tr>
                 <tr>
-                    <th>TeacherID</th>
+                    <th>Teacher ID</th>
                     <td><?=$lecturer->teacher_id?></td>
                 </tr>
                 <tr>

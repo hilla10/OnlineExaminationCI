@@ -1,6 +1,21 @@
 $(document).ready(function () {
   $('.datetimepicker').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm:ss',
+    format: 'MM/DD/YYYY hh:mm:ss A',
+    showTodayButton: true,
+    showClear: true,
+    showClose: true,
+    stepping: 1, // Increment in minutes, you can adjust this as needed
+    icons: {
+      time: 'fa fa-clock',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-crosshairs',
+      clear: 'fa fa-trash',
+      close: 'fa fa-times',
+    },
   });
 
   $('#formexam input, #formexam select').on('change', function () {

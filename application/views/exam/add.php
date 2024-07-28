@@ -6,7 +6,7 @@
                 <i class="fa fa-arrow-left"></i> Cancel
             </a>
         </div>
-    </div>
+    </div> 
     <div class="box-body">
         <div class="row">
             <div class="col-sm-4">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="end_time">Date of completion</label>
-                    <input name="end_time" type="text" class="datetimepicker form-control" placeholder="Date of completion">
+                   <input name="end_time" type="text" class="datetimepicker form-control" placeholder="Date of completion">
                     <small class="help-block"></small>
                 </div>
                 <div class="form-group">
@@ -67,4 +67,7 @@
     </div>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/exam/add.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/exam/add.js"></script> 
+
+
+</script>

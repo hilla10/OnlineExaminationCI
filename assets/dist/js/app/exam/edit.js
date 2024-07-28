@@ -1,31 +1,49 @@
+
 $(document).ready(function () {
-  $('#start_time').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm:ss',
-    date: start_time,
-  });
-  $('#end_time').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm:ss',
-    date: late_time,
+  // Initialize datetimepickers
+  $('.datetimepicker').datetimepicker({
+    format: 'MM/DD/YYYY hh:mm:ss A',
+    showTodayButton: true,
+    showClear: true,
+    showClose: true,
+    stepping: 1, // Increment in minutes, you can adjust this as needed
+    icons: {
+      time: 'fa fa-clock',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-crosshairs',
+      clear: 'fa fa-trash',
+      close: 'fa fa-times',
+    },
   });
 
+  // Form input and select change handler
   $('#formexam input, #formexam select').on('change', function () {
     $(this).closest('.form-group').eq(0).removeClass('has-error');
     $(this).nextAll('.help-block').eq(0).text('');
   });
 
+  // Form submit handler
   $('#formexam').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    let btn = $('#submit');
+    btn.attr('disabled', 'disabled').text('Process...');
 
     $.ajax({
       url: $(this).attr('action'),
       data: $(this).serialize(),
       type: 'POST',
       success: function (data) {
-        console.log(data);
+        btn.removeAttr('disabled').html('<i class="fa fa-save"></i> Save');
+
         if (data.status) {
           Swal({
-            title: 'Successful',
+            title: 'Success',
             type: 'success',
             text: 'Data saved successfully',
           }).then((result) => {

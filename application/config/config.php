@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-date_default_timezone_set('Asia/Jakarta');
+// date_default_timezone_set('Etc/GMT+9');
+date_default_timezone_set('Etc/GMT+9');
 setlocale(LC_ALL, 'US');
 
 /*
