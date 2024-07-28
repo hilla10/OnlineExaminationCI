@@ -388,7 +388,7 @@ class Exam extends CI_Controller {
 					$checked 		= $arr_jawab[$s->question_id]["j"] == strtoupper($arr_option[$j]) ? "checked" : "";
 					$option_label 	= !empty($s->$option) ? $s->$option : "";
 					$display_media_option = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? display_media($path.$s->$file) : "";
-					$html .= '<div class="funkyradio-success" onclick="return save temporarily();">
+					$html .= '<div class="funkyradio-success" onclick="return saveTemporarily();">
 						<input type="radio" id="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'" name="option_'.$no.'" value="'.strtoupper($arr_option[$j]).'" '.$checked.'> <label for="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'"><div class="option_label">'.$arr_option[$j].'</div> <p>'.$option_label.'</p><div class="w-25">'.$display_media_option.'</div></label></div>';
 				}
 				$html .= '</div></div>';

@@ -5,7 +5,7 @@ $(document).ready(function () {
   }
 
   open(1);
-  save temporarily();
+  saveTemporarily();
 
   widget = $('.step');
   btnnext = $('.next');
@@ -143,7 +143,7 @@ function cek_terakhir(question_id) {
   }
 }
 
-function save temporarily() {
+function saveTemporarily() {
   var f_asal = $('#exam');
   var form = getFormData(f_asal);
   //form = JSON.stringify(form);
@@ -223,7 +223,7 @@ function save temporarily() {
 }
 
 function simpan() {
-  save temporarily();
+  saveTemporarily();
   var form = $('#exam');
 
   $.ajax({
