@@ -19,6 +19,10 @@
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 			<span class="help-block"></span>
 		</div>
+		<div class="form-group d-flex align-items-center">
+		<i class="bi bi-eye-slash-fill custom-icon-size show-btn mr-2" id="togglePassword"></i>
+		<span class="show-text pt-2" id="toggleText">Show Password</span>
+		</div>
 		<div class="row">
 			<div class="col-xs-8">
 			<div class="checkbox icheck">
@@ -42,5 +46,6 @@
 
 <script type="text/javascript">
 	let base_url = '<?=base_url();?>';
+
 </script>
 <script src="<?=base_url()?>assets/dist/js/app/auth/login.js"></script>

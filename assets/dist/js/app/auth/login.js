@@ -4,6 +4,23 @@ $(document).ready(function () {
     $(this).next().next().text('');
   });
 
+  $('#togglePassword').on('click', function () {
+    // Toggle the type attribute
+    const passwordField = $('#password');
+    const type =
+      passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+
+    // Toggle the icon class
+    $(this).toggleClass('bi-eye bi-eye-slash-fill');
+
+    // Toggle the text content
+    const toggleText = $('#toggleText');
+    toggleText.text(
+      toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password'
+    );
+  });
+
   $('form#login').on('submit', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
