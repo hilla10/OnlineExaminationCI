@@ -57,6 +57,9 @@
 	<script src="<?=base_url()?>assets/bower_components/moment/min/moment.min.js"></script>
 <!-- <script src="https://stackpath.bootstrapcdn.com/boot strap/3.4.1/js/bootstrap.min.js"></script> -->
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+
+	 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	
 <script src="<?=base_url()?>assets/bower_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>		 
 

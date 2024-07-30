@@ -57,6 +57,13 @@ CREATE TRIGGER `delete_user_lecturer` BEFORE DELETE ON `lecturer` FOR EACH ROW D
 $$
 DELIMITER ;
 
+--
+-- add password column for lecturer table
+--
+
+ALTER TABLE `lecturer` ADD `password` VARCHAR(255) NOT NULL;
+
+
 -- --------------------------------------------------------
 
 --

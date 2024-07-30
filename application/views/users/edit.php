@@ -112,12 +112,15 @@
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                 </div>
+               
             </div>
             <div class="box-body pb-0">
                 <div class="form-group">
                     <label for="old">Current Password</label>
-                    <input type="password" placeholder="Current Password" name="old" class="form-control">
+                    <input type="password" placeholder="Current Password" name="old" class="form-control" id="old">
                     <small class="help-block"></small>
+                     <i class="bi bi-eye-slash-fill custom-icon-size show-btn mr-2" id="togglePassword"></i>
+		        <span class="show-text pt-2" id="toggleText">Show Password</span>
                 </div>
                 <div class="form-group">
                     <label for="new">New Password</label>
@@ -158,6 +161,24 @@ $(document).ready(function(){
         msg = "Your password has been changed successfully!";
         submitajax(url, data, msg, btn);
     });
+
+    
+  $('#togglePassword').on('click', function () {
+    // Toggle the type attribute
+    const passwordField = $('#old');
+    const type =
+      passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+
+    // Toggle the icon class
+    $(this).toggleClass('bi-eye bi-eye-slash-fill');
+
+    // Toggle the text content
+    const toggleText = $('#toggleText');
+    toggleText.text(
+      toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password'
+    );
+  });
 });
 </script>
 <?php endif; ?>
