@@ -39,8 +39,8 @@ $lang['index_email_th']          = 'Email';
 $lang['index_groups_th']         = 'Grup';
 $lang['index_status_th']         = 'Status';
 $lang['index_action_th']         = 'Aksi';
-$lang['index_active_link']       = 'Aktif';
-$lang['index_inactive_link']     = 'no Aktif';
+$lang['index_active_link']       = 'active';
+$lang['index_inactive_link']     = 'no active';
 $lang['index_create_user_link']  = 'Buat Pengguna baru';
 $lang['index_create_group_link'] = 'Buat grup baru';
 

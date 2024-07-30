@@ -69,7 +69,7 @@ All the detailed information are provided below!
 <h2>Student Data</h2>
 <table id="data-peserta">
     <tr>
-        <th>studentNumber</th>
+        <th>Student Number</th>
         <td>{$mhs->student_number}</td>
     </tr>
     <tr>

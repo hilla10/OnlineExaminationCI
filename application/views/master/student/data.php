@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>studentNumber</th>
+                        <th>Student Number</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Class</th>
@@ -35,7 +35,7 @@
                 <!-- <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>studentNumber</th>
+                        <th>Student Number</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Class</th>

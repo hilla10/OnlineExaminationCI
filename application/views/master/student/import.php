@@ -36,7 +36,7 @@
                         <thead>
                             <tr>
                                 <td>No</td>
-                                <td>studentNumber</td>
+                                <td>Student Number</td>
                                 <td>Name</td>
                                 <td>Email</td>
                                 <td>Gender</td>

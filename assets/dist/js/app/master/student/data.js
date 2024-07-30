@@ -69,8 +69,8 @@ $(document).ready(function () {
           if (data.ada > 0) {
             btn = '';
           } else {
-            btn = `<button data-id="${data.student_id}" type="button" class="btn btn-xs btn-primary btn-aktif">
-								<i class="fa fa-user-plus"></i>
+            btn = `<button data-id="${data.student_id}" type="button" class="btn btn-xs btn-primary btn-active">
+								<i class="fa fa-user-plus"></i> Active
 							</button>`;
           }
           return `<div class="text-center">
@@ -164,7 +164,7 @@ $(document).ready(function () {
     });
   });
 
-  $('#student').on('click', '.btn-aktif', function () {
+  $('#student').on('click', '.btn-active', function () {
     let id = $(this).data('id');
 
     $.ajax({

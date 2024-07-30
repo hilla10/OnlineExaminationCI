@@ -86,7 +86,7 @@
             </div>
             <table class="table table-hover">
                 <tr>
-                    <th>studentNumber</th>
+                    <th>Student Number</th>
                     <td><?=$student->student_number?></td>
                 </tr>
                 <tr>

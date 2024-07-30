@@ -12,7 +12,7 @@
             <div class="col-sm-4 col-sm-offset-4">
                 <?=form_open('student/save', array('id'=>'student'), array('method'=>'add'))?>
                     <div class="form-group">
-                        <label for="student_number">studentNumber</label>
+                        <label for="student_number">Student Number</label>
                         <input autofocus="autofocus" onfocus="this.select()" placeholder="Std ID" type="text" name="student_number" class="form-control">
                         <small class="help-block"></small>
                     </div>

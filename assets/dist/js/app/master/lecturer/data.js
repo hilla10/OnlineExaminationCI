@@ -67,7 +67,7 @@ $(document).ready(function () {
           if (data.ada > 0) {
             btn = '';
           } else {
-            btn = `<button type="button" class="btn btn-aktif btn-primary btn-xs" data-id="${data.lecturer_id}">
+            btn = `<button type="button" class="btn btn-active btn-primary btn-xs" data-id="${data.lecturer_id}">
 								<i class="fa fa-user-plus"></i> Active
 							</button>`;
           }
@@ -162,7 +162,7 @@ $(document).ready(function () {
     });
   });
 
-  $('#lecturer').on('click', '.btn-aktif', function () {
+  $('#lecturer').on('click', '.btn-active', function () {
     let id = $(this).data('id');
 
     $.ajax({
