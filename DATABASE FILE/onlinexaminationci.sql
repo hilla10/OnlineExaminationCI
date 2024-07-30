@@ -61,7 +61,6 @@ DELIMITER ;
 -- add password column for lecturer table
 --
 
-ALTER TABLE `lecturer` ADD `password` VARCHAR(255) NOT NULL;
 
 
 -- --------------------------------------------------------
