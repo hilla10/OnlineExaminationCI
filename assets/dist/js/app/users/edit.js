@@ -1,4 +1,4 @@
-function submitajax(url, data, msg, btn) {
+function submitajax(url, data, msg, btn, originalText) {
   $.ajax({
     url: url,
     data: data,
@@ -40,7 +40,7 @@ function submitajax(url, data, msg, btn) {
           });
         }
       }
-      btn.removeAttr('disabled').text('Change Password');
+      btn.removeAttr('disabled').text(originalText);
     },
   });
 }
@@ -56,12 +56,14 @@ $(document).ready(function () {
     e.stopImmediatePropagation();
 
     let btn = $('#btn-info');
+    let originalText = btn.text();
+    console.
     btn.attr('disabled', 'disabled').text('Process...');
 
-    url = $(this).attr('action');
-    data = $(this).serialize();
-    msg = 'User information has been successfully updated';
-    submitajax(url, data, msg, btn);
+    let url = $(this).attr('action');
+    let data = $(this).serialize();
+    let msg = 'User information has been successfully updated';
+    submitajax(url, data, msg, btn, originalText);
   });
 
   $('form#user_level').on('submit', function (e) {
@@ -69,12 +71,13 @@ $(document).ready(function () {
     e.stopImmediatePropagation();
 
     let btn = $('#btn-level');
+    let originalText = btn.text();
     btn.attr('disabled', 'disabled').text('Process...');
 
-    url = $(this).attr('action');
-    data = $(this).serialize();
-    msg = 'User level has been successfully updated';
-    submitajax(url, data, msg, btn);
+    let url = $(this).attr('action');
+    let data = $(this).serialize();
+    let msg = 'User level has been successfully updated';
+    submitajax(url, data, msg, btn, originalText);
   });
 
   $('form#user_status').on('submit', function (e) {
@@ -82,11 +85,46 @@ $(document).ready(function () {
     e.stopImmediatePropagation();
 
     let btn = $('#btn-status');
+    let originalText = btn.text();
     btn.attr('disabled', 'disabled').text('Process...');
 
-    url = $(this).attr('action');
-    data = $(this).serialize();
-    msg = 'User status has been successfully updated';
-    submitajax(url, data, msg, btn);
+    let url = $(this).attr('action');
+    let data = $(this).serialize();
+    let msg = 'User status has been successfully updated';
+    submitajax(url, data, msg, btn, originalText);
   });
+
+  $('form#change_password').on('submit', function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    let btn = $('#btn-pass');
+    let originalText = btn.text();
+    btn.attr('disabled', 'disabled').text('Process...');
+
+    let url = $(this).attr('action');
+    let data = $(this).serialize();
+    let msg = "Your password has been changed successfully!";
+    submitajax(url, data, msg, btn, originalText);
+  });
+
+  $('#togglePasswordOld').on('click', function () {
+    togglePasswordVisibility('#old', '#togglePasswordOld', '#toggleTextOld');
+  });
+  $('#togglePasswordNew').on('click', function () {
+    togglePasswordVisibility('#new', '#togglePasswordNew', '#toggleTextNew');
+  });
+  $('#togglePasswordConfirm').on('click', function () {
+    togglePasswordVisibility('#new_confirm', '#togglePasswordConfirm', '#toggleTextConfirm');
+  });
+
+  function togglePasswordVisibility(passwordFieldSelector, toggleButtonSelector, toggleTextSelector) {
+    const passwordField = $(passwordFieldSelector);
+    const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+    $(toggleButtonSelector).toggleClass('bi-eye bi-eye-slash-fill');
+    const toggleText = $(toggleTextSelector);
+    toggleText.text(toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password');
+  }
 });
+</script>
