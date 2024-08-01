@@ -200,6 +200,7 @@ $config['email_activate'] = 'activate.tpl.php';
  | -------------------------------------------------------------------------
  | Default: forgot_password.tpl.php
  */
+$config['email_forgot_password'] = 'auth/forgot_password.tpl.php';
 $config['email_forgot_password'] = 'forgot_password.tpl.php';
 
 /*

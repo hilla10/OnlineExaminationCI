@@ -143,6 +143,7 @@ class Auth extends CI_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			// $this->_render_page('auth', DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
 			$this->load->view('_templates/auth/_header', $this->data);
 			$this->load->view('auth/forgot_password');
 			$this->load->view('_templates/auth/_footer');
@@ -173,6 +174,70 @@ class Auth extends CI_Controller
 
 			if ($forgotten)
 			{
+
+				$config = [
+
+					 'protocol'  => 'smtp',
+					'smtp_host' => 'ssl://smtp.googlemail.com',
+					'smtp_user' => 'negussehaylemikael2022@gmail.com',
+					'smtp_pass' => 'fhqp hrbz qcnk udbp',
+					'smtp_port' => 465,
+					'smtp_timeout' => 30,
+					'mailtype'  => 'html',
+					'charset'   => 'utf-8',
+					'newline'   => "\r\n",
+					'wordwrap'  => TRUE,
+					'smtp_debug' => 2
+
+				];
+
+				$data = array(
+
+					'identity'=>$forgotten['identity'],
+
+					'forgotten_password_code' => $forgotten['forgotten_password_code'],
+
+				);
+
+				
+
+				$this->load->library('email');
+
+				$this->email->initialize($config);
+
+				$this->load->helpers('url');
+
+				$this->email->set_newline("\r\n");
+
+
+
+				$this->email->from('negussehaylemikael2022@gmail.com');
+
+				$this->email->to($data['identity']);
+
+				$this->email->subject("forgot password");
+
+				$body = $this->load->view('auth/email/forgot_password.tpl.php',$data,TRUE);
+
+				$this->email->message($body);
+
+				if ($this->email->send()) {
+
+
+
+					$this->session->set_flashdata('success','Email Send sucessfully');
+
+					// return redirect('auth/login');
+
+				} 
+
+				else {
+
+					echo "Email not send .....";
+
+					show_error($this->email->print_debugger());
+
+				}
 				// if there were no errors
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
 				redirect("auth/forgot_password", 'refresh'); //we should display a confirmation page here instead of the login page
@@ -180,7 +245,7 @@ class Auth extends CI_Controller
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				// redirect("auth/forgot_password", 'refresh');
 			}
 		}
 	}
