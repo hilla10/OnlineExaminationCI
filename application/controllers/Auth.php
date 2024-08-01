@@ -142,7 +142,6 @@ public function forgot_password()
 
         // set any errors and display the form
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-        // $this->_render_page('auth', DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
         $this->load->view('_templates/auth/_header', $this->data);
         $this->load->view('auth/forgot_password');
         $this->load->view('_templates/auth/_footer');
@@ -205,10 +204,8 @@ public function forgot_password()
 
             if ($this->email->send())
             {
-                $this->session->set_flashdata('success', 'Password Reset Request Submitted');
-                $this->session->set_flashdata('success', "We have received your request to reset your password. If an account with the provided email address exists, you will receive an email shortly with instructions on how to reset your password. Please check your inbox and follow the instructions in the email.
-				If you do not receive the email, please check your spam or junk folder. If you still don't receive it, you may try submitting the request again or contact our support team for assistance. ");
-                // redirect("auth", 'refresh');
+                  $this->session->set_flashdata('message', "We've received your password reset request. If an account with the provided email exists, you will receive an email to reset your password.");
+                redirect("auth", 'refresh');
             }
             else
             {
@@ -224,13 +221,14 @@ public function forgot_password()
     }
 }
 
+
 	/**
 	 * Reset password - final step for forgotten password
 	 *
 	 * @param string|null $code The reset code
 	 */
 	
-	 public function reset_password($code = NULL)
+	public function reset_password($code = NULL)
 {
     if (!$code) {
         show_404();
@@ -246,8 +244,8 @@ public function forgot_password()
         $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
 
         if ($this->form_validation->run() === FALSE) {
-            // display the form
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+            // display the form with custom message
+            $this->data['message'] = 'Please enter and confirm your new password.';
             $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
             $this->data['new_password'] = [
                 'name' => 'new',
@@ -288,8 +286,8 @@ public function forgot_password()
 
                 if ($change) {
                     // if the password was successfully changed
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
-                    redirect("login", 'refresh');
+                    $this->session->set_flashdata('message', 'Your password has been successfully reset. You can now log in with your new password.');
+                    redirect("auth/", 'refresh');
                 } else {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());
                     redirect('auth/reset_password/' . $code, 'refresh');
@@ -301,11 +299,6 @@ public function forgot_password()
         $this->session->set_flashdata('message', $this->ion_auth->errors());
         redirect("auth/forgot_password", 'refresh');
     }
-
-// 	log_message('debug', 'CSRF token: ' . $this->_valid_csrf_nonce());
-// log_message('debug', 'User ID: ' . $this->input->post('user_id'));
-// log_message('debug', 'Password reset result: ' . $change);
-
 }
 
 

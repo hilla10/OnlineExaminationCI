@@ -9,6 +9,7 @@
             <?php echo lang('reset_password_heading');?>
         </p>
 
+        <!-- Display the message -->
         <div id="infoMessage" class="text-red text-center"><?php echo $message;?></div>
 
         <?php echo form_open('auth/reset_password/' . $code);?>
