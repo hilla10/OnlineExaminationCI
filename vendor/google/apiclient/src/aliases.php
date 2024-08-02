@@ -57,7 +57,7 @@ if (\false) {
     class Google_AuthHandler_Guzzle7AuthHandler extends \Google\AuthHandler\Guzzle7AuthHandler
     {
     }
-    class Google_Client extends \Google\Client
+    
     {
     }
     class Google_Collection extends \Google\Collection
