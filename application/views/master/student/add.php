@@ -25,7 +25,7 @@
                         <label for="email">Email</label>
                         <input placeholder="Email" type="email" name="email" class="form-control">
                         <small class="help-block"></small>
-                    </div>
+                    </div> 
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select name="gender" class="form-control select2">

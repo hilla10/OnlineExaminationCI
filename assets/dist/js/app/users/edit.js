@@ -127,4 +127,3 @@ $(document).ready(function () {
     toggleText.text(toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password');
   }
 });
-</script>
