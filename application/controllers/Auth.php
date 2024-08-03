@@ -83,6 +83,7 @@ class Auth extends CI_Controller
         }
     }
 
+  
     public function google_login() {
         $client = new Google_Client();
         $client->setClientId('354860570014-ap1734thc81dcpu3i4n7ts870mk37l93.apps.googleusercontent.com');
@@ -114,14 +115,14 @@ class Auth extends CI_Controller
         $user = $oauth->userinfo->get();
 
         $email = $user->email;
-        $username = $user->name;  // Adjusted to use 'username'
+        $username = $user->name;
         $profile_picture = $user->picture;
 
         $user_in_db = $this->Users_model->get_user_by_email($email);
         if ($user_in_db) {
             $this->set_session($user_in_db);
         } else {
-            $new_user_id = $this->Users_model->register_user($email, $username, $profile_picture);  // Adjusted to use 'username'
+            $new_user_id = $this->Users_model->register_user($email, $username, $profile_picture);
             $new_user = $this->Users_model->get_user_by_id($new_user_id);
             $this->set_session($new_user);
         }

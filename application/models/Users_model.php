@@ -13,22 +13,11 @@ class Users_model extends CI_Model {
         }
         return $this->datatables->generate();
     }
-  public function get_user_by_email($email) {
+
+    public function get_user_by_email($email) {
         $this->db->where('email', $email);
         $query = $this->db->get('users');
         return $query->row();
-    }
-
-    public function register_user($email, $name, $profile_picture) {
-        $data = [
-            'email' => $email,
-            'username' => $name,
-            'profile_picture' => $profile_picture,
-            'created_on' => time(),
-            'active' => 1
-        ];
-        $this->db->insert('users', $data);
-        return $this->db->insert_id();
     }
 
     public function get_user_by_id($id) {
@@ -36,4 +25,39 @@ class Users_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->row();
     }
+   public function get_lecturer_by_id($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->get('lecturer'); // Assuming 'lecturers' is your table name
+        return $query->row();
+    }
+
+public function is_student($user_id) {
+    $this->db->where('user_id', $user_id);
+    $this->db->where('group_id', 3); // Assuming group_id 2 is for students
+    $query = $this->db->get('users_groups');
+    return $query->num_rows() > 0;
 }
+
+public function is_lecturer($user_id) {
+    $this->db->where('user_id', $user_id);
+    $this->db->where('group_id', 3); // Assuming group_id 3 is for lecturers
+    $query = $this->db->get('users_groups');
+    return $query->num_rows() > 0;
+}
+
+public function register_user($email, $name, $profile_picture) {
+    $data = [
+        'email' => $email,
+        'username' => $name,
+        'profile_picture' => $profile_picture,
+        'created_on' => time(),
+        'active' => 1
+    ];
+    $this->db->insert('users', $data);
+    return $this->db->insert_id();
+}
+
+
+
+}
+?>

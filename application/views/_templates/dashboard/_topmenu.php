@@ -18,7 +18,12 @@
                     <!-- The user image in the navbar-->
                     <img src="<?=base_url()?>assets/dist/img/usersys-min.png" class="user-image" alt="User Image">
                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                    <span class="hidden-xs">Hi, <?=$user->first_name?></span>
+                     
+                   <?php
+                        $first_name = explode(' ', trim($user->username))[0];
+                        ?>
+                        <span class="hidden-xs">Hi, <?= isset($user->first_name) ? $user->first_name : $first_name ?></span>
+
                 </a>
                 <ul class="dropdown-menu">
                     <!-- The user image in the menu -->

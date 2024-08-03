@@ -688,6 +688,10 @@ ALTER TABLE `users_groups`
   ALTER TABLE `users`
 ADD `profile_picture` VARCHAR(255) NULL AFTER `username`;
 
+-- Add profile_picture column to users table
+  ALTER TABLE `student`
+ADD `profile_picture` VARCHAR(255) NULL AFTER `name`;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
