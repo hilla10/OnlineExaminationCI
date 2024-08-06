@@ -14,6 +14,12 @@ class Users_model extends CI_Model {
         return $this->datatables->generate();
     }
 
+        public function get_google_user_by_email($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('google_login');
+        return $query->row();
+    }
+
     public function get_user_by_email($email) {
         $this->db->where('email', $email);
         $query = $this->db->get('users');

@@ -96,7 +96,7 @@ class Auth extends CI_Controller
         redirect($auth_url);
     }
 
-   public function google_callback() {
+public function google_callback() {
     $client = new Google_Client();
     $client->setClientId('354860570014-ap1734thc81dcpu3i4n7ts870mk37l93.apps.googleusercontent.com');
     $client->setClientSecret('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');
@@ -118,18 +118,32 @@ class Auth extends CI_Controller
         $username = $user->name;
         $profile_picture = $user->picture;
 
-        $user_in_db = $this->Users_model->get_user_by_email($email);
-        if ($user_in_db) {
-            $this->set_session($user_in_db);
+        // First, check if the user exists in the users table
+        $user_in_users_table = $this->Users_model->get_user_by_email($email);
+
+        if ($user_in_users_table) {
+            // User found in users table, set session based on users table data
+            $this->set_session($user_in_users_table);
         } else {
-            $new_user_id = $this->Users_model->register_user($email, $username, $profile_picture);
-            $new_user = $this->Users_model->get_user_by_id($new_user_id);
-            $this->set_session($new_user);
+            // User not found in users table, check if the user exists in google_login table
+            $user_in_google_login = $this->Users_model->get_google_user_by_email($email);
+
+            if ($user_in_google_login) {
+                // User found in google_login, set session based on google_login data
+                $this->set_session($user_in_google_login);
+            } else {
+                // User not found in either table, register in users table
+                $new_user_id = $this->Users_model->register_user($email, $username, $profile_picture);
+                $new_user = $this->Users_model->get_user_by_id($new_user_id);
+                $this->set_session($new_user);
+            }
         }
 
         redirect(base_url('dashboard'));
     }
 }
+
+
 
 
     public function set_session($user) {
