@@ -30,4 +30,10 @@ class Dashboard_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+
+       public function get_user_by_id($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('google_login');
+        return $query->row();
+    }
 }

@@ -143,13 +143,12 @@
             <table class="table table-hover">
                 <tr>
                     <th>Username</th>
-                    <td><?=$user->username?></td>
+                    <td><?= isset($google_login) ? $google_login->username : 'N/A' ?></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$user->email?></td>
+                    <td><?= isset($google_login) ? $google_login->email : 'N/A' ?></td>
                 </tr>
-                
             </table>
         </div>
     </div>
@@ -159,12 +158,13 @@
                 <h3 class="box-title">Before You Kick Off:</h3>
             </div>
             <div class="box-body">
-            <p>Welcome to Online Examination System. Here are some tips in order to get you through the system with an ease.</p>
+                <p>Welcome to Online Examination System. Here are some tips in order to get you through the system with ease.</p>
                 <ul class="pl-4">
-                    <li>To get the exam first you have to complete registeration. Please contact the Admin </li>
+                    <li>To get the exam first you have to complete registration. Please contact the Admin </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
 <?php endif; ?>

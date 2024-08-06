@@ -85,6 +85,8 @@ class Dashboard extends CI_Controller {
 			'subtitle'	=> 'Application Data',
 		];
 
+		 $email = $this->session->userdata('email');
+
 		if ( $this->ion_auth->is_admin() ) {
 			$data['info_box'] = $this->admin_box();
 		} elseif ( $this->ion_auth->in_group('Lecturer') ) {
@@ -93,12 +95,17 @@ class Dashboard extends CI_Controller {
 
 			$class = ['class' => 'lecturer_class.class_id=class.class_id'];
 			$data['class'] = $this->dashboard->get_where('lecturer_class', 'lecturer_id' , $data['lecturer']->lecturer_id, $class, ['class_name'=>'ASC'])->result();
-		}else{
+		}elseif ( $this->ion_auth->in_group('Student')){
 			$join = [
 				'class b' 	=> 'a.class_id = b.class_id',
 				'department c'	=> 'b.department_id = c.department_id'
 			];
 			$data['student'] = $this->dashboard->get_where('student a', 'student_number', $user->username, $join)->row();
+		} else {
+			
+
+        // Fetch data from google_login table
+        $data['google_login'] = $this->dashboard->get_user_by_id($email);
 		}
 
 		$this->load->view('_templates/dashboard/_header.php', $data);

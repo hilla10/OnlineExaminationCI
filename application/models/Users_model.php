@@ -22,7 +22,7 @@ class Users_model extends CI_Model {
 
     public function get_user_by_id($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('users');
+        $query = $this->db->get('google_login');
         return $query->row();
     }
    public function get_lecturer_by_id($id) {

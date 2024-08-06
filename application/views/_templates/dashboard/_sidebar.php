@@ -10,8 +10,26 @@
 				<img src="<?=base_url()?>assets/dist/img/usersys-min.png" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p><?=$user->username?></p>
-				<small><?=$user->email?></small>
+		
+			<p>
+				<?php if (isset($user)) : ?>
+					<?= htmlspecialchars($user->username) ?>
+				<?php elseif (isset($google_login)) : ?>
+					<?= htmlspecialchars($google_login->username) ?>
+				<?php else : ?>
+					Username not available
+				<?php endif; ?>
+			</p>
+			<small>
+				<?php if (isset($user)) : ?>
+					<?= htmlspecialchars($user->email) ?>
+				<?php elseif (isset($google_login)) : ?>
+					<?= htmlspecialchars($google_login->email) ?>
+				<?php else : ?>
+					Email not available
+				<?php endif; ?>
+			</small>
+
 			</div>
 		</div>
 		
