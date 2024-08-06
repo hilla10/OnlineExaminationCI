@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<?php else : ?>
+<?php elseif( $this->ion_auth->in_group('Student') ) : ?>
 
 <div class="row">
     <div class="col-sm-4">
@@ -133,4 +133,38 @@
     </div>
 </div>
 
+<?php else: ?>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Account Information</h3>
+            </div>
+            <table class="table table-hover">
+                <tr>
+                    <th>Username</th>
+                    <td><?=$user->username?></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><?=$user->email?></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="box box-solid">
+            <div class="box-header bg-yellow">
+                <h3 class="box-title">Before You Kick Off:</h3>
+            </div>
+            <div class="box-body">
+            <p>Welcome to Online Examination System. Here are some tips in order to get you through the system with an ease.</p>
+                <ul class="pl-4">
+                    <li>To get the exam first you have to complete registeration. Please contact the Admin </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <?php endif; ?>

@@ -437,6 +437,21 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (14, 12, 2),
 (15, 13, 3);
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `google_login`
+--
+
+CREATE TABLE `google_login` (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50),
+    email VARCHAR(255),
+    profile_picture VARCHAR(255),
+    created_on int(11)
+);
+
 --
 -- Indexes for dumped tables
 --

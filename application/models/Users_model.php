@@ -50,10 +50,9 @@ public function register_user($email, $name, $profile_picture) {
         'email' => $email,
         'username' => $name,
         'profile_picture' => $profile_picture,
-        'created_on' => time(),
-        'active' => 1
+        'created_on' => time()
     ];
-    $this->db->insert('users', $data);
+    $this->db->insert('google_login', $data);
     return $this->db->insert_id();
 }
 
