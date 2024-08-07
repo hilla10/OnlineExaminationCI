@@ -1583,6 +1583,14 @@ a:focus {
   border-radius: 0;
 }
 
+.disabled-link {
+    pointer-events: none;
+     background-color: #d3d3d3;
+    color: #a9a9a9;
+    cursor:not-allowed;
+    text-decoration: none;
+}
+
 .icheck > label {
   padding-left: 0;
 }

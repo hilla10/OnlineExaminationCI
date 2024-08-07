@@ -16,7 +16,19 @@
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <!-- The user image in the navbar-->
-                    <img src="<?=base_url()?>assets/dist/img/usersys-min.png" class="user-image" alt="User Image">
+                    
+                     <?php if (isset($google_login)) : ?>
+                        <?php
+                            // Debug output
+                            $profile_picture_url = htmlspecialchars($google_login->profile_picture);
+                            if (empty($profile_picture_url)) {
+                                $profile_picture_url = base_url() . 'assets/dist/img/default-user.png'; // Fallback image URL
+                            }
+                        ?>
+                        <img src="<?= $profile_picture_url ?>" class="user-image" alt="User Image">
+                        <?php else :?>
+                        <img src="<?=base_url()?>assets/dist/img/usersys-min.png" class="user-image" alt="User Image">
+                        <?php endif;?>
                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                      
                 <?php
@@ -73,7 +85,7 @@
                                 <?= $this->ion_auth->is_admin() ? "Edit Profile" : "Change Password" ?>
                             </a>
                         <?php elseif (isset($google_login)) : ?>
-                            <a href="<?= base_url() ?>users/edit/<?= $google_login->id ?>" class="btn btn-warning btn-flat">
+                            <a href="<?= base_url() ?>users/edit/<?= $google_login->id ?>" class="btn btn-warning btn-flat disabled-link">
                                 <?= $this->ion_auth->is_admin() ? "Edit Profile" : "Change Password" ?>
                             </a>
                         <?php else : ?>
