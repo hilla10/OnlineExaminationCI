@@ -12,7 +12,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
-        $this->load->library(['form_validation', 'session', 'ion_auth']);
+        $this->load->library(['form_validation', 'session', 'ion_auth', 'email']);
         $this->load->helper(['url', 'language']);
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
@@ -185,7 +185,7 @@ public function forgot_password()
 {
     $this->data['title'] = $this->lang->line('forgot_password_heading');
     
-    // setting validation rules by checking whether identity is username or email
+    // Setting validation rules by checking whether identity is username or email
     if ($this->config->item('identity', 'ion_auth') != 'email')
     {
         $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
@@ -198,7 +198,6 @@ public function forgot_password()
     if ($this->form_validation->run() === FALSE)
     {
         $this->data['type'] = $this->config->item('identity', 'ion_auth');
-        // setup the input
         $this->data['identity'] = [
             'name'  => 'identity',
             'id'    => 'identity',
@@ -216,7 +215,6 @@ public function forgot_password()
             $this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
         }
 
-        // set any errors and display the form
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
         $this->load->view('_templates/auth/_header', $this->data);
         $this->load->view('auth/forgot_password');
@@ -242,7 +240,6 @@ public function forgot_password()
             redirect("auth/forgot_password", 'refresh');
         }
 
-        // run the forgotten password method to email an activation code to the user
         $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
         if ($forgotten)
@@ -273,14 +270,14 @@ public function forgot_password()
 
             $this->email->from('entotopolytechniccollege72@gmail.com', 'Entoto Polytechnic College');
             $this->email->to($data['identity']);
-            $this->email->subject("Forgot Password");
+            $this->email->subject("Password Reset Request");
 
             $body = $this->load->view('auth/email/forgot_password.tpl.php', $data, TRUE);
             $this->email->message($body);
 
             if ($this->email->send())
             {
-                  $this->session->set_flashdata('message', "We've received your password reset request. If an account with the provided email exists, you will receive an email to reset your password.");
+                $this->session->set_flashdata('message', "We've received your password reset request. If an account with the provided email exists, you will receive an email to reset your password.");
                 redirect("auth", 'refresh');
             }
             else
@@ -296,6 +293,7 @@ public function forgot_password()
         }
     }
 }
+
 
 
 	/**
@@ -327,12 +325,14 @@ public function forgot_password()
                 'name' => 'new',
                 'id' => 'new',
                 'type' => 'password',
+                'class' => 'form-control',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
             ];
             $this->data['new_password_confirm'] = [
                 'name' => 'new_confirm',
                 'id' => 'new_confirm',
                 'type' => 'password',
+                'class' => 'form-control',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
             ];
             $this->data['user_id'] = [

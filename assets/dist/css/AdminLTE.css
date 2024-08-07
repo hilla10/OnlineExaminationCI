@@ -4093,6 +4093,10 @@ table.text-center th {
   color: #fff !important;
 }
 
+/* .link-color a {
+  color: #454545 !important;
+} */
+
 .login-page,
 .register-page {
   background: #d2d6de;
@@ -4100,7 +4104,7 @@ table.text-center th {
 
 .login-page {
   background: url('../img/tms.jpg') no-repeat center center/cover;
-  overflow-y: hidden;
+  height: 100vh;
 }
 
 .login-box,
