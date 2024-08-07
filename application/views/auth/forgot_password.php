@@ -1,7 +1,7 @@
 <div class="login-box pt-5">
 	<!-- /.login-logo -->
 	<div class="login-logo">
-		<a href="<?=base_url('login')?>"><b>OES</b>APP</a>
+		<a href="<?=base_url('login')?>"><b>EPTC</b> <b>OES</b> APP</a>
 	</div>
 
 	<div class="login-box-body">

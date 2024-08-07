@@ -1584,11 +1584,11 @@ a:focus {
 }
 
 .disabled-link {
-    pointer-events: none;
-     background-color: #d3d3d3;
-    color: #a9a9a9;
-    cursor:not-allowed;
-    text-decoration: none;
+  pointer-events: none;
+  background-color: #d3d3d3;
+  color: #a9a9a9;
+  cursor: not-allowed;
+  text-decoration: none;
 }
 
 .icheck > label {
@@ -4090,12 +4090,17 @@ table.text-center th {
 
 .login-logo a,
 .register-logo a {
-  color: #444 !important;
+  color: #fff !important;
 }
 
 .login-page,
 .register-page {
   background: #d2d6de;
+}
+
+.login-page {
+  background: url('../img/tms.jpg') no-repeat center center/cover;
+  overflow-y: hidden;
 }
 
 .login-box,
