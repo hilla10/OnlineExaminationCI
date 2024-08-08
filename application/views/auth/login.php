@@ -1,13 +1,13 @@
 <div class="login-box pt-5">
     <div class="login-box-body">
         <h3 class="text-center mt-0 mb-4">
-            <b class="text-primary">EPTC</b> Online Examination System
+            <b class="text-primary"  data-toggle="tooltip" data-placement="top" title="Entoto Polytechnic College">EPTC</b> Online Examination System
         </h3> 
         <p class="login-box-msg">Login to start your session</p>
 
         <div id="infoMessage" class="text-center"><?php echo $message;?></div>
 
-        <?= form_open("auth/cek_login", array('id'=>'login'));?>
+        <?= form_open("auth/cek_login", array('id'=>'login', 'class'=>'mt-4'));?>
             <!-- Your existing login form fields -->
             <div class="form-group has-feedback">
 			<?= form_input($identity);?>
@@ -48,6 +48,9 @@
 
 <script type="text/javascript">
 	let base_url = '<?=base_url();?>';
-
+    
+	 $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 <script src="<?=base_url()?>assets/dist/js/app/auth/login.js"></script>

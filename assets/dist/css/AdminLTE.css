@@ -4120,6 +4120,45 @@ table.text-center th {
   cursor: pointer;
 }
 
+/* flash data message */
+
+  .flash-message {
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .bg-lightblue {
+            background-color: #d9eee1;
+            color: #282a35;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+      .width-50 {
+        width: 420px;
+        }
+
+
+        .flash-message .btn {
+          display: block;
+            margin-top: 10px;
+            padding: 12px 20px;
+            background-color: #04aa6d;
+             color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.6rem !important;
+            font-family: inherit;
+        }
+        .flash-message .btn:hover {
+            background-color: #04aa6d8a;
+        }
+
 @media (max-width: 768px) {
   .login-box,
   .register-box {

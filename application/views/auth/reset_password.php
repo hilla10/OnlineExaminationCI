@@ -1,7 +1,7 @@
 <div class="login-box pt-5 mt-5">
     <!-- /.login-logo -->
     <div class="login-logo link-color">
-        <a href="<?=base_url('login')?>"><b>CBT</b>APP</a>
+        <a href="<?=base_url('login')?>"  data-toggle="tooltip" data-placement="top" title="Computer-Based Test Application"><b>CBT</b>APP</a>
     </div>
 
     <div class="login-box-body">
@@ -14,10 +14,10 @@
 
         <?php echo form_open('auth/reset_password/' . $code);?>
 
-          <div class="mb-2">
+          <div class="my-2">
               <p>
                 <label for="new_password"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
-                <?php echo form_input($new_password, 'class="w-100"');?>
+                <?php echo form_input($new_password);?>
                 
             </p>
             <div class="d-flex align-items-center">
@@ -65,4 +65,8 @@
         const toggleText = $(toggleTextSelector);
         toggleText.text(toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password');
     }
+
+	 $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
