@@ -38,17 +38,35 @@ class Users_model extends CI_Model {
     }
 
 public function register_user($email, $name, $profile_picture) {
+    // Get the latest google_id and increment it
+    $this->db->select_max('id', 'max_id');
+    $query = $this->db->get('google_login');
+    $row = $query->row();
+    
+    if ($row && $row->max_id) {
+        // Extract the numeric part of the ID and increment it
+        $max_id = intval(substr($row->max_id, 2)) + 1;
+    } else {
+        // If no records exist, start with 1
+        $max_id = 1;
+    }
+
+    // Generate the new google_id, e.g., G-001
+    $new_google_id = 'G-' . str_pad($max_id, 3, '0', STR_PAD_LEFT);
+
+    // Insert the new user into the google_login table with the new google_id
     $data = [
+        'id' => $new_google_id,
         'email' => $email,
         'username' => $name,
         'profile_picture' => $profile_picture,
-        'created_on' => time()
+        'created_on' => time(),
+        'company' => 'Gust',
     ];
     $this->db->insert('google_login', $data);
-    return $this->db->insert_id();
+
+    return $new_google_id;
 }
-
-
 
 }
 ?>

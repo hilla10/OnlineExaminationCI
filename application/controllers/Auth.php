@@ -143,17 +143,20 @@ public function google_callback() {
     }
 }
 
-    public function set_session($user) {
-        $session_data = [
-            'identity' => $user->email,
-            'username' => $user->username,
-            'email' => $user->email,
-            'user_id' => $user->id,
-            'old_last_login' => $user->last_login,
-        ];
+   public function set_session($user) {
+    $session_data = [
+        'identity' => $user->email,
+        'username' => $user->username,
+        'email' => $user->email,
+        'user_id' => $user->id,
+        'old_last_login' => $user->last_login,
+    ];
 
-        $this->session->set_userdata($session_data);
-    }
+    $this->session->set_userdata($session_data);
+
+    // Optional: Regenerate session ID
+    $this->session->sess_regenerate(true);
+}
 
     public function cek_access()
     {
