@@ -1584,11 +1584,10 @@ a:focus {
 }
 
 .disabled-link {
-  pointer-events: none;
-  background-color: #d3d3d3;
-  color: #a9a9a9;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
   text-decoration: none;
+  color: #fff;
+  background: #ee3a22 !important;
 }
 
 .icheck > label {

@@ -85,8 +85,8 @@
                                 <?= $this->ion_auth->is_admin() ? "Edit Profile" : "Change Password" ?>
                             </a>
                         <?php elseif (isset($google_login)) : ?>
-                            <a href="<?= base_url() ?>users/edit/<?= $google_login->id ?>" class="btn btn-warning btn-flat disabled-link">
-                                <?= $this->ion_auth->is_admin() ? "Edit Profile" : "Change Password" ?>
+                            <a href="#" class="btn btn-warning btn-flat disabled-link" disabled>
+                              Change Password
                             </a>
                         <?php else : ?>
                             <a href="#" class="btn btn-warning btn-flat" disabled>

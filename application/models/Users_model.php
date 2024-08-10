@@ -37,20 +37,6 @@ class Users_model extends CI_Model {
         return $query->row();
     }
 
-public function is_student($user_id) {
-    $this->db->where('user_id', $user_id);
-    $this->db->where('group_id', 3); // Assuming group_id 2 is for students
-    $query = $this->db->get('users_groups');
-    return $query->num_rows() > 0;
-}
-
-public function is_lecturer($user_id) {
-    $this->db->where('user_id', $user_id);
-    $this->db->where('group_id', 3); // Assuming group_id 3 is for lecturers
-    $query = $this->db->get('users_groups');
-    return $query->num_rows() > 0;
-}
-
 public function register_user($email, $name, $profile_picture) {
     $data = [
         'email' => $email,
