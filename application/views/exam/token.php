@@ -55,7 +55,7 @@
                     <div class="box-body pb-0">
                         <div class="callout callout-info">
                             <p>
-                            The time to take the Exam is when the "START" button is green.
+                            The time to take the Exam is when the "START" button is display.
                             </p>
                         </div>
                         <?php

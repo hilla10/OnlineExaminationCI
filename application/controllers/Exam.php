@@ -209,7 +209,7 @@ class Exam extends CI_Controller {
 	}
 
 	/**
-	 * BAGIAN Student
+	 * BEGIN Student
 	 */
 
 	public function list_json()
@@ -293,9 +293,9 @@ class Exam extends CI_Controller {
 		$mhs		= $this->mhs;
 		$exam_history 	= $this->exam->examResults($id, $mhs->student_id);
 	
-		$cek_sudah_ikut = $exam_history->num_rows();
+		$check_already_joined = $exam_history->num_rows();
 
-		if ($cek_sudah_ikut < 1) {
+		if ($check_already_joined < 1) {
 			$questions_ordered_correctly 	= array();
 			$i = 0;
 			foreach ($question as $s) {
@@ -325,7 +325,7 @@ class Exam extends CI_Controller {
 			$list_question_id 	= substr($list_question_id, 0, -1);
 			$question_answer_list 	= substr($question_answer_list, 0, -1);
 			$end_time 	= date('Y-m-d H:i:s', strtotime("+{$exam->duration} minute"));
-			$time_mulai		= date('Y-m-d H:i:s');
+			$start_time		= date('Y-m-d H:i:s');
 
 			$input = [
 				'exam_id' 		=> $id,
@@ -335,7 +335,7 @@ class Exam extends CI_Controller {
 				'correct_count'		=> 0,
 				'score'			=> 0,
 				'weighted_score'	=> 0,
-				'start_time'		=> $time_mulai,
+				'start_time'		=> $start_time,
 				'end_time'	=> $end_time,
 				'status'		=> 'Y'
 			];
@@ -396,7 +396,7 @@ class Exam extends CI_Controller {
 			}
 		}
 
-		// Enkripsi Id Tes
+		// Test ID Encryption.
 		$id_tes = $this->encryption->encrypt($detail_tes->id);
 
 		$data = [
@@ -425,9 +425,9 @@ class Exam extends CI_Controller {
 		for ($i = 1; $i < $input['total_questions']; $i++) {
 			$_tanswer 	= "option_".$i;
 			$_question_id 	= "question_id_".$i;
-			$_ragu 		= "rg_".$i;
+			$_doubt 		= "rg_".$i;
 			$answer_ 	= empty($input[$_tanswer]) ? "" : $input[$_tanswer];
-			$answer_list	.= "".$input[$_question_id].":".$answer_.":".$input[$_ragu].",";
+			$answer_list	.= "".$input[$_question_id].":".$answer_.":".$input[$_doubt].",";
 		}
 		$answer_list	= substr($answer_list, 0, -1);
 		$d_Save = [
@@ -451,9 +451,9 @@ class Exam extends CI_Controller {
 		// Pecah Answer
 		$pc_answer = explode(",", $answer_list);
 		
-		$jumlah_benar 	= 0;
-		$jumlah_salah 	= 0;
-		$jumlah_ragu  	= 0;
+		$correct_count 	= 0;
+		$incorrect_count 	= 0;
+		$count_of_uncertainties  	= 0;
 		$weighted_score 	= 0;
 		$total_weight	= 0;
 		$total_questions	= sizeof($pc_answer);
@@ -462,19 +462,19 @@ class Exam extends CI_Controller {
 			$pc_dt 		= explode(":", $jwb);
 			$question_id 	= $pc_dt[0];
 			$answer 	= $pc_dt[1];
-			$ragu 		= $pc_dt[2];
+			$doubt 		= $pc_dt[2];
 
 			$cek_jwb 	= $this->question->getQuestionById($question_id);
 			$total_weight = $total_weight + $cek_jwb->weight;
 
-			$answer == $cek_jwb->answer ? $jumlah_benar++ : $jumlah_salah++;
+			$answer == $cek_jwb->answer ? $correct_count++ : $incorrect_count++;
 		}
 
-		$score = ($jumlah_benar / $total_questions)  * 100;
+		$score = ($correct_count / $total_questions)  * 100;
 		$weighted_score = ($total_weight / $total_questions)  * 100;
 
 		$d_update = [
-			'correct_count'		=> $jumlah_benar,
+			'correct_count'		=> $correct_count,
 			'score'			=> number_format(floor($score), 0),
 			'weighted_score'	=> number_format(floor($weighted_score), 0),
 			'status'		=> 'N'

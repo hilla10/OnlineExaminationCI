@@ -21,6 +21,13 @@
 <script src="<?= base_url() ?>assets/bower_components/pace/pace.min.js"></script>
 
 <script type="text/javascript">
+
+function timesUP() {
+    // alert("Time's up!");
+     location.reload();
+}
+
+
 	function remainingTime(t) {
 		let time = new Date(t);
 		let n = new Date();
@@ -40,29 +47,40 @@
 			timesUP();
 		}, (time.getTime() - n.getTime()));
 	}
+	
 
 	function countdown(t) {
-		let time = new Date(t);
-		let n = new Date();
-		let x = setInterval(function() {
-			let now = new Date().getTime();
-			let dis = time.getTime() - now;
-			let d = Math.floor(dis / (1000 * 60 * 60 * 24));
-			let h = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			let m = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
-			let s = Math.floor((dis % (1000 * 60)) / (1000));
-			d = ("0" + d).slice(-2);
-			h = ("0" + h).slice(-2);
-			m = ("0" + m).slice(-2);
-			s = ("0" + s).slice(-2);
-			let cd = d + " Day, " + h + " Hours, " + m + " Minute, " + s + " Second ";
-			$('.countdown').html(cd);
+    let time = new Date(t).getTime(); // Convert the time to a timestamp
+    let x = setInterval(function() {
+        let now = new Date().getTime(); // Get the current timestamp
+        let dis = time - now; // Calculate the difference
 
-			setTimeout(function() {
-				location.reload()
-			}, dis);
-		}, 1000);
-	}
+        // If the countdown is finished
+        if (dis <= 0) {
+            clearInterval(x); // Stop the countdown
+            dis = 0; // Set dis to zero to avoid negative values
+            timesUP(); // Call timesUP function
+        }
+
+        // Calculate days, hours, minutes, seconds
+        let d = Math.floor(dis / (1000 * 60 * 60 * 24));
+        let h = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((dis % (1000 * 60)) / (1000));
+
+        // Format time values with leading zeros
+        d = ("0" + d).slice(-2);
+        h = ("0" + h).slice(-2);
+        m = ("0" + m).slice(-2);
+        s = ("0" + s).slice(-2);
+
+        // Display time in the element
+        let cd = d + " Day, " + h + " Hours, " + m + " Minute, " + s + " Second ";
+        $('.countdown').html(cd);
+
+    }, 1000); // Update every second
+}
+
 
 	function ajaxcsrf() {
 		let csrfname = '<?= $this->security->get_csrf_token_name() ?>';
@@ -73,6 +91,8 @@
 			"data": csrf
 		});
 	}
+
+
 
 	$(document).ready(function() {
 		setInterval(function() {
