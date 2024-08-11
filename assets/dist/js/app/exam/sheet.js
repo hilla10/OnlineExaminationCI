@@ -251,9 +251,7 @@ function Save() {
     url: base_url + 'exam/exam',
     data: form.serialize(),
     dataType: 'json',
-    success: function (data) {
-      console.log(data); // Debugging
-    },
+
   });
 }
 

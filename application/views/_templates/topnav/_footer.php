@@ -22,31 +22,44 @@
 
 <script type="text/javascript">
 
-function timesUP() {
-    // alert("Time's up!");
-     location.reload();
+
+
+function remainingTime(t) {
+    let targetTime = new Date(t).getTime();
+    let now = new Date().getTime();
+
+    // Check if the target time is in the past
+    if (targetTime <= now) {
+        $('.remainingTime').html("00:00:00");
+        timesUP(); // Call the function when time is up
+        return;
+    }
+
+    let x = setInterval(function() {
+        now = new Date().getTime(); // Update the current time
+        let dis = targetTime - now;
+
+        if (dis <= 0) {
+            clearInterval(x); // Stop the interval when time is up
+            $('.remainingTime').html("00:00:00");
+            timesUP(); // Call the function when time is up
+            return;
+        }
+
+        let h = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((dis % (1000 * 60)) / 1000);
+
+        // Pad single digits with leading zeroes
+        h = ("0" + h).slice(-2);
+        m = ("0" + m).slice(-2);
+        s = ("0" + s).slice(-2);
+
+        let cd = h + ":" + m + ":" + s;
+        $('.remainingTime').html(cd); // Update the display
+    }, 1000); // Update every second
 }
 
-
-	function remainingTime(t) {
-		let time = new Date(t);
-		let n = new Date();
-		let x = setInterval(function() {
-			let now = new Date().getTime();
-			let dis = time.getTime() - now;
-			let h = Math.floor((dis % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
-			let m = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
-			let s = Math.floor((dis % (1000 * 60)) / (1000));
-			h = ("0" + h).slice(-2);
-			m = ("0" + m).slice(-2);
-			s = ("0" + s).slice(-2);
-			let cd = h + ":" + m + ":" + s;
-			$('.remainingTime').html(cd);
-		}, 100);
-		setTimeout(function() {
-			timesUP();
-		}, (time.getTime() - n.getTime()));
-	}
 	
 
 	function countdown(t) {
@@ -59,7 +72,7 @@ function timesUP() {
         if (dis <= 0) {
             clearInterval(x); // Stop the countdown
             dis = 0; // Set dis to zero to avoid negative values
-            timesUP(); // Call timesUP function
+           location.reload() // reload the page 
         }
 
         // Calculate days, hours, minutes, seconds

@@ -57,7 +57,6 @@ $(document).ready(function () {
 
     let btn = $('#btn-info');
     let originalText = btn.text();
-    console.
     btn.attr('disabled', 'disabled').text('Process...');
 
     let url = $(this).attr('action');

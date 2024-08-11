@@ -1,7 +1,7 @@
 <nav class="navbar navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="<?=base_url()?>" class="navbar-brand"><i class="fa fa-laptop"></i> <b>OLT</b>EST</a>
+			<a href="<?=base_url()?>" class="navbar-brand" data-toggle="tooltip" data-placement="top" title="Entoto Polytechnic College TEST"><i class="fa fa-laptop"></i> <b>EPTC</b>TEST</a>
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
 				<i class="fa fa-bars"></i>
 			</button>

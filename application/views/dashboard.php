@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$lecturer->email?></td>
+                    <td><?=$user->email?></td>
                 </tr>
                 <tr>
                     <th>Course</th>
@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$student->email?></td>
+                    <td><?=$user->email?></td>
                 </tr>
                 <tr>
                     <th>Department</th>

@@ -17,7 +17,7 @@ $(document).ready(function () {
       method: 'POST',
       success: function (data) {
         btn.removeAttr('disabled').text('Save');
-        //console.log(data);
+        //
         if (data.status) {
           Swal({
             title: 'Success',

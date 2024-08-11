@@ -146,7 +146,7 @@ function loadDepartment() {
     url: base_url + 'department/loadDepartment',
     type: 'GET',
     success: function (data) {
-      //console.log(data);
+      //
       if (data.length) {
         let dataDepartment;
         $.each(data, function (key, val) {

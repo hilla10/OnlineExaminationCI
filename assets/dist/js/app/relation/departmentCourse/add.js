@@ -3,7 +3,6 @@ function loadDepartment(id) {
   $.getJSON(
     base_url + 'departmentCourse/getDepartmentId/' + id,
     function (data) {
-      console.log(data);
       let option;
       $.each(data, function (key, val) {
         option = `
@@ -38,7 +37,7 @@ $(document).ready(function () {
       method: 'POST',
       success: function (data) {
         btn.removeAttr('disabled').text('Save');
-        console.log(data);
+
         if (data.status) {
           Swal({
             title: 'Success',
