@@ -24,7 +24,10 @@ if(time() >= $question->times_up)
             <div class="box-header with-border">
                 <h3 class="box-title"><span class="badge bg-blue">Question #<span id="question_number"></span> </span></h3>
                 <div class="box-tools pull-right">
-                    <span class="badge bg-red" onload="return Save()">Remaining time <span class="remainingTime" data-time="<?=$question->end_time?>"></span></span>
+                        <span class="badge bg-red">
+                            Remaining time 
+                            <span class="remainingTime" data-time="<?= htmlspecialchars($question->end_time, ENT_QUOTES, 'UTF-8') ?>"></span>
+                        </span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                 </div>

@@ -12,7 +12,7 @@
             <div class="pull-right">
                 <label for="show_me">
                     <input type="checkbox" id="show_me">
-                    Show me
+                    Show Admin
                 </label>
             </div>
         </div>

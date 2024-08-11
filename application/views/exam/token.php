@@ -38,8 +38,8 @@
                     <tr>
                         <th>Late</th>
                         <td>
-                            <?=date('d F Y', strtotime($exam->late_time))?> 
-                            <?=date('H:i:s', strtotime($exam->late_time))?>
+                            <?=date('d F Y', strtotime($exam->end_time))?> 
+                            <?=date('H:i:s', strtotime($exam->end_time))?>
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +60,7 @@
                         </div>
                         <?php
                         $start = strtotime($exam->start_time);
-                        $late_time = strtotime($exam->late_time);
+                        $end_time = strtotime($exam->end_time);
                         $now = time();
                         if($start > $now) : 
                         ?>
@@ -69,12 +69,12 @@
                             <br>
                             <span class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($exam->start_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                         </div>
-                        <?php elseif( $late_time > $now ) : ?>
+                        <?php elseif( $end_time > $now ) : ?>
                         <button id="btncek" data-id="<?=$exam->exam_id?>" class="btn btn-success btn-lg mb-4">
                             <i class="fa fa-pencil"></i> Start
                         </button>
                         <div class="callout callout-danger">
-                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($exam->late_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
+                            <i class="fa fa-clock-o"></i> <strong class="countdown" data-time="<?=date('Y-m-d H:i:s', strtotime($exam->end_time))?>">00 Days, 00 Hours, 00 Minutes, 00 Seconds</strong><br/>
                             Timeout of pressing the start button.
                         </div>
                         <?php else : ?>

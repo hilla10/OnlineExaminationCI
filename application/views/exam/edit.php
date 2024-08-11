@@ -69,7 +69,7 @@
 
 <script type="text/javascript">
     let start_time = '<?=$exam->start_time?>';
-    let late_time = '<?=$exam->late_time?>';
+    let end_time = '<?=$exam->end_time?>';
 </script>
 
 <script src="<?=base_url()?>assets/dist/js/app/exam/edit.js"></script>

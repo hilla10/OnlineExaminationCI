@@ -61,7 +61,7 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->AddPage();
 
 $start_time= date('d F Y H:i:s', strtotime($exam->start_time));
-$completed = date('d F Y H:i:s', strtotime($exam->late_time));
+$completed = date('d F Y H:i:s', strtotime($exam->end_time));
 
 // create some HTML content
 $html = <<<EOD

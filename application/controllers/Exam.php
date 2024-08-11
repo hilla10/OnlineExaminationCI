@@ -156,7 +156,7 @@ class Exam extends CI_Controller {
 				'exam_name' 	=> $exam_name,
 				'total_questions' 	=> $total_questions,
 				'start_time' 	=> $start_time,
-				'late_time' 	=> $end_time,
+				'end_time' 	=> $end_time,
 				'duration' 		=> $duration,
 				'type' 		=> $type,
 			];
@@ -290,6 +290,7 @@ class Exam extends CI_Controller {
 		$exam 		= $this->exam->getExamById($id);
 		$question 		= $this->exam->getQuestion($id);
 		
+
 		$mhs		= $this->mhs;
 		$exam_history 	= $this->exam->examResults($id, $mhs->student_id);
 	
@@ -377,6 +378,7 @@ class Exam extends CI_Controller {
 			foreach ($questions_ordered_correctly as $s) {
 				$path = 'uploads/bank_question/';
 				$vrg = $arr_answer[$s->question_id]["r"] == "" ? "N" : $arr_answer[$s->question_id]["r"];
+				// var_dump($vrg);
 				$html .= '<input type="hidden" name="question_id_'.$no.'" value="'.$s->question_id.'">';
 				$html .= '<input type="hidden" name="rg_'.$no.'" id="rg_'.$no.'" value="'.$vrg.'">';
 				$html .= '<div class="step" id="widget_'.$no.'">';
@@ -389,7 +391,14 @@ class Exam extends CI_Controller {
 					$option_label 	= !empty($s->$option) ? $s->$option : "";
 					$display_media_option = (is_file(base_url().$path.$s->$file) || $s->$file != "") ? display_media($path.$s->$file) : "";
 					$html .= '<div class="funkyradio-success" onclick="return saveTemporarily();">
-						<input type="radio" id="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'" name="option_'.$no.'" value="'.strtoupper($arr_option[$j]).'" '.$checked.'> <label for="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'"><div class="option_label">'.$arr_option[$j].'</div> <p>'.$option_label.'</p><div class="w-25">'.$display_media_option.'</div></label></div>';
+						<input type="radio" id="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'" name="option_'.$no.'" value="'.strtoupper($arr_option[$j]).'" '.$checked.'> 
+						<label for="option_'.strtolower($arr_option[$j]).'_'.$s->question_id.'">
+							<div class="option_label">'.$arr_option[$j].'</div>
+							<p>'.$option_label.'</p>
+							<div class="w-25">'.$display_media_option.'</div>
+						</label>
+					</div>';
+
 				}
 				$html .= '</div></div>';
 				$no++;
