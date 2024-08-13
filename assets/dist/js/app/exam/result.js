@@ -87,6 +87,6 @@ $(document).ready(function () {
       $('td:eq(0)', row).html(index);
     },
   });
+  table.buttons().container().appendTo('#result_wrapper .col-md-6:eq(0)');
 });
 
-table.buttons().container().appendTo('#result_wrapper .col-md-6:eq(0)');
