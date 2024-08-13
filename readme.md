@@ -26,8 +26,8 @@ Table of Contents
 Before running the system, ensure you have the following prerequisites installed:
 
     Web server (e.g., Apache)
-    PHP
-    MySQL
+    PHP version (Recommended):	7.4 Above
+    MySQL 
     CodeIgniter Framework
 
 You can use WAMP, LAMP, MAMP, or XAMPP servers for deployment.
@@ -61,7 +61,11 @@ To access the system:
 
     Navigate to OnlineExaminationCI/index.php.
     Use the provided credentials or create new ones.
-        Admin: admin@mail.com / Password: Admin123
+        Admin: 
+        Email	: admin@mail.com
+        Password: Password@123 
+        OR 
+        you can login using google account
         Click the "Login" button.
 
 ## Available-Features
