@@ -48,8 +48,8 @@ $(document).ready(function () {
         data: 'exam_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-									<input name="checked[]" class="check" value="${data}" type="checkbox">
-								</div>`;
+                    <input name="checked[]" class="check" value="${data}" type="checkbox">
+                  </div>`;
         },
       },
       {
@@ -57,8 +57,8 @@ $(document).ready(function () {
         data: 'token',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-								<strong class="badge bg-purple">${data}</strong>
-								</div>`;
+                    <strong class="badge bg-purple">${data}</strong>
+                  </div>`;
         },
       },
       {
@@ -66,13 +66,13 @@ $(document).ready(function () {
         data: 'exam_id',
         render: function (data, type, row, meta) {
           return `<div class="text-center">
-									<button type="button" data-id="${data}" class="btn btn-token btn-xs bg-purple">
-										<i class="fa fa-refresh"></i>
-									</button>
-									<a href="${base_url}exam/edit/${data}" class="btn btn-xs btn-warning">
-										<i class="fa fa-edit"></i>
-									</a>
-								</div>`;
+                    <button type="button" data-id="${data}" class="btn btn-token btn-xs bg-purple">
+                      <i class="fa fa-refresh"></i>
+                    </button>
+                    <a href="${base_url}exam/edit/${data}" class="btn btn-xs btn-warning">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                  </div>`;
         },
       },
     ],
@@ -115,15 +115,17 @@ $(document).ready(function () {
 
   $('#exam').on('click', '.btn-token', function () {
     let id = $(this).data('id');
+    let btn = $(this); // Store the button reference
 
-    $(this).attr('disabled', 'disabled').children().addClass('fa-spin');
+    btn.attr('disabled', 'disabled').children().addClass('fa-spin');
     $.ajax({
       url: base_url + 'exam/refresh_token/' + id,
       type: 'get',
       dataType: 'json',
       success: function (data) {
         if (data.status) {
-          $(this).removeAttr('disabled');
+          btn.removeAttr('disabled'); // Use the stored reference
+          btn.children().removeClass('fa-spin'); // Remove spin class
           reload_ajax();
         }
       },

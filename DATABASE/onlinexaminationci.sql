@@ -530,8 +530,12 @@ ALTER TABLE `lecturer_class`
 -- Constraints for table `exam`
 --
 ALTER TABLE `exam`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
-  ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`);
+DROP FOREIGN KEY `exam_ibfk_1`,
+DROP FOREIGN KEY `exam_ibfk_2`;
+
+ALTER TABLE `exam`
+ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tb_question`
