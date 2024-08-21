@@ -151,6 +151,7 @@
 <?php if($user->id === $users->id) : ?>
 <script type="text/javascript">
 $(document).ready(function(){
+    // Handling form submission for password change
     $('form#change_password').on('submit', function(e){
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -164,24 +165,8 @@ $(document).ready(function(){
         submitajax(url, data, msg, btn);
     });
 
-    $('#togglePasswordOld').on('click', function () {
-        togglePasswordVisibility('#old', '#togglePasswordOld', '#toggleTextOld');
-    });
-    $('#togglePasswordNew').on('click', function () {
-        togglePasswordVisibility('#new', '#togglePasswordNew', '#toggleTextNew');
-    });
-    $('#togglePasswordConfirm').on('click', function () {
-        togglePasswordVisibility('#new_confirm', '#togglePasswordConfirm', '#toggleTextConfirm');
-    });
-
-    function togglePasswordVisibility(passwordFieldSelector, toggleButtonSelector, toggleTextSelector) {
-        const passwordField = $(passwordFieldSelector);
-        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
-        passwordField.attr('type', type);
-        $(toggleButtonSelector).toggleClass('bi-eye bi-eye-slash-fill');
-        const toggleText = $(toggleTextSelector);
-        toggleText.text(toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password');
-    }
+  
 });
 </script>
+
 <?php endif; ?>

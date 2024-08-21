@@ -107,22 +107,29 @@ $(document).ready(function () {
     submitajax(url, data, msg, btn, originalText);
   });
 
-  $('#togglePasswordOld').on('click', function () {
-    togglePasswordVisibility('#old', '#togglePasswordOld', '#toggleTextOld');
-  });
-  $('#togglePasswordNew').on('click', function () {
-    togglePasswordVisibility('#new', '#togglePasswordNew', '#toggleTextNew');
-  });
-  $('#togglePasswordConfirm').on('click', function () {
-    togglePasswordVisibility('#new_confirm', '#togglePasswordConfirm', '#toggleTextConfirm');
-  });
+  // Toggle password visibility
+    function togglePasswordVisibility(passwordFieldSelector, toggleButtonSelector, toggleTextSelector) {
+        const passwordField = $(passwordFieldSelector);
+        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+        passwordField.attr('type', type);
 
-  function togglePasswordVisibility(passwordFieldSelector, toggleButtonSelector, toggleTextSelector) {
-    const passwordField = $(passwordFieldSelector);
-    const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
-    passwordField.attr('type', type);
-    $(toggleButtonSelector).toggleClass('bi-eye bi-eye-slash-fill');
-    const toggleText = $(toggleTextSelector);
-    toggleText.text(toggleText.text() === 'Show Password' ? 'Hide Password' : 'Show Password');
-  }
+        const toggleButton = $(toggleButtonSelector);
+        toggleButton.toggleClass('bi-eye bi-eye-slash-fill');
+
+        const toggleText = $(toggleTextSelector);
+        toggleText.text(type === 'password' ? 'Show Password' : 'Hide Password');
+    }
+
+    // Bind click events for password toggling
+    $('#togglePasswordOld').on('click', function () {
+        togglePasswordVisibility('#old', '#togglePasswordOld', '#toggleTextOld');
+    });
+
+    $('#togglePasswordNew').on('click', function () {
+        togglePasswordVisibility('#new', '#togglePasswordNew', '#toggleTextNew');
+    });
+
+    $('#togglePasswordConfirm').on('click', function () {
+        togglePasswordVisibility('#new_confirm', '#togglePasswordConfirm', '#toggleTextConfirm');
+    });
 });
