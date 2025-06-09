@@ -1,110 +1,154 @@
-## Online Examination System
+# 📝 Online Examination System
 
-This Online Examination System is developed using CodeIgniter, HTML, CSS, Bootstrap, PHP, and MySQL. It allows users to manage courses, departments, examinations, and user roles such as students, teachers, and administrators. The system provides a comprehensive platform for conducting and managing online exams efficiently.
-Table of Contents
+This Online Examination System is developed using **CodeIgniter**, **PHP**, **MySQL**, **HTML**, **CSS**, and **Bootstrap**. It provides a user‑friendly and secure platform to manage and conduct online exams for different user roles: **Administrators**, **Teachers**, and **Students**.
 
-[Setup](#Setup)
+---
 
-[Database](#Database)
+## 📚 Table of Contents
 
-[Directory Structure](#Directory-Structure)
+* [Setup](#setup)
+* [Database](#database)
+* [Directory Structure](#directory-structure)
+* [Running the System](#running-the-system)
+* [Login](#login)
+* [Available Features](#available-features)
+* [Troubleshooting](#troubleshooting)
+* [Usage](#usage)
+* [Security](#security)
+* [Author](#author)
+* [License](#license)
 
-[Running the System](#Running-the-System)
+---
 
-[Login](#Login)
+## ⚙️ Setup
 
-[Available Features](#Available-Features)
+### Requirements
 
-[Troubleshooting](#Troubleshooting)
+* Web server (e.g., Apache)
+* PHP ≥ 7.4
+* MySQL Server
+* CodeIgniter Framework (included)
 
-[Usage](#Usage)
+### Installation
 
-[Security](#Security)
+1. **Download** or **clone** the repository.
+2. **Extract** the files and rename the folder to `OnlineExaminationCI`.
+3. Move the folder to your server root directory (e.g., `htdocs` for XAMPP).
+4. Start **Apache** and **MySQL** from your control panel.
 
-## Setup
+---
 
-Before running the system, ensure you have the following prerequisites installed:
+## 🗃️ Database
 
-    Web server (e.g., Apache)
-    PHP version (Recommended):	7.4 Above
-    MySQL 
-    CodeIgniter Framework
+1. Create a new database named `onlineexaminationci`.
+2. Import the SQL file located at:
 
-You can use WAMP, LAMP, MAMP, or XAMPP servers for deployment.
+   ```bash
+   /OnlineExaminationCI/DATABASE/onlineexaminationCi.sql
+   ```
 
-    Download the project files from GitHub.
-    Extract the files and rename the folder to OnlineExaminationCI.
-    Move the folder to your web server's root directory.
+This will create the necessary tables and insert sample data.
 
-## Database
+---
 
-   1. Create a new database named `onlineexaminationci`.
-   2. Import the `onlineexaminationCi.sql` file from localhost/OnlineExaminationCI/DATABASE/onlineexaminationCi.sql into the `onlineexaminationci` database to create the necessary tables and data.
+## 🧱 Directory Structure
 
-## Directory-Structure
+```text
+OnlineExaminationCI/
+│
+├── assets/          # CSS, JavaScript, and images
+├── application/     # MVC structure: controllers, models, views
+├── database/        # SQL dump
+├── system/          # CodeIgniter system core
+├── index.php        # Front controller
+└── .htaccess        # Apache URL configuration
+```
 
-    assets/: CSS, JavaScript, and image assets.
-    application/: CodeIgniter application files (controllers, models, views).
-    database/: SQL dump for the database.
-    system/: CodeIgniter core files.
-    index.php: Entry point for the application.
-    .htaccess: Configuration file for server settings.
+---
 
-## Running-the-System
+## 🚀 Running the System
 
-    Deploy the system on a web server.
-    Access the system using the appropriate URL in a web browser (e.g., http://localhost/OnlineExaminationCI/).
+Deploy the system on your web server, then open a browser and navigate to:
 
-## Login
+```text
+http://localhost/OnlineExaminationCI/
+```
 
-To access the system:
+---
 
-    Navigate to OnlineExaminationCI/index.php.
-    Use the provided credentials or create new ones.
-        Admin: 
-        Email	: admin@mail.com
-        Password: Password@123 
-        OR 
-        you can login using google account
-        Click the "Login" button.
+## 🔐 Login
 
-## Available-Features
+### Admin Credentials
 
-    - Teacher Panel: Manage and oversee the exams conducted by teachers.
-    - Student Panel: View and attend exams, and check exam results.
-    - Administrator Panel: Manage users, courses, departments, and oversee system functionalities.
-    Manage Course, Department, Class: Create and manage courses, departments, and classes.
-    - Student Management: Add, update, and manage student information.
-    - Teacher Management: Add, update, and manage teacher information.
-    - Set Relations: Define and manage relationships between courses, departments, and teachers.
-    - Set Questionnaires: Create and manage questionnaires for exams.
-    - Conduct and Manage Examinations: Schedule and oversee examinations.
-    - Examination Token Code: Generate and manage token codes for exams.
-    - Attend Online Exam: Allow students to participate in online exams.
-    - List Student’s Result: View and manage student results.
-    - Download Result (PDF): Download exam results in PDF format.
+* **Email:** `admin@mail.com`
+* **Password:** `Password@123`
 
-## Troubleshooting
+> You can also log in with a Google account if OAuth is configured.
 
-If you encounter issues:
+---
 
-    Ensure all required software and dependencies are installed.
-    Double-check database connection settings in the configuration files.
-    Review server logs for error messages or warnings.
+## ✅ Available Features
 
-## Usage
+### 👩‍🏫 Teacher Panel
 
-To use the system:
+* Manage own exams
+* Upload questions
+* Monitor results
 
-    Log in with appropriate credentials.
-    Navigate through the dashboard to access various functionalities.
-    Create, update, or delete courses, departments, and manage exams.
-    Attend exams and review results.
+### 👨‍🎓 Student Panel
 
-## Security
+* View and take exams
+* Review results
+* Download result PDFs
 
-When using the system, observe these security guidelines:
+### 🛠️ Admin Panel
 
-    Use strong, unique passwords for user accounts.
-    Regularly update system components to address security vulnerabilities.
-    Grant system access only to authorized personnel and enforce role-based user privileges.
+* Manage users, departments, courses, and classes
+* Assign course–department–teacher relationships
+* Monitor the entire system
+
+### General
+
+* Exam scheduling with token‑code access
+* Result management and export (PDF)
+* Google login integration
+
+---
+
+## ❓ Troubleshooting
+
+* Verify that Apache and MySQL services are running.
+* Check database credentials in `application/config/database.php`.
+* Ensure the base URL is correctly set in `application/config/config.php`.
+* Inspect browser console and server logs for detailed errors.
+
+---
+
+## 💡 Usage
+
+1. Log in using valid credentials.
+2. Use the dashboard corresponding to your role.
+3. Manage data (students, teachers, exams).
+4. Students take exams and view/download results.
+
+---
+
+## 🔒 Security
+
+* Use strong, unique passwords.
+* Keep all frameworks and libraries up to date.
+* Enforce role‑based access control.
+* Sanitize all user inputs and use prepared statements.
+
+---
+
+## 🧑‍💻 Author
+
+Developed by **Hailemichael Negusse**
+Entoto Polytechnic College – Capstone Project
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
